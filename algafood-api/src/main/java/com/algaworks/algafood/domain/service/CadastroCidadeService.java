@@ -5,7 +5,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
-import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.modelo.Cidade;
 import com.algaworks.algafood.domain.modelo.Estado;
 import com.algaworks.algafood.domain.repository.CidadeRepository;

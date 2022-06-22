@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +13,6 @@ import com.algaworks.algafood.domain.modelo.Cozinha;
 import com.algaworks.algafood.domain.modelo.Restaurante;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
-import static com.algaworks.algafood.infrastructure.repository.spec.RestauranteSpecs.*;
 
 @RestController
 @RequestMapping(value = "/teste")
