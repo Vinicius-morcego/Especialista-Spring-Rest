@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.modelo.Cozinha;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
@@ -18,7 +20,8 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 public class CadastroCozinhaIntegrationTests {
 
 	@Autowired
-	private CadastroCozinhaService cadastroCozinha;
+	private CadastroCozinhaService cadastroCozinha;	
+	
 	
 	@Test
 	public void deveAtribuirId_QuandoCadastrarCozinhaComDadosCorretos() {
@@ -43,11 +46,22 @@ public class CadastroCozinhaIntegrationTests {
 		
 	}
 	
+	@Test(expected = EntidadeEmUsoException.class)
 	public void deveFalhar_QuandoExcluirCozinhaEmUso() {
+				
+		cadastroCozinha.excluir(1L);
+		
+		assertThat(cadastroCozinha).isNotNull();
+		
 		
 	}
 	
+	@Test(expected = EntidadeNaoEncontradaException.class)
 	public void deveFalhar_QuandoExcluirCozinhaInexistente() {
+		
+		cadastroCozinha.excluir(1L);
+		
+		assertThat(cadastroCozinha).isNull();
 		
 	}
 
