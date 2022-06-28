@@ -1,0 +1,6 @@
+# Created at 2022-06-27T20:44:16.208
+Error: Could not find or load main class ${argLine}
+
+# Created at 2022-06-27T20:44:16.209
+Caused by: java.lang.ClassNotFoundException: ${argLine}
+
