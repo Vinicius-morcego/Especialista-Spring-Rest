@@ -36,6 +36,7 @@ public class CozinhaController {
 	private CadastroCozinhaService cadastroCozinhaService;
 	
 	@GetMapping
+	
 	public List<Cozinha> listar(){
 		return cozinhaRepository.findAll();
 	} 
