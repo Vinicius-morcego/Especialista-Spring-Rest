@@ -12,21 +12,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.algaworks.algafood.domain.modelo.Cozinha;
+import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.util.DatabaseCleaner;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestPropertySource("/application-test.properties")
 public class CadastroCozinhaIT {
 
 
 	@LocalServerPort
 	private int port;
 	
+	@Autowired
+	private DatabaseCleaner dataBaseCleaner;
+	
 	@Autowired 
-	private Flyway flyway;
+	private CozinhaRepository cozinhaRepository;
 	
 	@Before
 	public void setUp() {
@@ -34,7 +43,8 @@ public class CadastroCozinhaIT {
 		RestAssured.port = port;
 		RestAssured.basePath = "/cozinhas";
 		
-		flyway.migrate();
+		dataBaseCleaner.clearTables();
+		prepararDados();
 	}
 	
 	@Test
@@ -49,14 +59,14 @@ public class CadastroCozinhaIT {
 	}
 	
 	@Test
-	public void deveConter4Cozinhas_QuandoConsultarCozinhas() {
+	public void deveConter2Cozinhas_QuandoConsultarCozinhas() {
 		given()			
 			.accept(ContentType.JSON)
 		.when()
 			.get()
 		.then()
 			.body("", hasSize(2))
-			.body("nome", hasItems("Indiana", "Tailandesa"));
+			.body("nome", hasItems("Indiana", "Americana"));
 		
 	}
 	
@@ -72,5 +82,15 @@ public class CadastroCozinhaIT {
 				.statusCode(HttpStatus.CREATED.value());
 	}
 	
+	private void prepararDados() {
+		Cozinha cozinha1 = new Cozinha();
+		cozinha1.setNome("Indiana");
+		cozinhaRepository.save(cozinha1);
+		
+		Cozinha cozinha2 = new Cozinha();
+		cozinha2.setNome("Americana");
+		cozinhaRepository.save(cozinha2);
+		
+	}
 
 }
