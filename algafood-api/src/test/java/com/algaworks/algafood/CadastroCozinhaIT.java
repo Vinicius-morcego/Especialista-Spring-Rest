@@ -47,7 +47,7 @@ public class CadastroCozinhaIT {
 	private static final Integer CONSULTAR_ID_COZINHA = 100;
 	private static final Integer QUANTIDADE_DE_COZINHAS_CADASTRADAS = 2;
 	
-	private Long quantidadeDeCozinhas;
+
 	private Cozinha cozinhaAmericana;
 	private String jsonCorretoCozinhaChinesa; 
 	
@@ -133,7 +133,7 @@ public class CadastroCozinhaIT {
 		cozinhaAmericana.setNome("Americana");
 		cozinhaRepository.save(cozinhaAmericana);
 
-		quantidadeDeCozinhas = cozinhaRepository.count();
+		//quantidadeDeCozinhas = cozinhaRepository.count();
 		
 	}
 
