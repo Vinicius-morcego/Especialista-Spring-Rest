@@ -61,7 +61,7 @@ public class Restaurante {
 	@Valid
 	@ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
 	@NotNull
-	@JsonIgnoreProperties("hibernateLazyInitializer")
+	@JsonIgnoreProperties(allowGetters = true, value = {"hibernateLazyInitializer","nome"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "cozinha_id", nullable = false)
 	private Cozinha cozinha;
