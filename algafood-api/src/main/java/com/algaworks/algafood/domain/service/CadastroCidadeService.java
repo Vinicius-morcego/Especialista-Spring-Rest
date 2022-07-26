@@ -3,6 +3,7 @@ package com.algaworks.algafood.domain.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.modelo.Cidade;
@@ -20,6 +21,7 @@ public class CadastroCidadeService {
 	@Autowired
 	private CadastroEstadoService cadastroEstado;
 	
+	@Transactional
 	public Cidade salvar(Cidade cidade) {
 		Long estadoId = cidade.getEstado().getId();
 		
@@ -31,6 +33,7 @@ public class CadastroCidadeService {
 				
 	}
 	
+	@Transactional
 	public void remover(Long cidadeId) {
 		try {
 			cidadeRepository.deleteById(cidadeId);
