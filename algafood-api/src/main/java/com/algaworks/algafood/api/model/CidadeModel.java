@@ -1,6 +1,4 @@
-package com.algaworks.algafood.api.model.input;
-
-import javax.validation.constraints.NotNull;
+package com.algaworks.algafood.api.model;
 
 import org.springframework.stereotype.Component;
 
@@ -10,8 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-public class CozinhaIdInput {
+public class CidadeModel {
 
-	@NotNull
 	private Long id;
+	private String nome;
+	private EstadoModel estado;
 }

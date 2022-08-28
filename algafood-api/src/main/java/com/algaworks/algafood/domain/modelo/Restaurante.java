@@ -49,11 +49,11 @@ public class Restaurante {
 	@Column(nullable = false)
 	private String nome;
 	
-	@NotNull
+	//@NotNull
 	//@PositiveOrZero
-	@TaxaFrete
+	//@TaxaFrete
 	//@Multiplo(numero = 5)
-	@Column(name = "taxa_frete", nullable = false)
+	//@Column(name = "taxa_frete", nullable = false)
 	private BigDecimal taxaFrete;
 	
 	@Valid

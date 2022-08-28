@@ -27,7 +27,6 @@ import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
-import com.algaworks.algafood.domain.modelo.Cozinha;
 import com.algaworks.algafood.domain.modelo.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
@@ -50,7 +49,7 @@ public class RestauranteController {
 	
 	@GetMapping
 	public List<RestauranteModel> listar(){		
-		
+		//BeanUtils.copyProperties(Restaurante.class, RestauranteModel.class);
 		return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
 	}
 	
@@ -85,12 +84,14 @@ public class RestauranteController {
 		
 		
 		try {
-			Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
+			//Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);			
 			
 			Restaurante restauranteAtual = cadastroRestaurante.buscarOuFalhar(restauranteId);
 			
-			BeanUtils.copyProperties(restaurante, restauranteAtual, 
-					"id", "formasPagamento", "endereco", "dataCadastro", "produtos");
+			restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
+			
+//			BeanUtils.copyProperties(restaurante, restauranteAtual, 
+//					"id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 			
 			return restauranteModelAssembler.toModel(cadastroRestaurante.salvar(restauranteAtual));
 		} catch (CozinhaNaoEncontradaException e) {
