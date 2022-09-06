@@ -40,8 +40,8 @@ insert into cidade (nome, estado_id) values('Campina Verde', 1);
 insert into cidade (nome, estado_id) values('Iturama', 1);
 insert into cidade (nome, estado_id) values('Paranaiba', 3);
 
-insert into restaurante (nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id) values('Tailandes', '10.2', '1', utc_timestamp, utc_timestamp, '38280000', '27 DE DEZEMBRO', '380', 'A JOIA', 'CENTRO', '2');
-insert into restaurante (nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id) values('Indiano', '15.3', '1', utc_timestamp, utc_timestamp, '38270000', 'JUCA TEIXEIRA', '264', 'BRANCA', 'SENHOR TEIXEIRA', '1');
+insert into restaurante (nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id, ativo) values('Tailandes', '10.2', '1', utc_timestamp, utc_timestamp, '38280000', '27 DE DEZEMBRO', '380', 'A JOIA', 'CENTRO', '2', true);
+insert into restaurante (nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cep, endereco_logradouro, endereco_numero, endereco_complemento, endereco_bairro, endereco_cidade_id, ativo) values('Indiano', '15.3', '1', utc_timestamp, utc_timestamp, '38270000', 'JUCA TEIXEIRA', '264', 'BRANCA', 'SENHOR TEIXEIRA', '1', true);
 
 insert into produto(nome, descricao, preco, ativo, restaurante_id) values('Bom Bril', 'Esponja de Aço', 2.5, 1, 1);
 insert into produto(nome, descricao, preco, ativo, restaurante_id) values('Colgate', 'Pasta de Dente', 1.5, 1, 1);
