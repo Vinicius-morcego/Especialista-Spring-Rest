@@ -10,6 +10,7 @@ import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException;
+import com.algaworks.algafood.domain.modelo.Cidade;
 import com.algaworks.algafood.domain.modelo.Cozinha;
 import com.algaworks.algafood.domain.modelo.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
@@ -30,15 +31,22 @@ public class CadastroRestauranteService {
 	@Autowired
 	private CadastroCozinhaService cadastroCozinhaService;
 	
+	@Autowired
+	private CadastroCidadeService cadastroCidadeService;
+	
 	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
 		
 			try {
 				Long cozinhaId = restaurante.getCozinha().getId();	
+				Long cidadeId = restaurante.getEndereco().getCidade().getId();
 				
 				Cozinha cozinha = cadastroCozinhaService.busarOuFalhar(cozinhaId);
 				
+				Cidade cidade = cadastroCidadeService.buscarOuFalhar(cidadeId);
+				
 				restaurante.setCozinha(cozinha);
+				restaurante.getEndereco().setCidade(cidade);
 				
 				return restauranteRepository.save(restaurante);
 			} catch (CozinhaNaoEncontradaException e) {

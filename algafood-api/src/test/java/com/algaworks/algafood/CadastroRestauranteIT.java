@@ -17,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.algaworks.algafood.domain.modelo.Cozinha;
 import com.algaworks.algafood.domain.modelo.Restaurante;
-import com.algaworks.algafood.domain.repository.CozinhaRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import com.algaworks.algafood.util.DatabaseCleaner;

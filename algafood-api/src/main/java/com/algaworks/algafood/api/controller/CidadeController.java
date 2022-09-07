@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.algaworks.algafood.api.assembler.CidadeModelAssembler;
 import com.algaworks.algafood.api.assembler.CidadeInputDisassembler;
+import com.algaworks.algafood.api.assembler.CidadeModelAssembler;
 import com.algaworks.algafood.api.model.CidadeModel;
 import com.algaworks.algafood.api.model.input.CidadeInput;
 import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
@@ -43,17 +41,11 @@ public class CidadeController {
 	private CadastroCidadeService cadastroCidade;
 	
 	@Autowired
-	private CidadeModel cidadeModel;
-	
-	@Autowired
 	private CidadeModelAssembler cidadeModelAssembler;
 	
 	@Autowired 
 	private CidadeInputDisassembler cidadeInputDisassembler;
-	
-	@Autowired
-	private ModelMapper modelMapper;
-	
+		
 	@GetMapping
 	public List<CidadeModel> listar(){
 		return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());

@@ -1,11 +1,11 @@
 package com.algaworks.algafood.api.assembler;
 
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.api.model.input.RestauranteInput;
+import com.algaworks.algafood.domain.modelo.Cidade;
 import com.algaworks.algafood.domain.modelo.Cozinha;
 import com.algaworks.algafood.domain.modelo.Restaurante;
 
@@ -24,6 +24,9 @@ public class RestauranteInputDisassembler {
 		//para evitar Caused by: org.hibernate.HibernateException: identifier of an instance 
 		//of com.algaworks.algafood.domain.modelo.Restaurante was altered from 2 to null
 		restaurante.setCozinha(new Cozinha());
+		
+		if(restaurante.getEndereco() != null)
+			restaurante.getEndereco().setCidade(new Cidade());
 		modelMapper.map(restauranteInput, restaurante);
 	}
 }
