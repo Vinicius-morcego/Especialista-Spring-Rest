@@ -31,6 +31,8 @@ import com.algaworks.algafood.domain.service.CadastroGrupoService;
 @RestController
 @RequestMapping("/grupos")
 public class GrupoController {
+	
+	public static String MSG_ENTIDADE_EM_USO = "Grupo de código %d está em uso e não pode ser excluído";
 
 	@Autowired
 	private CadastroGrupoService cadastroGrupoService;
@@ -76,11 +78,9 @@ public class GrupoController {
 	@DeleteMapping("/{grupoId}")
 	public void excluir(@PathVariable Long grupoId) {
 		try {
-			Grupo grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
-			
 			cadastroGrupoService.remover(grupoId);
 		} catch (DataIntegrityViolationException e) {
-			throw new EntidadeEmUsoException(String.format("Grupo de código %d está em uso e não pode ser excluído", grupoId));
+			throw new EntidadeEmUsoException(String.format(MSG_ENTIDADE_EM_USO, grupoId));
 		} catch (EmptyResultDataAccessException e) {
 			throw new GrupoNaoEncontradoException(e.getMessage(), grupoId);
 		}
