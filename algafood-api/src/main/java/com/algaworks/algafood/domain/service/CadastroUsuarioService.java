@@ -22,6 +22,12 @@ public class CadastroUsuarioService {
 	}	 
 	
 	@Transactional
+	public Usuario atualizar(Usuario usuario) {
+		
+		return usuarioRepository.save(usuario);
+	}
+	
+	@Transactional
 	public void atualizarSenha(Long id, String senhaAtual, String novaSenha) {
 		var usuario = buscarOuFalhar(id);
 		if(validaSenhaAtual(senhaAtual, usuario)) {
