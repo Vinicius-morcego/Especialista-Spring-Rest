@@ -25,8 +25,8 @@ public class CadastroRestauranteService {
 	@Autowired
 	private RestauranteRepository restauranteRepository;
 	
-//	@Autowired 
-//	private CozinhaRepository cozinhaRepository;
+	@Autowired 
+	private CadastroFormaPagamentoService cadastroFormaPagamento;
 	
 	@Autowired
 	private CadastroCozinhaService cadastroCozinhaService;
@@ -85,6 +85,19 @@ public class CadastroRestauranteService {
 	public Restaurante buscarOuFalhar(Long restauranteId) {
 		return restauranteRepository.findById(restauranteId).orElseThrow(() -> 
 		new RestauranteNaoEncontradoException(restauranteId));
+	}
+	
+	@Transactional
+	public void desassociarFormasDePagamento(Long restauranteId, Long formaPagamentoId) {
+		var restaurante = buscarOuFalhar(restauranteId);
+		var formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
+		restaurante.removerFormasPagamento(formaPagamento);
+	}
+	@Transactional
+	public void associarFormasDePagamento(Long restauranteId, Long formaPagamentoId) {
+		var restaurante = buscarOuFalhar(restauranteId);
+		var formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
+		restaurante.associarFormasPagamento(formaPagamento);
 	}
 	
 	
