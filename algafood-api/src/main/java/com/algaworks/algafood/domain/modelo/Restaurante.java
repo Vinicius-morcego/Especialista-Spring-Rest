@@ -2,9 +2,7 @@ package com.algaworks.algafood.domain.modelo;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -78,7 +76,7 @@ public class Restaurante {
 	private Boolean ativo = Boolean.TRUE;
 	
 	@OneToMany(mappedBy = "restaurante")	
-	private List<Produto> produtos = new ArrayList<>();
+	private Set<Produto> produtos = new HashSet<>();
 	
 	@ManyToMany	
 	@JoinTable(name = "restaurante_forma_pagamento",

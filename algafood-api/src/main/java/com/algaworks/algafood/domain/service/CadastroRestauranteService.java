@@ -13,6 +13,7 @@ import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException
 import com.algaworks.algafood.domain.modelo.Cidade;
 import com.algaworks.algafood.domain.modelo.Cozinha;
 import com.algaworks.algafood.domain.modelo.Restaurante;
+import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 
 @Service
@@ -93,14 +94,11 @@ public class CadastroRestauranteService {
 		var formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
 		restaurante.removerFormasPagamento(formaPagamento);
 	}
+	
 	@Transactional
-	public void associarFormasDePagamento(Long restauranteId, Long formaPagamentoId) {
+	public void associarFormasPagamento(Long restauranteId, Long formaPagamentoId) {
 		var restaurante = buscarOuFalhar(restauranteId);
 		var formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
 		restaurante.associarFormasPagamento(formaPagamento);
 	}
-	
-	
-	
-	
 }
