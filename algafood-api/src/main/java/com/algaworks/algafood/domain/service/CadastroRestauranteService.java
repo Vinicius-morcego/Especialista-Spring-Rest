@@ -35,6 +35,9 @@ public class CadastroRestauranteService {
 	@Autowired
 	private CadastroCidadeService cadastroCidadeService;
 	
+	@Autowired
+	private CadastroProdutoService cadastroProdutoService;
+	
 	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
 		
@@ -100,5 +103,6 @@ public class CadastroRestauranteService {
 		var restaurante = buscarOuFalhar(restauranteId);
 		var formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
 		restaurante.associarFormasPagamento(formaPagamento);
-	}
+	}	
+	
 }

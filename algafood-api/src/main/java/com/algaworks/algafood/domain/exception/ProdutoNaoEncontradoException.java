@@ -8,7 +8,7 @@ public class ProdutoNaoEncontradoException extends EntidadeNaoEncontradaExceptio
 		super(mensagem);
 	}
 	
-	public ProdutoNaoEncontradoException(String mensagem, Long id) {
+	public ProdutoNaoEncontradoException(String mensagem, Long produtoId, Long restauranteId) {
 		this(mensagem);
 	}
 

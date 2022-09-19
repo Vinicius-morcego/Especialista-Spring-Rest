@@ -15,13 +15,27 @@ public class CadastroProdutoService {
 	private ProdutoRepository produtoRepository;
 	
 	@Transactional
-	public Produto salvar(Produto produto) {
+	public Produto salvar(Produto produto) {	
+		
 		return produtoRepository.save(produto);
 	}	
 	
-	public Produto buscarOuFalhar(Long produtoId) {
-		return produtoRepository.findById(produtoId).orElseThrow(() ->
-		new ProdutoNaoEncontradoException(String.format("Produto com o id %d não encontrado", produtoId)));
+	@Transactional
+	public void ativar(Long produtoId, Long restauranteId) {
+		var produtoAtual = buscarOuFalhar(produtoId, restauranteId);
+		produtoAtual.ativar();
+	}
+	
+	@Transactional
+	public void inativar(Long produtoId, Long restauranteId) {
+		var produtoAtual = buscarOuFalhar(produtoId, restauranteId);
+		produtoAtual.inativar();
+	}
+	
+	public Produto buscarOuFalhar(Long restauranteId, Long produtoId) {	
+		return produtoRepository.findById(restauranteId, produtoId).orElseThrow(() ->
+		new ProdutoNaoEncontradoException(
+			String.format("Produto com o id %d não encontrado para o restaurante %d", restauranteId, produtoId)));
 	}
 	
 }

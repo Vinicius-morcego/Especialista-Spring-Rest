@@ -33,4 +33,14 @@ public class Produto {
 	@ManyToOne
 	@JoinColumn(name = "restaurante_id")
 	private Restaurante restaurante;
+	
+	public void ativar() {
+		setAtivo(true);
+	}
+	
+	public void inativar() {
+		setAtivo(false);
+	}	
+
+	
 }
