@@ -75,6 +75,8 @@ public class Restaurante {
 	
 	private Boolean ativo = Boolean.TRUE;
 	
+	private Boolean aberto = Boolean.TRUE;
+	
 	@OneToMany(mappedBy = "restaurante")	
 	private Set<Produto> produtos = new HashSet<>();
 	
@@ -91,6 +93,14 @@ public class Restaurante {
 	
 	public void inativar() {
 		setAtivo(false);
+	}
+	
+	public void abertura() {
+		setAberto(true);
+	}
+	
+	public void fechamento() {
+		setAberto(false);
 	}
 	
 	public boolean removerFormasPagamento(FormaPagamento formaPagamento) {

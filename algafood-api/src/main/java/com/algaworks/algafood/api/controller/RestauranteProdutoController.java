@@ -60,8 +60,7 @@ public class RestauranteProdutoController {
 			@RequestBody @Valid ProdutoInput produtoInput) {
 		var restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 		var produto = produtoInputDisassembler.toObjectDomain(produtoInput);
-		produto.setRestaurante(restaurante);
-		
+		produto.setRestaurante(restaurante);		
 		return produtoAssembler.toModel(cadastroProdutoService.salvar(produto));
 	}
 	

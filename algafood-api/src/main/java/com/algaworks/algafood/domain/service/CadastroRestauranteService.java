@@ -35,9 +35,6 @@ public class CadastroRestauranteService {
 	@Autowired
 	private CadastroCidadeService cadastroCidadeService;
 	
-	@Autowired
-	private CadastroProdutoService cadastroProdutoService;
-	
 	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
 		
@@ -84,6 +81,21 @@ public class CadastroRestauranteService {
 		Restaurante restauranteAtual = buscarOuFalhar(restauranteId);
 		
 		restauranteAtual.inativar();
+	}
+	
+	@Transactional
+	public void abrir(Long restauranteId) {
+		Restaurante restauranteAtual = buscarOuFalhar(restauranteId);
+		
+		restauranteAtual.abertura();
+		
+	}
+	
+	@Transactional
+	public void fechar(Long restauranteId) {
+		Restaurante restauranteAtual = buscarOuFalhar(restauranteId);
+		
+		restauranteAtual.fechamento();
 	}
 	
 	public Restaurante buscarOuFalhar(Long restauranteId) {
