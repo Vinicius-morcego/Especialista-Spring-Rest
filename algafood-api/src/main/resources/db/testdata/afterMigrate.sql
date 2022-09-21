@@ -5,8 +5,8 @@ delete from cozinha;
 delete from estado;
 delete from forma_pagamento;
 delete from grupo;
-delete from grupo_permissao;
 delete from permissao;
+delete from grupo_permissao;
 delete from produto;
 delete from restaurante;
 delete from restaurante_forma_pagamento;
@@ -62,7 +62,7 @@ insert into usuario(nome_usuario, email_usuario, senha_usuario, data_cadastro) v
 
 insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) values (1, 1), (1, 2), (1, 3), (2, 3);
 
-insert into grupo_permissao (grupo_id, permissao_id) values(1, 2), (2, 1);
+insert into grupo_permissao (grupo_id, permissao_id) values(1, 2), (1, 3), (2, 1);
 
 insert into usuario_grupo (usuario_id, grupo_id) values(1, 1), (2, 2);   
 

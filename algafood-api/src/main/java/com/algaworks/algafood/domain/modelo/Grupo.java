@@ -1,7 +1,7 @@
 package com.algaworks.algafood.domain.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +33,14 @@ public class Grupo {
 	@JoinTable(name = "grupo_permissao",
 			joinColumns = @JoinColumn(name = "grupo_id"), 
 			inverseJoinColumns = @JoinColumn(name = "permissao_id"))
-	private List<Permissao> permissoes = new ArrayList<>();
+	private Set<Permissao> permissoes = new HashSet<>();
+	
+	public boolean desassociar(Permissao permissao) {
+		return getPermissoes().remove(permissao);
+	}
+	
+	public boolean associar(Permissao permissao) {
+		return getPermissoes().add(permissao);
+	}
 
 }
