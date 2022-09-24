@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -45,7 +45,7 @@ public class UsuarioController {
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
 	@GetMapping
-	public List<UsuarioModel> listar(){
+	public Collection<UsuarioModel> listar(){
 		return usuarioModelAssembler.toCollectionObject(usuarioRepository.findAll());
 	}
 	

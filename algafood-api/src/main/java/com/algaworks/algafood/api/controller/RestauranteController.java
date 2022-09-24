@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.List;
+import java.util.Collection;
 
 import javax.validation.Valid;
 
@@ -48,7 +48,7 @@ public class RestauranteController {
 	private RestauranteInputDisassembler restauranteInputDisassembler;
 	
 	@GetMapping
-	public List<RestauranteModel> listar(){		
+	public Collection<RestauranteModel> listar(){		
 		//BeanUtils.copyProperties(Restaurante.class, RestauranteModel.class);
 		return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
 	}

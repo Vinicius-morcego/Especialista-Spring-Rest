@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.api.model.UsuarioModel;
-import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.api.model.input.SenhaInput;
+import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.domain.modelo.Usuario;
 
 @Component
@@ -30,7 +30,7 @@ public class UsuarioModelAssembler {
 		modelMapper.map(usuarioInputUpdate, usuario);
 	}
 	
-	public List<UsuarioModel> toCollectionObject(List<Usuario> usuarios){		
+	public Collection<UsuarioModel> toCollectionObject(Collection<Usuario> usuarios){		
 		return usuarios.stream()
 				.map(usuario -> toModel(usuario))
 				.collect(Collectors.toList());

@@ -19,9 +19,7 @@ import com.algaworks.algafood.domain.repository.RestauranteRepository;
 @Service
 public class CadastroRestauranteService {
 
-	private static final String MSG_ENTIDADE_EM_USO = "Entidade de código %d em uso";
-
-	
+	private static final String MSG_ENTIDADE_EM_USO = "Entidade de código %d em uso";	
 
 	@Autowired
 	private RestauranteRepository restauranteRepository;
@@ -34,6 +32,9 @@ public class CadastroRestauranteService {
 	
 	@Autowired
 	private CadastroCidadeService cadastroCidadeService;
+	
+	@Autowired
+	private CadastroUsuarioService cadastroUsuarioService;
 	
 	@Transactional
 	public Restaurante salvar(Restaurante restaurante) {
@@ -116,5 +117,19 @@ public class CadastroRestauranteService {
 		var formaPagamento = cadastroFormaPagamento.buscarOuFalhar(formaPagamentoId);
 		restaurante.associarFormasPagamento(formaPagamento);
 	}	
+	
+	@Transactional
+	public void desassociar(Long restauranteId, Long usuarioId) {
+		var restaurante = buscarOuFalhar(restauranteId);
+		var usuario = cadastroUsuarioService.buscarOuFalhar(usuarioId);
+		restaurante.desassociar(usuario);
+	}
+	
+	@Transactional
+	public void associar(Long restauranteId, Long usuarioId) {
+		var restaurante = buscarOuFalhar(restauranteId);
+		var usuario = cadastroUsuarioService.buscarOuFalhar(usuarioId);
+		restaurante.associar(usuario);
+	}
 	
 }

@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -47,7 +48,7 @@ public class GrupoController {
 	private GrupoRepository grupoRepository;
 	
 	@GetMapping
-	public List<GrupoModel> listar(){
+	public Collection<GrupoModel> listar(){
 		return grupoAssembler.toCollectModel(grupoRepository.findAll());		
 	}
 	
