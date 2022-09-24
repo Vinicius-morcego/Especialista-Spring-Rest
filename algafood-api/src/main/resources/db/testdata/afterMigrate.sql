@@ -55,7 +55,7 @@ insert into permissao (descricao, nome) values('Pode Inserir, Alterar e Excluir'
 insert into permissao (descricao, nome) values('Pode Inserir, Alterar', 'USUÁRIO');
 insert into permissao (descricao, nome) values('Pode Inserir', 'ESTAGIÁRIO');
 
-insert into grupo (nome) values('USUARIOS'), ('ADMINISTRADORES'); 
+insert into grupo (nome) values('USUARIOS'), ('ADMINISTRADORES'), ('VENDEDORES'); 
 
 insert into usuario(nome_usuario, email_usuario, senha_usuario, data_cadastro) values ('VINICIUS', 'vinicius.templario@gmail.com','123', utc_timestamp), ('LUQUE', 'luque.templario@gmail.com', 123, utc_timestamp), 
 ('PEDRO AUGUSTO', 'pedrim.templario@gmail.com', 123, utc_timestamp), ('BRANCA', 'branca.templario@gmail.com', 123, utc_timestamp);
@@ -64,7 +64,7 @@ insert into restaurante_forma_pagamento (restaurante_id, forma_pagamento_id) val
 
 insert into grupo_permissao (grupo_id, permissao_id) values(1, 2), (1, 3), (2, 1);
 
-insert into usuario_grupo (usuario_id, grupo_id) values(1, 1), (2, 2);   
+insert into usuario_grupo (usuario_id, grupo_id) values(1, 1), (1, 2), (1, 3), (2, 1), (2, 3);   
 
 
 

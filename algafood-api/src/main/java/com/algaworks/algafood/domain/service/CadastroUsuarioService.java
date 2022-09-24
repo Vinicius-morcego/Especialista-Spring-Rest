@@ -18,6 +18,9 @@ public class CadastroUsuarioService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	@Autowired
+	private CadastroGrupoService cadastroGrupoService;
+	
 	@Transactional
 	public Usuario salvar(Usuario usuario) {
 		usuarioRepository.detach(usuario);
@@ -44,6 +47,20 @@ public class CadastroUsuarioService {
 			throw new NegocioException("Senha atual do usuário não confere, favor tente novamente!");
 		}
 		return true;
+	}
+	
+	@Transactional
+	public boolean desassociar(Long usuarioId, Long grupoId) {
+		var usuario = buscarOuFalhar(usuarioId);
+		var grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
+		return usuario.desassociar(grupo);
+	}
+	
+	@Transactional
+	public boolean associar(Long usuarioId, Long grupoId) {
+		var usuario = buscarOuFalhar(usuarioId);
+		var grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
+		return usuario.associar(grupo);
 	}
 	
 	@Transactional
