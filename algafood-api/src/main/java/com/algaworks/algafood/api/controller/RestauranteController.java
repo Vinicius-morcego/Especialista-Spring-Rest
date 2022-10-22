@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -195,15 +196,36 @@ public class RestauranteController {
 	@DeleteMapping("/{restauranteId}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void inativar(@PathVariable Long restauranteId) {
-		cadastroRestaurante.inativar(restauranteId);
-		
-	}
+		cadastroRestaurante.inativar(restauranteId);		
+	}	
 	
 	@PutMapping("/{restauranteId}/abertura")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void abrir(@PathVariable Long restauranteId) {
-		cadastroRestaurante.abrir(restauranteId);
+		cadastroRestaurante.abrir(restauranteId);		
+	}
+	
+	@PutMapping("/ativacoes")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void ativarMultiplos(@RequestBody List<Long> restauranteIds) {
+		try {
+			cadastroRestaurante.ativar(restauranteIds);			
+		} catch (Exception e) {
+			throw new NegocioException(e.getMessage(), e);
+			
+		}
 		
+	}
+	
+	@DeleteMapping("/ativacoes")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void inativarMultiplos(@RequestBody List<Long> restauranteIds) {
+		try {
+			cadastroRestaurante.inativar(restauranteIds);	
+		} catch (Exception e) {
+			throw new NegocioException(e.getMessage(), e);
+			
+		}
 	}
 	
 	//DELETE /restaurantes/{id}/inativar
