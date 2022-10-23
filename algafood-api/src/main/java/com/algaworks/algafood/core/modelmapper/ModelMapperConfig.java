@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import com.algaworks.algafood.api.model.EnderecoModel;
 import com.algaworks.algafood.api.model.GrupoModel;
 import com.algaworks.algafood.api.model.ItemPedidoModel;
+import com.algaworks.algafood.api.model.input.ItemPedidoInput;
 import com.algaworks.algafood.domain.modelo.Endereco;
 import com.algaworks.algafood.domain.modelo.Grupo;
 import com.algaworks.algafood.domain.modelo.ItemPedido;
@@ -22,6 +23,9 @@ public class ModelMapperConfig {
 		
 		modelMapper.createTypeMap(Grupo.class, GrupoModel.class)
 			.addMapping(Grupo::getNome, GrupoModel::setDescricao);
+		
+		modelMapper.createTypeMap(ItemPedidoInput.class, ItemPedido.class)
+			.addMappings(mapper -> mapper.skip(ItemPedido::setId));
 		
 		var enderecoToEnderecoModelTypeMap = modelMapper.createTypeMap(
 				Endereco.class, EnderecoModel.class);
