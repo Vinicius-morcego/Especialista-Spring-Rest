@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.assembler.PedidoModelAssembler;
+import com.algaworks.algafood.api.assembler.PedidoResumoModelAssembler;
 import com.algaworks.algafood.api.model.PedidoModel;
+import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.domain.modelo.Pedido;
 import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.CadastroPedidoService;
@@ -22,14 +24,17 @@ public class PedidoController {
 	private PedidoRepository pedidoRepository;
 	
 	@Autowired
-	private PedidoModelAssembler pedidoModelAssembler;	
+	private PedidoModelAssembler pedidoModelAssembler;
+	
+	@Autowired
+	private PedidoResumoModelAssembler pedidoResumoModelAssembler;
 	
 	@Autowired 
 	private CadastroPedidoService cadastroPedido;
 	
 	@GetMapping
-	public List<PedidoModel> listar(){
-		return pedidoModelAssembler.toCollectionModel(pedidoRepository.findAll());
+	public List<PedidoResumoModel> listar(){
+		return pedidoResumoModelAssembler.toCollectionModel(pedidoRepository.findAll());
 	}
 	
 	@GetMapping("/{pedidoId}")
