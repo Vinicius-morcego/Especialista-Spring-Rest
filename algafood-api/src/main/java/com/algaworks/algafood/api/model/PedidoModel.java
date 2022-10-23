@@ -2,7 +2,7 @@ package com.algaworks.algafood.api.model;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.Collection;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,12 +12,17 @@ import lombok.Setter;
 public class PedidoModel {
 
 	private Long id;
-	private RestauranteResumoModel restaurante;
+	private BigDecimal subTotal;
 	private BigDecimal taxaFrete;
 	private BigDecimal total;
-	private OffsetDateTime dataCriacao;
 	private String status;	
+	private OffsetDateTime dataCriacao;
+	private OffsetDateTime dataConfirmacao;
+	private OffsetDateTime dataEntrega;
+	private OffsetDateTime dataCancelamento;
+	private RestauranteResumoModel restaurante;
 	private UsuarioModel cliente;
 	private FormaPagamentoModel formaPagamento;
-	private Collection<ItemPedidoModel> itens;
+	private EnderecoModel enderecoEntrega;
+	private List<ItemPedidoModel> itens;
 }

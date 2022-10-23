@@ -1,6 +1,5 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.assembler.PedidoModelAssembler;
 import com.algaworks.algafood.api.model.PedidoModel;
-import com.algaworks.algafood.domain.exception.PedidoNaoEncontradoException;
 import com.algaworks.algafood.domain.modelo.Pedido;
 import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.CadastroPedidoService;
@@ -30,7 +28,7 @@ public class PedidoController {
 	private CadastroPedidoService cadastroPedido;
 	
 	@GetMapping
-	public Collection<PedidoModel> listar(){
+	public List<PedidoModel> listar(){
 		return pedidoModelAssembler.toCollectionModel(pedidoRepository.findAll());
 	}
 	
