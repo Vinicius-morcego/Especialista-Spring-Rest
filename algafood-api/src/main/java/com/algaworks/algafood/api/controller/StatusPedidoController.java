@@ -24,12 +24,17 @@ public class StatusPedidoController {
 		
 	}
 	
-//	@GetMapping("/{pedidoId}/status")
-//	@ResponseStatus(HttpStatus.OK)
-//	public List<StatusPedidoModel> listar(@PathVariable Long pedidoId){
-//		
-//		
-//		
-//	}
-
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/cancelar")
+	public void cancelar(@PathVariable Long pedidoId){		
+		statusPedidoService.cancelar(pedidoId);
+		
+	}
+	
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("/entregue")
+	public void entregue(@PathVariable Long pedidoId){		
+		statusPedidoService.entregue(pedidoId);
+		
+	}
 }
