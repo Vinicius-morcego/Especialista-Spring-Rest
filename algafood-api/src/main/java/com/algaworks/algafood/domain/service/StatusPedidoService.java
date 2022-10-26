@@ -21,53 +21,21 @@ public class StatusPedidoService {
 	private EmissaoPedidoService emissaoPedidoService;
 	
 	@Transactional
-	public void confirmar(Long pedidoId) {
-		
-		Pedido pedido = emissaoPedidoService.buscarOuFalhar(pedidoId);
-		
-		if(!pedido.getStatus().getDescricao().equals(StatusPedido.CRIADO.getDescricao())) {
-			throw new NegocioException(
-					String.format("O status do pedido %d não pode ser alterado de %s para %s", 
-							pedido.getId(), pedido.getStatus().getDescricao(), 
-							StatusPedido.CONFIRMADO.getDescricao()));
-		}
-		
-		pedido.setStatus(StatusPedido.CONFIRMADO);
-		pedido.setDataConfirmacao(OffsetDateTime.now());
-		
+	public void confirmar(Long pedidoId) {		
+		Pedido pedido = emissaoPedidoService.buscarOuFalhar(pedidoId);		
+		pedido.confirmar();
 	}
 	
 	@Transactional
-	public void cancelar(Long pedidoId) {
-		
+	public void cancelar(Long pedidoId) {		
 		Pedido pedido = emissaoPedidoService.buscarOuFalhar(pedidoId);
-		
-		if(!pedido.getStatus().getDescricao().equals(StatusPedido.CRIADO.getDescricao())) {
-			throw new NegocioException(
-					String.format("O status do pedido %d não pode ser alterado de %s para %s", 
-							pedido.getId(), pedido.getStatus().getDescricao(), 
-							StatusPedido.CANCELADO.getDescricao()));
-		}
-		
-		pedido.setStatus(StatusPedido.CANCELADO);
-		pedido.setDataCancelamento(OffsetDateTime.now());
-		
+		pedido.cancelar();		
 	}
 	
 	@Transactional
-	public void entregue(Long pedidoId) {
-		
+	public void entregue(Long pedidoId) {		
 		Pedido pedido = emissaoPedidoService.buscarOuFalhar(pedidoId);
-		
-		if(!pedido.getStatus().getDescricao().equals(StatusPedido.CONFIRMADO.getDescricao())) {
-			throw new NegocioException(
-					String.format("O status do pedido %d não pode ser alterado de %s para %s", 
-							pedido.getId(), pedido.getStatus().getDescricao(), 
-							StatusPedido.ENTREGUE.getDescricao()));
-		}
-		
-		pedido.setStatus(StatusPedido.ENTREGUE);
-		pedido.setDataEntrega(OffsetDateTime.now());
+		pedido.entregue();
 		
 	}
 }
