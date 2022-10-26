@@ -68,9 +68,9 @@ insert into usuario_grupo (usuario_id, grupo_id) values(1, 1), (1, 2), (1, 3), (
 
 insert into restaurante_usuario_responsavel (restaurante_id, usuario_id) values(1, 1), (1, 2), (2, 1), (2, 2);    
 
-insert into pedido (subtotal, taxa_frete, valor_total, status, data_criacao, restaurante_id, usuario_cliente_id, forma_pagamento_id, 
+insert into pedido (codigo, subtotal, taxa_frete, valor_total, status, data_criacao, restaurante_id, usuario_cliente_id, forma_pagamento_id, 
 endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro)
-values (200.0, 15.2, 200.0, 'CRIADO', utc_timestamp, 2, 2, 2, 2, '38270000', 'RUA', '380', 'CENTRO');
+values ('bdd46d58-03fa-49c7-8484-80f6d62c56ca', 200.0, 15.2, 200.0, 'CRIADO', utc_timestamp, 2, 2, 2, 2, '38270000', 'RUA', '380', 'CENTRO');
 
 insert into item_pedido(quantidade, preco_unitario, preco_total, observacao, pedido_id, produto_id) values
 (2, 100.0, 100.00, 'Muito Saboroso', 1, 2);  
@@ -78,9 +78,9 @@ insert into item_pedido(quantidade, preco_unitario, preco_total, observacao, ped
 insert into item_pedido(quantidade, preco_unitario, preco_total, observacao, pedido_id, produto_id) values
 (2, 100.0, 100.00, 'Ingredientes picantes', 1, 1);
 
-insert into pedido (subtotal, taxa_frete, valor_total, status, data_criacao, restaurante_id, usuario_cliente_id, forma_pagamento_id, 
+insert into pedido (codigo, subtotal, taxa_frete, valor_total, status, data_criacao, restaurante_id, usuario_cliente_id, forma_pagamento_id, 
 endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro)
-values (200.0, 15.2, 200.0, 'CRIADO', utc_timestamp, 2, 1, 2, 2, '38270000', 'AVENIDA', '274', 'JUCA TEIXEIRA');
+values ('5e7588c7-2fed-42dd-984e-e2fddea76916', 200.0, 15.2, 200.0, 'CRIADO', utc_timestamp, 2, 1, 2, 2, '38270000', 'AVENIDA', '274', 'JUCA TEIXEIRA');
 
 insert into item_pedido(quantidade, preco_unitario, preco_total, observacao, pedido_id, produto_id) values
 (2, 100.0, 100.00, 'Muito Saboroso 2', 2, 1);  

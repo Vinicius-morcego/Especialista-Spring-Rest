@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algafood.domain.service.StatusPedidoService;
 
 @RestController
-@RequestMapping("/pedidos/{pedidoId}")
+@RequestMapping("/pedidos/{codigoPedido}")
 public class StatusPedidoController {	
 	
 	@Autowired
@@ -19,22 +19,22 @@ public class StatusPedidoController {
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/confirmar")
-	public void confirmar(@PathVariable Long pedidoId){		
-		statusPedidoService.confirmar(pedidoId);
+	public void confirmar(@PathVariable String codigoPedido){		
+		statusPedidoService.confirmar(codigoPedido);
 		
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/cancelar")
-	public void cancelar(@PathVariable Long pedidoId){		
-		statusPedidoService.cancelar(pedidoId);
+	public void cancelar(@PathVariable String codigoPedido){		
+		statusPedidoService.cancelar(codigoPedido);
 		
 	}
 	
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/entregue")
-	public void entregue(@PathVariable Long pedidoId){		
-		statusPedidoService.entregue(pedidoId);
+	public void entregue(@PathVariable String codigoPedido){		
+		statusPedidoService.entregue(codigoPedido);
 		
 	}
 }
