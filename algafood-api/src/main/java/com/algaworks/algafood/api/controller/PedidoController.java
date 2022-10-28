@@ -20,12 +20,14 @@ import com.algaworks.algafood.api.assembler.PedidoResumoModelAssembler;
 import com.algaworks.algafood.api.model.PedidoModel;
 import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
+import com.algaworks.algafood.api.model.view.RestauranteView;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
 import com.algaworks.algafood.domain.modelo.Pedido;
 import com.algaworks.algafood.domain.modelo.Usuario;
 import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -45,6 +47,7 @@ public class PedidoController {
 	
 	@Autowired 
 	private EmissaoPedidoService emissaoPedidoService;
+	
 	
 	@GetMapping
 	public List<PedidoResumoModel> listar(){
