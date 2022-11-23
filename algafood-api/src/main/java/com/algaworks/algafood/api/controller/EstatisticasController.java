@@ -11,11 +11,11 @@ import com.algaworks.algafood.domain.filter.VendaDiariaFilter;
 import com.algaworks.algafood.domain.modelo.dto.VendaDiaria;
 import com.algaworks.algafood.domain.service.VendaQueryService;
 
-@RequestMapping(path = "/estatisticas")
 @RestController
+@RequestMapping(path = "/estatisticas")
 public class EstatisticasController {
 
-	@Autowired
+	@Autowired(required = true)
 	private VendaQueryService vendaQueryService;
 	
 	@GetMapping("/vendas-diarias")
