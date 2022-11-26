@@ -34,13 +34,13 @@ public class VendaQueryServiceImpl implements VendaQueryService{
 		var functionDateDataCriacao = builder.function("date", LocalDate.class, root.get("dataCriacao"));
 		
 		if(filtro.getRestauranteId() != null)
-			predicates.add(builder.in(root.get("restauranteId")));
+			predicates.add(builder.equal(root.get("restaurante"), filtro.getRestauranteId()));
 		if(filtro.getDataCriacaoInicio() != null)
 			predicates.add(builder.greaterThanOrEqualTo(root.get("dataCriacaoInicio"), filtro.getDataCriacaoInicio()));
 		if(filtro.getDataCriacaoFim() != null)
-			predicates.add(builder.lessThanOrEqualTo(root.get("dataCriacaoFim"), filtro.getDataCriacaoInicio()));
+			predicates.add(builder.lessThanOrEqualTo(root.get("dataCriacaoFim"), filtro.getDataCriacaoFim()));
 		
-		predicates.add(builder.in(root.get("status").in(StatusPedido.CONFIRMADO, StatusPedido.ENTREGUE)));
+		predicates.add(root.get("status").in(StatusPedido.CONFIRMADO, StatusPedido.ENTREGUE));
 			
 		var selections = builder.construct(VendaDiaria.class, 
 				functionDateDataCriacao, builder.count(root.get("id")),
