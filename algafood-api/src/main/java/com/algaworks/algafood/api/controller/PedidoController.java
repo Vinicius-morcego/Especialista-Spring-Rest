@@ -87,12 +87,12 @@ public class PedidoController {
 		
 		return pedidosPageModel;
 	}
-	
-	@GetMapping("/{codigoPedido}")
-	public PedidoModel buscar(@PathVariable String codigoPedido) {
-		Pedido pedido = emissaoPedidoService.buscarOuFalhar(codigoPedido);
-		return pedidoModelAssembler.toModel(pedido);
-	}
+//	
+//	@GetMapping("/{codigoPedido}")
+//	public PedidoModel buscar(@PathVariable String codigoPedido) {
+//		Pedido pedido = emissaoPedidoService.buscarOuFalhar(codigoPedido);
+//		return pedidoModelAssembler.toModel(pedido);
+//	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)

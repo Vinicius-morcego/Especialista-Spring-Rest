@@ -4,6 +4,7 @@ import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -26,12 +27,17 @@ public class VendaQueryServiceImpl implements VendaQueryService{
 	private EntityManager manager;
 
 	@Override
-	public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro) {
+	public List<VendaDiaria> consultarVendasDiarias(VendaDiariaFilter filtro, String timeOffset) {
 		var builder = manager.getCriteriaBuilder();
 		var query = builder.createQuery(VendaDiaria.class);
 		var root = query.from(Pedido.class);
 		var predicates = new ArrayList<Predicate>();
-		var functionDateDataCriacao = builder.function("date", LocalDate.class, root.get("dataCriacao"));
+		
+		var functionConvertTzDataCriacao = builder.function(
+				"convert_tz", Date.class, root.get("dataCriacao"),
+				builder.literal("+00:00"), builder.literal(timeOffset));
+		
+		var functionDateDataCriacao = builder.function("date", LocalDate.class, functionConvertTzDataCriacao);		
 		
 		if(filtro.getRestauranteId() != null)
 			predicates.add(builder.equal(root.get("restaurante"), filtro.getRestauranteId()));
