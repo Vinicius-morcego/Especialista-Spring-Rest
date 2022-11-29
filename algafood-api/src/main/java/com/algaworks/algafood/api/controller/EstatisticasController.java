@@ -23,7 +23,7 @@ public class EstatisticasController {
 	@Autowired(required = true)
 	private VendaQueryService vendaQueryService;
 	
-	@Autowired
+	@Autowired(required = true)
 	private VendaReportService vendaReportService;
 	
 	@GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_JSON_VALUE)
