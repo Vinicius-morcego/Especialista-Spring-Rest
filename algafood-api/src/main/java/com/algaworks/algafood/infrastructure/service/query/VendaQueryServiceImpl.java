@@ -1,4 +1,4 @@
-package com.algaworks.algafood.infrastructure.repository;
+package com.algaworks.algafood.infrastructure.service.query;
 
 import java.sql.Array;
 import java.time.LocalDate;
@@ -47,6 +47,7 @@ public class VendaQueryServiceImpl implements VendaQueryService{
 			predicates.add(builder.lessThanOrEqualTo(root.get("dataCriacaoFim"), filtro.getDataCriacaoFim()));
 		
 		predicates.add(root.get("status").in(StatusPedido.CONFIRMADO, StatusPedido.ENTREGUE));
+		
 			
 		var selections = builder.construct(VendaDiaria.class, 
 				functionDateDataCriacao, builder.count(root.get("id")),
