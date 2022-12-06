@@ -1,5 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import com.algaworks.algafood.domain.modelo.FotoProduto;
 import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
 import com.algaworks.algafood.domain.service.CatalogoFotoProdutoService;
+import com.algaworks.algafood.infrastructure.storage.StorageException;
 
 @RestController
 @RequestMapping("/restaurantes/{restauranteId}/produtos/{produtoId}/foto")
@@ -35,20 +38,25 @@ public class RestauranteProdutoFotoController {
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@Valid FotoProdutoInput fotoProdutoInput) {
 		
-			Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
-			
-			MultipartFile arquivo = fotoProdutoInput.getArquivo();
-			
-			FotoProduto fotoProduto = new FotoProduto();
-			fotoProduto.setProduto(produto);
-			fotoProduto.setDescricao(fotoProdutoInput.getDescricao());
-			fotoProduto.setContentType(arquivo.getContentType());
-			fotoProduto.setTamanho(arquivo.getSize());
-			fotoProduto.setNomeArquivo(arquivo.getOriginalFilename());
-			
-			FotoProduto fotoSalva = catalogoFotoProduto.salvar(fotoProduto);
+			try {
+				Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
+				
+				MultipartFile arquivo = fotoProdutoInput.getArquivo();
+				
+				FotoProduto fotoProduto = new FotoProduto();
+				fotoProduto.setProduto(produto);
+				fotoProduto.setDescricao(fotoProdutoInput.getDescricao());
+				fotoProduto.setContentType(arquivo.getContentType());
+				fotoProduto.setTamanho(arquivo.getSize());
+				fotoProduto.setNomeArquivo(arquivo.getOriginalFilename());
+				
+				FotoProduto fotoSalva;
+				fotoSalva = catalogoFotoProduto.salvar(fotoProduto, arquivo.getInputStream());
+				return fotoProdutoModelAssembler.toModel(fotoSalva);
+			} catch (Exception e) {
+				throw new StorageException("Não foi possivel armazenar o arquivo", e);
+			}
 		
-			return fotoProdutoModelAssembler.toModel(fotoSalva);
 	}
 	
 }
