@@ -36,9 +36,9 @@ public class RestauranteProdutoFotoController {
 	
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
-			@Valid FotoProdutoInput fotoProdutoInput) {
+			@Valid FotoProdutoInput fotoProdutoInput) throws IOException {
 		
-			try {
+		
 				Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
 				
 				MultipartFile arquivo = fotoProdutoInput.getArquivo();
@@ -53,9 +53,7 @@ public class RestauranteProdutoFotoController {
 				FotoProduto fotoSalva;
 				fotoSalva = catalogoFotoProduto.salvar(fotoProduto, arquivo.getInputStream());
 				return fotoProdutoModelAssembler.toModel(fotoSalva);
-			} catch (Exception e) {
-				throw new StorageException("Não foi possivel armazenar o arquivo", e);
-			}
+			
 		
 	}
 	
