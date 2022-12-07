@@ -16,7 +16,7 @@ import com.algaworks.algafood.domain.service.FotoStorageService.NovaFoto;
 @Service
 public class CatalogoFotoProdutoService {
 
-	private static String MSG_FOTO_NAO_ENCONTRADA = "Foto do produto de id %d não encontrada";
+	private static String MSG_FOTO_NAO_ENCONTRADA = "Foto do produto de id %d não encontrada para o restaurante de id %d";
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
@@ -51,6 +51,6 @@ public class CatalogoFotoProdutoService {
 	@Transactional
 	public FotoProduto buscarOuFalhar(Long produtoId, Long restauranteId) {
 		return produtoRepository.findFotoById(restauranteId, produtoId).orElseThrow(() ->					
-					 new FotoProdutoNaoEncontradaException(String.format(MSG_FOTO_NAO_ENCONTRADA, produtoId)));
+					 new FotoProdutoNaoEncontradaException(String.format(MSG_FOTO_NAO_ENCONTRADA, produtoId, restauranteId)));
 	}
 }
