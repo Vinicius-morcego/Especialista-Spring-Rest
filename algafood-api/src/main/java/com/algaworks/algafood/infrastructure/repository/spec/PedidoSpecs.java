@@ -2,12 +2,12 @@ package com.algaworks.algafood.infrastructure.repository.spec;
 
 import java.util.ArrayList;
 
-import javax.persistence.criteria.Predicate;
-
 import org.springframework.data.jpa.domain.Specification;
 
 import com.algaworks.algafood.domain.filter.PedidoFilter;
 import com.algaworks.algafood.domain.modelo.Pedido;
+
+import jakarta.persistence.criteria.Predicate;
 
 public class PedidoSpecs {
 	
@@ -22,11 +22,11 @@ public class PedidoSpecs {
 			var predicates = new ArrayList<Predicate>();
 			
 			if(filter.getClienteId() != null) {
-				predicates.add(builder.equal(root.get("cliente"), filter.getClienteId()));
+				predicates.add(builder.equal(root.get("cliente").get("id"), filter.getClienteId()));
 			}
 			
 			if(filter.getRestauranteId() != null) {
-				predicates.add(builder.equal(root.get("restaurante"), filter.getRestauranteId()));
+				predicates.add(builder.equal(root.get("restaurante").get("id"), filter.getRestauranteId()));
 			}
 			
 			if(filter.getDataCriacaoInicio() != null) {

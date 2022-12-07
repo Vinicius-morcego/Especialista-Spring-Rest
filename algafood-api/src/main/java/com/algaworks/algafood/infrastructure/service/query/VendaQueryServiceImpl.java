@@ -1,17 +1,10 @@
 package com.algaworks.algafood.infrastructure.service.query;
 
-import java.sql.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.Predicate;
-
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.algaworks.algafood.domain.filter.VendaDiariaFilter;
@@ -19,6 +12,10 @@ import com.algaworks.algafood.domain.modelo.Pedido;
 import com.algaworks.algafood.domain.modelo.StatusPedido;
 import com.algaworks.algafood.domain.modelo.dto.VendaDiaria;
 import com.algaworks.algafood.domain.service.VendaQueryService;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.criteria.Predicate;
 
 @Repository
 public class VendaQueryServiceImpl implements VendaQueryService{
@@ -40,7 +37,7 @@ public class VendaQueryServiceImpl implements VendaQueryService{
 		var functionDateDataCriacao = builder.function("date", LocalDate.class, functionConvertTzDataCriacao);		
 		
 		if(filtro.getRestauranteId() != null)
-			predicates.add(builder.equal(root.get("restaurante"), filtro.getRestauranteId()));
+			predicates.add(builder.equal(root.get("restaurante").get("id"), filtro.getRestauranteId()));
 		if(filtro.getDataCriacaoInicio() != null)
 			predicates.add(builder.greaterThanOrEqualTo(root.get("dataCriacaoInicio"), filtro.getDataCriacaoInicio()));
 		if(filtro.getDataCriacaoFim() != null)

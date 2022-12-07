@@ -51,6 +51,6 @@ public class CatalogoFotoProdutoService {
 	@Transactional
 	public FotoProduto buscarOuFalhar(Long produtoId, Long restauranteId) {
 		return produtoRepository.findFotoById(restauranteId, produtoId).orElseThrow(() ->					
-					 new FotoProdutoNaoEncontradaException(String.format(MSG_FOTO_NAO_ENCONTRADA, produtoId, restauranteId)));
+				new FotoProdutoNaoEncontradaException(String.format(MSG_FOTO_NAO_ENCONTRADA, produtoId, restauranteId)));
 	}
 }
