@@ -11,6 +11,7 @@ import lombok.Getter;
 @Service
 public interface FotoStorageService {
 
+	InputStream recuperar(String nomeArquivo);
 	
 	void armazenar(NovaFoto novaFoto);
 	
