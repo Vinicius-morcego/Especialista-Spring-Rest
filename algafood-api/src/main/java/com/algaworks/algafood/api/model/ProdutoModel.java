@@ -2,11 +2,10 @@ package com.algaworks.algafood.api.model;
 
 import java.math.BigDecimal;
 
-import javax.validation.constraints.NotBlank;
-
 import org.springframework.stereotype.Component;
 
-import groovyjarjarantlr4.v4.runtime.misc.NotNull;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 

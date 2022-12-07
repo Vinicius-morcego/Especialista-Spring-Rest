@@ -2,8 +2,6 @@ package com.algaworks.algafood.api.controller;
 
 import java.util.Collection;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +23,8 @@ import com.algaworks.algafood.api.model.input.UsuarioInput;
 import com.algaworks.algafood.domain.modelo.Usuario;
 import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
+
+import jakarta.validation.Valid;
 
 
 

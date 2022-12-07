@@ -3,8 +3,6 @@ package com.algaworks.algafood.api.controller;
 import java.util.Collection;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -33,6 +31,8 @@ import com.algaworks.algafood.domain.modelo.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 import com.fasterxml.jackson.annotation.JsonView;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/restaurantes")

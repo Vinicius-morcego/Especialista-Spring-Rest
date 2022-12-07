@@ -2,8 +2,6 @@ package com.algaworks.algafood.api.controller;
 
 import java.io.IOException;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +18,8 @@ import com.algaworks.algafood.domain.modelo.FotoProduto;
 import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
 import com.algaworks.algafood.domain.service.CatalogoFotoProdutoService;
-import com.algaworks.algafood.infrastructure.storage.StorageException;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/restaurantes/{restauranteId}/produtos/{produtoId}/foto")

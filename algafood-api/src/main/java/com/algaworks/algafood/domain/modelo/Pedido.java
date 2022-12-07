@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 import com.algaworks.algafood.domain.exception.NegocioException;
 

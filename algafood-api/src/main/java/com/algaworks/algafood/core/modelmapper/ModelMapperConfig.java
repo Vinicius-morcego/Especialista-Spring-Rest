@@ -1,14 +1,11 @@
 package com.algaworks.algafood.core.modelmapper;
 
-import java.math.BigDecimal;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.algaworks.algafood.api.model.EnderecoModel;
 import com.algaworks.algafood.api.model.GrupoModel;
-import com.algaworks.algafood.api.model.ItemPedidoModel;
 import com.algaworks.algafood.api.model.input.ItemPedidoInput;
 import com.algaworks.algafood.domain.modelo.Endereco;
 import com.algaworks.algafood.domain.modelo.Grupo;

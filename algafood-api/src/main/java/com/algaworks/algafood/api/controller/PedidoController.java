@@ -1,8 +1,7 @@
 package com.algaworks.algafood.api.controller;
 
 import java.util.List;
-
-import javax.validation.Valid;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +31,8 @@ import com.algaworks.algafood.domain.modelo.Usuario;
 import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.algaworks.algafood.infrastructure.repository.spec.PedidoSpecs;
-import com.google.common.collect.ImmutableMap;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -115,7 +114,7 @@ public class PedidoController {
 	
 	private Pageable traduzirPageable(Pageable apiPageable) {
 		
-		var mapeamento = ImmutableMap.of(
+		var mapeamento = Map.of(
 				
 				"codigo", "codigo",
 				"nomeCliente", "cliente.nome",
