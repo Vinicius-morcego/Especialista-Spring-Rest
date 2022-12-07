@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,16 +35,20 @@ public class RestauranteProdutoFotoController {
 	@Autowired
 	private FotoProdutoModelAssembler fotoProdutoModelAssembler;
 	
+	
+	
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@Valid FotoProdutoInput fotoProdutoInput) throws IOException {
-		
+				
+			
 		
 				Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
 				
 				MultipartFile arquivo = fotoProdutoInput.getArquivo();
 				
 				FotoProduto fotoProduto = new FotoProduto();
+				
 				fotoProduto.setProduto(produto);
 				fotoProduto.setDescricao(fotoProdutoInput.getDescricao());
 				fotoProduto.setContentType(arquivo.getContentType());
@@ -55,6 +60,12 @@ public class RestauranteProdutoFotoController {
 				return fotoProdutoModelAssembler.toModel(fotoSalva);
 			
 		
+	}
+	
+	@GetMapping("/listar")
+	public FotoProdutoModel listar(@PathVariable Long produtoId, @PathVariable Long restauranteId) {
+			FotoProduto foto = catalogoFotoProduto.buscarOuFalhar(produtoId, restauranteId);			
+			return fotoProdutoModelAssembler.toModel(foto);
 	}
 	
 }

@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.algaworks.algafood.domain.exception.FotoProdutoNaoEncontradaException;
 import com.algaworks.algafood.domain.modelo.FotoProduto;
+import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.repository.ProdutoRepository;
 import com.algaworks.algafood.domain.service.FotoStorageService.NovaFoto;
 
 @Service
 public class CatalogoFotoProdutoService {
 
+	private static String MSG_FOTO_NAO_ENCONTRADA = "Foto do produto de id %d não encontrada";
+	
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
@@ -42,5 +46,11 @@ public class CatalogoFotoProdutoService {
 		
 		fotoStorage.substituir(nomeArquivoExistente, novaFoto);		
 		return foto;
+	}
+	
+	@Transactional
+	public FotoProduto buscarOuFalhar(Long produtoId, Long restauranteId) {
+		return produtoRepository.findFotoById(restauranteId, produtoId).orElseThrow(() ->					
+					 new FotoProdutoNaoEncontradaException(String.format(MSG_FOTO_NAO_ENCONTRADA, produtoId)));
 	}
 }

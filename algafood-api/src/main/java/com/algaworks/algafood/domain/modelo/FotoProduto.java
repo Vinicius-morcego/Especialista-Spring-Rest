@@ -1,7 +1,5 @@
 package com.algaworks.algafood.domain.modelo;
 
-import java.util.Optional;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

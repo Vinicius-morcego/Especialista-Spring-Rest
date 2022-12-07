@@ -1,15 +1,14 @@
 package com.algaworks.algafood.infrastructure.storage;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
+import com.algaworks.algafood.domain.modelo.FotoProduto;
 import com.algaworks.algafood.domain.service.FotoStorageService;
 
 
@@ -55,7 +54,5 @@ public class LocalFotoStorageService implements FotoStorageService{
 	private Path getArquivoPath(String nomeArquivo) {
 		return diretorioFotos.resolve(nomeArquivo);
 	}
-
-
 
 }
