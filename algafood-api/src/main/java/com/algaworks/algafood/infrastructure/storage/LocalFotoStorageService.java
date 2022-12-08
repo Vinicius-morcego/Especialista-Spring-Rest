@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
-import com.algaworks.algafood.domain.modelo.FotoProduto;
 import com.algaworks.algafood.domain.service.FotoStorageService;
 
 

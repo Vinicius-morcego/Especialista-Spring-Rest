@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.algaworks.algafood.api.assembler.UsuarioModelAssembler;
 import com.algaworks.algafood.api.model.UsuarioModel;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
-import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
 @RestController
 @RequestMapping("/restaurantes/{restauranteId}/responsaveis")
@@ -23,9 +22,6 @@ public class RestauranteResponsavelController {
 	
 	@Autowired
 	private CadastroRestauranteService cadastroRestauranteService;
-	
-	@Autowired
-	private CadastroUsuarioService cadastroUsuarioService;
 	
 	@Autowired
 	private UsuarioModelAssembler usuarioAssembler;

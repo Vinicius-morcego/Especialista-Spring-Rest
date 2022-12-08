@@ -15,7 +15,6 @@ import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException
 import com.algaworks.algafood.domain.modelo.Cidade;
 import com.algaworks.algafood.domain.modelo.Cozinha;
 import com.algaworks.algafood.domain.modelo.Restaurante;
-import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 
 @Service

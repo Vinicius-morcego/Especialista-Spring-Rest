@@ -1,7 +1,6 @@
 package com.algaworks.algafood.api.assembler;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;

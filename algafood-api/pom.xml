@@ -10,7 +10,7 @@
 	</parent>
 
 	<groupId>com.algaworks</groupId>
-	<artifactId>algafood-api</artifactId>
+	<artifactId>algafood-api</artifactId> 
 	<version>0.1.1-SNAPSHOT</version>
 	<name>algafood-api</name>
 	<description>API de delivery de comida</description>
@@ -19,18 +19,18 @@
 		<java.version>17</java.version>
 		<modelmapper.version>3.0.0</modelmapper.version>
 		<jasperreports.version>6.19.1</jasperreports.version>
-		<aws-java-sdk-s3.version>1.12.204</aws-java-sdk-s3.version>
-		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version>
-		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
-		<springdoc.version>1.6.9</springdoc.version>
-		<springauthserver.version>0.3.1</springauthserver.version>
+<!-- 		<aws-java-sdk-s3.version>1.12.204</aws-java-sdk-s3.version> -->
+<!-- 		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version> -->
+<!-- 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version> -->
+<!-- 		<springdoc.version>1.6.9</springdoc.version> -->
+<!-- 		<springauthserver.version>1.0.0</springauthserver.version> -->
 		<jakarta-validation.version>3.0.2</jakarta-validation.version>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId> 
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -99,77 +99,77 @@
 			<version>${jasperreports.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-s3</artifactId>
-			<version>${aws-java-sdk-s3.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-mail</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-freemarker</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-hateoas</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.logback-extensions</groupId>
-			<artifactId>logback-ext-loggly</artifactId>
-			<version>${logback-ext-loggly.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.amazonaws</groupId> -->
+<!-- 			<artifactId>aws-java-sdk-s3</artifactId> -->
+<!-- 			<version>${aws-java-sdk-s3.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-mail</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-freemarker</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-hateoas</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.logback-extensions</groupId> -->
+<!-- 			<artifactId>logback-ext-loggly</artifactId> -->
+<!-- 			<version>${logback-ext-loggly.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-security</artifactId> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-oauth2-authorization-server</artifactId>
-			<version>${springauthserver.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-oauth2-authorization-server</artifactId> -->
+<!-- 			<version>${springauthserver.version}</version> -->
+<!-- 		</dependency> -->
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>
-				spring-boot-starter-oauth2-resource-server
-			</artifactId>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.security</groupId> -->
+<!-- 			<artifactId>spring-security-test</artifactId> -->
+<!-- 			<scope>test</scope> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId> -->
+<!-- 				spring-boot-starter-oauth2-resource-server -->
+<!-- 			</artifactId> -->
+<!-- 		</dependency> -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session-data-redis</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>${springdoc.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-hateoas</artifactId>
-			<version>${springdoc.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-security</artifactId>
-			<version>${springdoc.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.boot</groupId> -->
+<!-- 			<artifactId>spring-boot-starter-data-redis</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springframework.session</groupId> -->
+<!-- 			<artifactId>spring-session-data-redis</artifactId> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springdoc</groupId> -->
+<!-- 			<artifactId>springdoc-openapi-ui</artifactId> -->
+<!-- 			<version>${springdoc.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springdoc</groupId> -->
+<!-- 			<artifactId>springdoc-openapi-hateoas</artifactId> -->
+<!-- 			<version>${springdoc.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.springdoc</groupId> -->
+<!-- 			<artifactId>springdoc-openapi-security</artifactId> -->
+<!-- 			<version>${springdoc.version}</version> -->
+<!-- 		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
 		<dependency>
 		    <groupId>jakarta.validation</groupId>
