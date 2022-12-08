@@ -48,6 +48,18 @@ public class CatalogoFotoProdutoService {
 	}
 	
 	@Transactional
+	public void removerFotoProduto(Long produtoId, Long restauranteId) {
+		FotoProduto produto = buscarOuFalhar(produtoId, restauranteId);
+		Optional<FotoProduto> fotoExistente = produtoRepository.findFotoById(restauranteId, produtoId);
+		String nomeArquivoExistente = null;
+		if(fotoExistente.isPresent()) {
+			nomeArquivoExistente = fotoExistente.get().getNomeArquivo();
+			fotoStorage.remover(nomeArquivoExistente);			
+		}
+		produtoRepository.delete(produto);
+	}
+	
+	@Transactional
 	public FotoProduto buscarOuFalhar(Long produtoId, Long restauranteId) {
 		return produtoRepository.findFotoById(restauranteId, produtoId).orElseThrow(() ->					
 				new FotoProdutoNaoEncontradaException(String.format(MSG_FOTO_NAO_ENCONTRADA, produtoId, restauranteId)));
