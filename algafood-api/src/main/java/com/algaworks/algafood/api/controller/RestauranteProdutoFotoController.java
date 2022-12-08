@@ -1,9 +1,12 @@
 package com.algaworks.algafood.api.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +21,7 @@ import com.algaworks.algafood.domain.modelo.FotoProduto;
 import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
 import com.algaworks.algafood.domain.service.CatalogoFotoProdutoService;
+import com.algaworks.algafood.domain.service.FotoStorageService;
 
 import jakarta.validation.Valid;
 
@@ -34,13 +38,12 @@ public class RestauranteProdutoFotoController {
 	@Autowired
 	private FotoProdutoModelAssembler fotoProdutoModelAssembler;
 	
-	
+	@Autowired
+	private FotoStorageService fotoStorage;
 	
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@Valid FotoProdutoInput fotoProdutoInput) throws IOException {
-				
-			
 		
 				Produto produto = cadastroProduto.buscarOuFalhar(restauranteId, produtoId);
 				
@@ -61,10 +64,21 @@ public class RestauranteProdutoFotoController {
 		
 	}
 	
-	@GetMapping("/listar")
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public FotoProdutoModel listar(@PathVariable Long produtoId, @PathVariable Long restauranteId) {
 			FotoProduto foto = catalogoFotoProduto.buscarOuFalhar(produtoId, restauranteId);			
 			return fotoProdutoModelAssembler.toModel(foto);
+	}
+	
+	@GetMapping(produces = MediaType.IMAGE_JPEG_VALUE)
+	public ResponseEntity<InputStreamResource> servirFoto(@PathVariable Long produtoId, @PathVariable Long restauranteId) {
+		FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(produtoId, restauranteId);
+		
+		InputStream input = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
+		
+		return ResponseEntity.ok()
+				.contentType(MediaType.IMAGE_JPEG)
+				.body(new InputStreamResource(input));
 	}
 	
 }
