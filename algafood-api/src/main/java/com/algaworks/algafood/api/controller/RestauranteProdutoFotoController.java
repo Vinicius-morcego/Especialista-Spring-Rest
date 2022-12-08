@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.algaworks.algafood.api.assembler.FotoProdutoModelAssembler;
 import com.algaworks.algafood.api.model.FotoProdutoModel;
 import com.algaworks.algafood.api.model.input.FotoProdutoInput;
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.modelo.FotoProduto;
 import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
@@ -72,13 +73,19 @@ public class RestauranteProdutoFotoController {
 	
 	@GetMapping(produces = MediaType.IMAGE_JPEG_VALUE)
 	public ResponseEntity<InputStreamResource> servirFoto(@PathVariable Long produtoId, @PathVariable Long restauranteId) {
-		FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(produtoId, restauranteId);
 		
-		InputStream input = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
-		
-		return ResponseEntity.ok()
-				.contentType(MediaType.IMAGE_JPEG)
-				.body(new InputStreamResource(input));
+		try {
+			FotoProduto fotoProduto = catalogoFotoProduto.buscarOuFalhar(produtoId, restauranteId);
+			
+			InputStream input = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
+			
+			return ResponseEntity.ok()
+					.contentType(MediaType.IMAGE_JPEG)
+					.body(new InputStreamResource(input));
+			
+		} catch (EntidadeNaoEncontradaException e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 }
