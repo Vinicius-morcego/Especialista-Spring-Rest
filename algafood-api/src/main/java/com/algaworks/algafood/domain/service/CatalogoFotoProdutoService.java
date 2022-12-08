@@ -49,14 +49,11 @@ public class CatalogoFotoProdutoService {
 	
 	@Transactional
 	public void removerFotoProduto(Long produtoId, Long restauranteId) {
-		FotoProduto produto = buscarOuFalhar(produtoId, restauranteId);
-		Optional<FotoProduto> fotoExistente = produtoRepository.findFotoById(restauranteId, produtoId);
-		String nomeArquivoExistente = null;
-		if(fotoExistente.isPresent()) {
-			nomeArquivoExistente = fotoExistente.get().getNomeArquivo();
-			fotoStorage.remover(nomeArquivoExistente);			
-		}
-		produtoRepository.delete(produto);
+		FotoProduto fotoProduto = buscarOuFalhar(produtoId, restauranteId);
+		
+		produtoRepository.delete(fotoProduto);
+		produtoRepository.flush();
+		fotoStorage.remover(fotoProduto.getNomeArquivo());
 	}
 	
 	@Transactional
