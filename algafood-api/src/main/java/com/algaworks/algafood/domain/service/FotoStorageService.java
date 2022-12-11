@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Service
 public interface FotoStorageService {

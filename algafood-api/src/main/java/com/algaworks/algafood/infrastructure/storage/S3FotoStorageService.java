@@ -8,7 +8,7 @@ import com.algaworks.algafood.core.storage.StorageProperties;
 import com.algaworks.algafood.domain.service.FotoStorageService;
 import com.amazonaws.services.s3.AmazonS3;
 
-//@Service
+
 public class S3FotoStorageService implements FotoStorageService{
 	
 	@Autowired
