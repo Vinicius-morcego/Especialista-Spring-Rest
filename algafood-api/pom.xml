@@ -19,7 +19,7 @@
 		<java.version>17</java.version>
 		<modelmapper.version>3.0.0</modelmapper.version>
 		<jasperreports.version>6.19.1</jasperreports.version>
-<!-- 		<aws-java-sdk-s3.version>1.12.204</aws-java-sdk-s3.version> -->
+		<aws-java-sdk-s3.version>1.12.204</aws-java-sdk-s3.version>
 <!-- 		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version> -->
 <!-- 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version> -->
 <!-- 		<springdoc.version>1.6.9</springdoc.version> -->
@@ -99,11 +99,11 @@
 			<version>${jasperreports.version}</version>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>com.amazonaws</groupId> -->
-<!-- 			<artifactId>aws-java-sdk-s3</artifactId> -->
-<!-- 			<version>${aws-java-sdk-s3.version}</version> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk-s3</artifactId>
+			<version>${aws-java-sdk-s3.version}</version>
+		</dependency>
 <!-- 		<dependency> -->
 <!-- 			<groupId>org.springframework.boot</groupId> -->
 <!-- 			<artifactId>spring-boot-starter-mail</artifactId> -->
