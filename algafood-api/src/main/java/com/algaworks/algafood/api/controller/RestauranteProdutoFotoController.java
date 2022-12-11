@@ -30,6 +30,7 @@ import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
 import com.algaworks.algafood.domain.service.CatalogoFotoProdutoService;
 import com.algaworks.algafood.domain.service.FotoStorageService;
+import com.algaworks.algafood.domain.service.FotoStorageService.FotoRecuperada;
 
 import jakarta.validation.Valid;
 
@@ -98,11 +99,11 @@ public class RestauranteProdutoFotoController {
 			
 			verificarCompatibilidadeMediaType(mediaTypeFoto, mediaTypesAceitas);
 			
-			InputStream input = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
+			FotoRecuperada fotoRecuperada = fotoStorage.recuperar(fotoProduto.getNomeArquivo());
 			
 			return ResponseEntity.ok()
 					.contentType(mediaTypeFoto)
-					.body(new InputStreamResource(input));
+					.body(new InputStreamResource(fotoRecuperada.getInputStream()));
 			
 		} catch (EntidadeNaoEncontradaException e) {
 			return ResponseEntity.notFound().build();
