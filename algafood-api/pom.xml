@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
+	<parent> 
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.0.0</version>
@@ -17,9 +17,9 @@
 
 	<properties>
 		<java.version>17</java.version>
-		<modelmapper.version>3.0.0</modelmapper.version>
-		<jasperreports.version>6.19.1</jasperreports.version>
-		<aws-java-sdk-s3.version>1.12.204</aws-java-sdk-s3.version>
+		<modelmapper.version>3.1.0</modelmapper.version>
+		<jasperreports.version>6.20.0</jasperreports.version>
+		<aws-java-sdk-s3.version>1.12.336</aws-java-sdk-s3.version>
 <!-- 		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version> -->
 <!-- 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version> -->
 <!-- 		<springdoc.version>1.6.9</springdoc.version> -->
