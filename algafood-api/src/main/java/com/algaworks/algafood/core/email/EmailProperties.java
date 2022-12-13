@@ -17,4 +17,24 @@ public class EmailProperties {
 
 	@NotNull
 	private String remetente;
+	
+	private Implantacao impl = Implantacao.FAKE;
+	
+	public enum Implantacao{
+		SMTP, FAKE
+	}
+	
+	@Getter
+	@Setter
+	public class Fake {
+		private String impl;
+	}
+	
+	@Getter
+	@Setter
+	public class Smtp{
+		private String host;
+		private String port;
+		private String username;
+	}
 }

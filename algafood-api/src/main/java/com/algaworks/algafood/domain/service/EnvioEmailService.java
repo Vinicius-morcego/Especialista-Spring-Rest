@@ -11,7 +11,8 @@ import lombok.Singular;
 
 public interface EnvioEmailService {
 	
-	void enviar(Mensagem mensagem);
+	void enviar(Mensagem mensagem);	
+	
 	
 	@Getter
 	@Builder
@@ -28,5 +29,7 @@ public interface EnvioEmailService {
 		@Singular("variavel")
 		private Map<String, Object> variaveis;
 	}
+	
+	
 
 }
