@@ -18,10 +18,16 @@ public class EmailProperties {
 	@NotNull
 	private String remetente;
 	
+	private Smtp smtp = new Smtp();
+	
+	private Fake fake = new Fake();
+	
+	private Sandbox sandbox = new Sandbox();
+	
 	private Implantacao impl = Implantacao.FAKE;
 	
 	public enum Implantacao{
-		SMTP, FAKE
+		SMTP, FAKE, SANDBOX
 	}
 	
 	@Getter
@@ -36,5 +42,11 @@ public class EmailProperties {
 		private String host;
 		private String port;
 		private String username;
+	}
+	
+	@Getter
+	@Setter
+	public class Sandbox{
+		private String destinatario;
 	}
 }
