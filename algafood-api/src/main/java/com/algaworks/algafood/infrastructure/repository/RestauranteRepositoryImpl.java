@@ -18,7 +18,7 @@ import com.algaworks.algafood.domain.repository.RestauranteRepositoryQueries;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
+
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
@@ -65,7 +65,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepositoryQueries {
 		criteria.where(predicates.toArray(new Predicate[0]));
 		
 		
-		TypedQuery query = manager.createQuery(criteria);
+		var query = manager.createQuery(criteria);
 		
 		
 		return query.getResultList();

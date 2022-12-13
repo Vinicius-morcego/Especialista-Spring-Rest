@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+
 import org.springframework.stereotype.Repository;
 
 import com.algaworks.algafood.domain.modelo.Restaurante;
@@ -20,7 +20,7 @@ public interface RestauranteRepository extends CustomJpaRepository<Restaurante, 
 	List<Restaurante> findTodosRestaurantesByNome(String nome);
 	
 //	@Query("from Restaurante where nome like %:nome% and cozinha.id = :id")
-	List<Restaurante> consultarPorNome(String nome, @Param("id") Long cozinha);
+	//List<Restaurante> consultarPorNome(String nome, @Param("id") Long cozinha);
 	
 	//List<Restaurante> findByNomeContainingAndCozinhaId(String nome, Long cozinhaId);
 	

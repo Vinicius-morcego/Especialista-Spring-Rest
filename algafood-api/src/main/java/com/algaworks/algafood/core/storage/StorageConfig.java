@@ -4,10 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.algaworks.algafood.core.storage.StorageProperties.TipoStorage;
 import com.algaworks.algafood.domain.service.FotoStorageService;
 import com.algaworks.algafood.infrastructure.storage.LocalFotoStorageService;
-import com.algaworks.algafood.infrastructure.storage.S3FotoStorageService;
 
 @Configuration
 public class StorageConfig {
@@ -27,10 +25,10 @@ public class StorageConfig {
 
 	@Bean
 	public FotoStorageService fotoStorageService() {
-		if(TipoStorage.S3.equals(storageProperties.getTipo()))
-			return new S3FotoStorageService();
-		else {
-			return new LocalFotoStorageService();
-		}	
+//		if(TipoStorage.S3.equals(storageProperties.getTipo()))
+//			//return new S3FotoStorageService();
+//		else {
+//		}	
+		return new LocalFotoStorageService();
 	}
 }

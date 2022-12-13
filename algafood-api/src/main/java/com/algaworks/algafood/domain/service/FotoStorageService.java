@@ -3,12 +3,10 @@ package com.algaworks.algafood.domain.service;
 import java.io.InputStream;
 import java.util.UUID;
 
-import org.springframework.stereotype.Service;
-
 import lombok.Builder;
 import lombok.Getter;
 
-@Service
+
 public interface FotoStorageService {
 
 	FotoRecuperada recuperar(String nomeArquivo);

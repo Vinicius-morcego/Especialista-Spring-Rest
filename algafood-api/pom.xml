@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent> 
+	<parent>    
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.0.0</version>
@@ -19,7 +19,7 @@
 		<java.version>17</java.version>
 		<modelmapper.version>3.1.0</modelmapper.version>
 		<jasperreports.version>6.20.0</jasperreports.version>
-		<aws-java-sdk-s3.version>1.12.336</aws-java-sdk-s3.version>
+		<aws-java-sdk-s3.version>1.12.204</aws-java-sdk-s3.version>
 <!-- 		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version> -->
 <!-- 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version> -->
 <!-- 		<springdoc.version>1.6.9</springdoc.version> -->
@@ -171,15 +171,19 @@
 <!-- 			<version>${springdoc.version}</version> -->
 <!-- 		</dependency> -->
 		<!-- https://mvnrepository.com/artifact/jakarta.validation/jakarta.validation-api -->
-		<dependency>
-		    <groupId>jakarta.validation</groupId>
-		    <artifactId>jakarta.validation-api</artifactId>
-		    <version>${jakarta-validation.version}</version>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 		    <groupId>jakarta.validation</groupId> -->
+<!-- 		    <artifactId>jakarta.validation-api</artifactId> -->
+<!-- 		    <version>${jakarta-validation.version}</version> -->
+<!-- 		</dependency> -->
 				
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-freemarker</artifactId>
 		</dependency>
 	</dependencies>
 
