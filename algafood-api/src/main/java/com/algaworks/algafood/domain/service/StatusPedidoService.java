@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.algaworks.algafood.domain.modelo.Pedido;
-import com.algaworks.algafood.domain.service.EnvioEmailService.Mensagem;
+import com.algaworks.algafood.domain.repository.PedidoRepository;
 
 
 
@@ -17,21 +17,14 @@ public class StatusPedidoService {
 	private EmissaoPedidoService emissaoPedidoService;
 	
 	@Autowired
-	private EnvioEmailService envioEmail;
+	private PedidoRepository pedidoRepository;
 	
 	@Transactional
 	public void confirmar(String codigoPedido) {		
 		Pedido pedido = emissaoPedidoService.buscarOuFalhar(codigoPedido);		
-		pedido.confirmar();
+		pedido.confirmar();		
 		
-		var mensagem = Mensagem.builder()
-				.assunto(pedido.getRestaurante().getNome()+" - Pedido confirmado")
-				.corpo("pedido-confirmado.html")
-				.variavel("pedido", pedido)
-				.destinatario("vinicius.templario@gmail.com")
-				.build();
-		
-		envioEmail.enviar(mensagem);
+		pedidoRepository.save(pedido);
 	}
 	
 	@Transactional
