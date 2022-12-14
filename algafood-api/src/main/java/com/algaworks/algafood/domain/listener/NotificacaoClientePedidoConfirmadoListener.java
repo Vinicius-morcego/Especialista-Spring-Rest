@@ -17,15 +17,19 @@ public class NotificacaoClientePedidoConfirmadoListener {
 	
 	@TransactionalEventListener
 	public void aoConfirmarEvento(PedidoConfirmadoEvent event) {
-		Pedido pedido = event.getPedido();
-		
+		Pedido pedido = event.getPedido();		
+		var mensagem = criarMensagemEmail(pedido, " - Pedido confirmado", "pedido-confirmado.html");		
+		envioEmail.enviar(mensagem);
+	}
+
+	
+	public Mensagem criarMensagemEmail(Pedido pedido, String statusPedido, String template) {
 		var mensagem = Mensagem.builder()
-				.assunto(pedido.getRestaurante().getNome()+" - Pedido confirmado")
-				.corpo("pedido-confirmado.html")
+				.assunto(pedido.getRestaurante().getNome()+statusPedido)
+				.corpo(template)
 				.variavel("pedido", pedido)
 				.destinatario(pedido.getCliente().getEmail())
 				.build();
-		
-		envioEmail.enviar(mensagem);
+		return mensagem;
 	}
 }
