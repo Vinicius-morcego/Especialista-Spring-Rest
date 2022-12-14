@@ -1,8 +1,8 @@
 package com.algaworks.algafood.domain.listener;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.algaworks.algafood.domain.event.PedidoConfirmadoEvent;
 import com.algaworks.algafood.domain.modelo.Pedido;
@@ -15,7 +15,7 @@ public class NotificacaoClientePedidoConfirmadoListener {
 	@Autowired
 	private EnvioEmailService envioEmail;
 	
-	@EventListener
+	@TransactionalEventListener
 	public void aoConfirmarEvento(PedidoConfirmadoEvent event) {
 		Pedido pedido = event.getPedido();
 		
