@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.assembler;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -30,7 +31,7 @@ public class RestauranteModelAssembler {
 		return modelMapper.map(restaurante, RestauranteModel.class);
 	}
 	
-	public Collection<RestauranteModel> toCollectionModel(Collection<Restaurante> restaurantes){
+	public List<RestauranteModel> toCollectionModel(Collection<Restaurante> restaurantes){
 		return restaurantes.stream()
 				.map(restaurante -> toModel(restaurante))
 				.collect(Collectors.toList());

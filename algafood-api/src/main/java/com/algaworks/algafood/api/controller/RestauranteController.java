@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,16 +54,21 @@ public class RestauranteController {
 	
 	@JsonView(RestauranteView.Resumo.class)
 	@GetMapping
-	public Collection<RestauranteModel> listar(){		
+	public ResponseEntity<List<RestauranteModel>> listar(){		
 		//BeanUtils.copyProperties(Restaurante.class, RestauranteModel.class);
-		return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
+		
+		List<RestauranteModel> restaurantes =  restauranteModelAssembler
+				.toCollectionModel(restauranteRepository.findAll());
+		return ResponseEntity.ok()
+				.header(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "http://www.algafood.local:8000")
+				.body(restaurantes);
 	}
 	
-	@JsonView(RestauranteView.ApenasNome.class)
-	@GetMapping(params = "projecao=apenas-nome")
-	public Collection<RestauranteModel> listarApenasNomes(){
-		return listar();
-	}
+//	@JsonView(RestauranteView.ApenasNome.class)
+//	@GetMapping(params = "projecao=apenas-nome")
+//	public Collection<RestauranteModel> listarApenasNomes(){
+//		return listar();
+//	}
 	
 	@GetMapping("/{restauranteId}")
 	public RestauranteModel buscar(@PathVariable Long restauranteId) {
