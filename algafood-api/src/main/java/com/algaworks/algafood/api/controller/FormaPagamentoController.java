@@ -40,7 +40,7 @@ public class FormaPagamentoController {
 	private CadastroFormaPagamentoService formaPagamentoService;
 	
 	@GetMapping
-	private List<FormaPagamentoModel> Listar(){
+	private List<FormaPagamentoModel> consultar(){
 		return formaPagamentoAssembler
 				.toDomainCollection(formaPagamentoRepository.findAll());
 	}
