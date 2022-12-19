@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(maxAge = 10)
+//@CrossOrigin(maxAge = 10)
 @RestController
 @RequestMapping(value = "/restaurantes")
 public class RestauranteController {
