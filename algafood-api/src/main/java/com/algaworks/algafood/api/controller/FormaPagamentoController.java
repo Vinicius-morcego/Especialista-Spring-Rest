@@ -75,7 +75,7 @@ public class FormaPagamentoController {
 		ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
 		
 		String eTag = "0";
-		OffsetDateTime dataUltimaAtualizacao = formaPagamentoRepository.getUltimaDataAtualizacao();
+		OffsetDateTime dataUltimaAtualizacao = formaPagamentoRepository.getUltimaDataAtualizacaoById(formaPagamentoId);
 		if(dataUltimaAtualizacao != null)
 			eTag = String.valueOf(dataUltimaAtualizacao.toEpochSecond());
 		
