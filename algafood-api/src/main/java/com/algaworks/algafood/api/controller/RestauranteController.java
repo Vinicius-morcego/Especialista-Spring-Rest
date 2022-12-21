@@ -80,7 +80,7 @@ public class RestauranteController {
 
 	}	
 	
-	@PostMapping("/salvar")
+	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public RestauranteModel salvar(@RequestBody @Valid RestauranteInput restauranteInput){
 			try {
