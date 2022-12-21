@@ -53,9 +53,13 @@ public class FormaPagamentoController {
 	}
 	
 	@GetMapping("/{formaPagamentoId}")
-	public FormaPagamentoModel buscar(@PathVariable Long formaPagamentoId) {
+	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId) {
 		FormaPagamento formaPagamento = formaPagamentoService.buscarOuFalhar(formaPagamentoId);
-		return formaPagamentoAssembler.toModel(formaPagamento);
+		FormaPagamentoModel formaPagamentoModel = formaPagamentoAssembler.toModel(formaPagamento);
+		
+		return ResponseEntity.ok()
+				.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
+				.body(formaPagamentoModel);
 	}
 	
 	@PostMapping
