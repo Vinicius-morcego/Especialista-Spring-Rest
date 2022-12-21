@@ -2,6 +2,10 @@ package com.algaworks.algafood.domain.modelo;
 
 import jakarta.persistence.Id;
 
+import java.time.OffsetDateTime;
+
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +22,9 @@ public class FormaPagamento {
 	@EqualsAndHashCode.Include
 	private Long id;
 	private String descricao;
+	
+	@UpdateTimestamp
+	private OffsetDateTime dataAtualizacao;
 	
 	
 	

@@ -47,10 +47,10 @@ insert into restaurante (nome, taxa_frete, cozinha_id, data_cadastro, data_atual
 insert into produto(nome, descricao, preco, ativo, restaurante_id) values('Bom Bril', 'Esponja de Aço', 2.5, 0, 1);
 insert into produto(nome, descricao, preco, ativo, restaurante_id) values('Colgate', 'Pasta de Dente', 1.5, 1, 1);
 
-insert into forma_pagamento (descricao) values('Cartão de Crédito');
-insert into forma_pagamento (descricao) values('Cartão de Débito');
-insert into forma_pagamento (descricao) values('Dinheiro');
-insert into forma_pagamento (descricao) values('Pix');
+insert into forma_pagamento (descricao, data_atualizacao) values('Cartão de Crédito', utc_timestamp);
+insert into forma_pagamento (descricao, data_atualizacao) values('Cartão de Débito', utc_timestamp);
+insert into forma_pagamento (descricao, data_atualizacao) values('Dinheiro', utc_timestamp);
+insert into forma_pagamento (descricao, data_atualizacao) values('Pix', utc_timestamp);
 
 insert into permissao (descricao, nome) values('Pode Inserir, Alterar e Excluir', 'ADMINISTRADOR');
 insert into permissao (descricao, nome) values('Pode Inserir, Alterar', 'USUÁRIO');

@@ -1,7 +1,9 @@
 package com.algaworks.algafood.domain.repository;
 
+import java.time.OffsetDateTime;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.algaworks.algafood.domain.modelo.FormaPagamento;
@@ -11,5 +13,8 @@ public interface FormaPagamentoRepository extends CustomJpaRepository<FormaPagam
 	
 	
 	Optional<FormaPagamento> findFormaPagamentoById(Long id);
+	
+	@Query("select max(dataAtualizacao) from FormaPagamento")
+	OffsetDateTime getUltimaDataAtualizacao();
 
 }
