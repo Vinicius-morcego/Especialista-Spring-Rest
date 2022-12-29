@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.Predicate;
+
 import org.springframework.stereotype.Repository;
 
 import com.algaworks.algafood.domain.filter.VendaDiariaFilter;
@@ -12,10 +16,6 @@ import com.algaworks.algafood.domain.modelo.Pedido;
 import com.algaworks.algafood.domain.modelo.StatusPedido;
 import com.algaworks.algafood.domain.modelo.dto.VendaDiaria;
 import com.algaworks.algafood.domain.service.VendaQueryService;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.criteria.Predicate;
 
 @Repository
 public class VendaQueryServiceImpl implements VendaQueryService{

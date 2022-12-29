@@ -2,12 +2,12 @@ package com.algaworks.algafood.infrastructure.repository;
 
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import com.algaworks.algafood.domain.repository.CustomJpaRepository;
-
-import jakarta.persistence.EntityManager;
 
 
 public class CustomJpaRepositoryImpl<T, ID> extends SimpleJpaRepository<T, ID>
