@@ -30,6 +30,9 @@ import com.algaworks.algafood.domain.modelo.Cidade;
 import com.algaworks.algafood.domain.repository.CidadeRepository;
 import com.algaworks.algafood.domain.service.CadastroCidadeService;
 
+import io.swagger.annotations.Api;
+
+@Api("Cidades")
 @RestController
 @RequestMapping(value = "/cidades")
 public class CidadeController {

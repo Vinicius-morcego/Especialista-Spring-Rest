@@ -4,11 +4,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tags;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -23,7 +25,8 @@ public class SpringFoxConfig{
 	        	.apis(RequestHandlerSelectors.basePackage("com.algaworks.algafood.api"))
 	        	.paths(PathSelectors.any())
 	          .build()
-	          .apiInfo(apiInfo());
+	          .apiInfo(apiInfo())
+	          .tags(new Tag("Cidades", "Gerência as cidades"));
 	  }	 
 	
 	 public ApiInfo apiInfo() {
