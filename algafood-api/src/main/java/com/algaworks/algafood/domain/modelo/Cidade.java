@@ -28,10 +28,8 @@ public class Cidade {
 	@Id
 	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id;	
 	
-	//@NotNull
-	@NotBlank
 	private String nome;
 	
 	@Valid

@@ -1,5 +1,7 @@
 package com.algaworks.algafood.api.model.input;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.ApiModelProperty;
@@ -11,6 +13,7 @@ import lombok.Setter;
 @Component
 public class EstadoIdInput {
 
-	@ApiModelProperty(value = "ID do estado", example = "1")
+	@ApiModelProperty(example = "1", required = true)
+	@NotNull
 	private Long id;
 }
