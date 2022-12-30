@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,6 +24,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SpringFoxConfig{
+	
+	private static String MESSAGE_BAD_REQUEST = "Consulta inválida";
+	private static String MESSAGE_INTERNAL_SERVER_ERROR = "Erro interno do servidor";
+	private static String MESSAGE_NOT_ACCEPTABLE = "Recuso não possui representação que pode ser aceita pelo consumidor";
+	private static String MESSAGE_UNSUPPORTED_MEDIA_TYPE = "Tipo de midia não suportada";
+	
 	 @Bean
 	  public Docket apiDocket() {
 	    return new Docket(DocumentationType.OAS_30)
@@ -36,6 +41,9 @@ public class SpringFoxConfig{
 	          .build()
 	          .useDefaultResponseMessages(false)
 	          .globalResponses(HttpMethod.GET, globalGetResponseMessages())
+	          .globalResponses(HttpMethod.POST, globalPostResponseMessages())
+	          .globalResponses(HttpMethod.PUT, globalPostResponseMessages())
+	          .globalResponses(HttpMethod.DELETE, globalDeleteResponseMessages())
 	          .apiInfo(apiInfo())
 	          .tags(new Tag("Cidades", "Gerência as cidades"));
 	  }	 
@@ -46,16 +54,54 @@ public class SpringFoxConfig{
 		 return Arrays.asList(
 				 new ResponseBuilder()				 
 				 	.code(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
-				 	.description("Erro interno do servidor")
+				 	.description(MESSAGE_INTERNAL_SERVER_ERROR)
 				 	.build(),				 	
 				 	new ResponseBuilder()
 				 	.code(String.valueOf(HttpStatus.NOT_ACCEPTABLE.value()))
-				 	.description("Recurso não possui representação que pode ser aceita pelo consumidor")
+				 	.description(MESSAGE_NOT_ACCEPTABLE)
 				 	.build()
 				 );
 		 
 	 }
 	 
+
+	 private List<Response> globalPostResponseMessages(){
+		 
+		 return Arrays.asList(
+				 	new ResponseBuilder()				 	
+				 	.code(String.valueOf(HttpStatus.BAD_REQUEST.value()))
+				 	.description(MESSAGE_BAD_REQUEST)
+				 	.build(),
+				 	new ResponseBuilder()				 	
+				 	.code(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+				 	.description(MESSAGE_INTERNAL_SERVER_ERROR)
+				 	.build(),				 	
+				 	new ResponseBuilder()
+				 	.code(String.valueOf(HttpStatus.NOT_ACCEPTABLE.value()))
+				 	.description(MESSAGE_NOT_ACCEPTABLE)
+				 	.build(),
+				 	new ResponseBuilder()				 	
+				 	.code(String.valueOf(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value()))
+				 	.description(MESSAGE_UNSUPPORTED_MEDIA_TYPE)
+				 	.build()
+				 );
+		 
+	 }
+	 
+	 private List<Response> globalDeleteResponseMessages(){
+		 
+		 return Arrays.asList(
+				 new ResponseBuilder()				 
+				 	.code(String.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()))
+				 	.description(MESSAGE_INTERNAL_SERVER_ERROR)
+				 	.build(),				 	
+				 	new ResponseBuilder()
+				 	.code(String.valueOf(HttpStatus.NOT_ACCEPTABLE.value()))
+				 	.description(MESSAGE_NOT_ACCEPTABLE)
+				 	.build()
+				 );
+		 
+	 }
 	 
 	 private ApiInfo apiInfo() {
 		 return new ApiInfoBuilder()
