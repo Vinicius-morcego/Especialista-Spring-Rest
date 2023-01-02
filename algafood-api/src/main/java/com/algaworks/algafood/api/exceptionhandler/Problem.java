@@ -36,9 +36,9 @@ public class Problem {
 	@Getter
 	@Builder
 	public static class Object{
-		@ApiModelProperty(example = "preco")
+		@ApiModelProperty(example = "preço")
 		private String name;
-		@ApiModelProperty(example = "O preco é obrigatório")
+		@ApiModelProperty(example = "O preço é obrigatório")
 		private String userMessage;
 	}
 	
