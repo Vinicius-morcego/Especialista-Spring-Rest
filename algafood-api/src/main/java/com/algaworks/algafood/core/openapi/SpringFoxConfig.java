@@ -1,7 +1,6 @@
 package com.algaworks.algafood.core.openapi;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -17,8 +16,11 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.CozinhaModel;
+import com.algaworks.algafood.api.model.PedidoResumoModel;
+import com.algaworks.algafood.api.openapi.controller.PedidoControllerOpenApi;
 import com.algaworks.algafood.api.openapi.model.CozinhasModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.PageableModelOpenApi;
+import com.algaworks.algafood.api.openapi.model.PedidosModelOpenApi;
 import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -27,13 +29,10 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RepresentationBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.RequestParameterBuilder;
 import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
-import springfox.documentation.schema.ScalarType;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.ParameterType;
 import springfox.documentation.service.Response;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
@@ -79,12 +78,15 @@ public class SpringFoxConfig{
 	          .directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
 	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
 	        		  Page.class, CozinhaModel.class), CozinhasModelOpenApi.class))
-	          .apiInfo(apiInfo())
+	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
+	        		  Page.class, PedidoResumoModel.class), PedidosModelOpenApi.class))
+	          .apiInfo(apiInfo())	          
 	          .tags(
 	        	  new Tag("Cidades", "Gerência as cidades"), 
 	        	  new Tag("Grupos", "Gerência os grupos"),
 	        	  new Tag("Cozinhas", "Gerência as cozinhas"),
-	        	  new Tag("Formas de pagamento", "Gerência as formas de pagamento")
+	        	  new Tag("Formas de pagamento", "Gerência as formas de pagamento"),
+	        	  new Tag("Pedidos", "Gerência os pedidos")
 	          );
 	    		
 	  }	 

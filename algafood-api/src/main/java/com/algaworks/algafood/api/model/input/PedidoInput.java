@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @Component
 public class PedidoInput {
-
+	
 	@Valid
 	@NotNull
 	private RestauranteIdInput restaurante;
