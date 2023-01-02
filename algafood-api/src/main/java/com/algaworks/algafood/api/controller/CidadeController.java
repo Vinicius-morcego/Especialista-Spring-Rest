@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.assembler.CidadeInputDisassembler;
 import com.algaworks.algafood.api.assembler.CidadeModelAssembler;
-import com.algaworks.algafood.api.controller.openapi.CidadeControllerOpenApi;
 import com.algaworks.algafood.api.model.CidadeModel;
 import com.algaworks.algafood.api.model.input.CidadeInput;
+import com.algaworks.algafood.api.openapi.controller.CidadeControllerOpenApi;
 import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
