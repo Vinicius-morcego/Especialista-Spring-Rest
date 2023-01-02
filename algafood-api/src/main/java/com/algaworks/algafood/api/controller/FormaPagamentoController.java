@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +26,15 @@ import com.algaworks.algafood.api.assembler.FormaPagamentoAssembler;
 import com.algaworks.algafood.api.assembler.FormaPagamentoInputDisassembler;
 import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
+import com.algaworks.algafood.api.openapi.controller.FormaPagamentoControllerOpenApi;
 import com.algaworks.algafood.domain.modelo.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.service.CadastroFormaPagamentoService;
 
+
 @RestController
-@RequestMapping("/formaPagamentos")
-public class FormaPagamentoController {
+@RequestMapping(path = "/formaPagamentos")
+public class FormaPagamentoController implements FormaPagamentoControllerOpenApi{
 	
 	@Autowired
 	private FormaPagamentoInputDisassembler formaPagamentoInputDisassembler;
@@ -45,8 +48,8 @@ public class FormaPagamentoController {
 	@Autowired
 	private CadastroFormaPagamentoService formaPagamentoService;
 	
-	@GetMapping
-	private ResponseEntity<List<FormaPagamentoModel>> consultar(ServletWebRequest request){	
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<FormaPagamentoModel>> consultar(ServletWebRequest request){	
 		ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
 		
 		OffsetDateTime dataUltimaAtualizacao = formaPagamentoRepository.getUltimaDataAtualizacao();
@@ -69,7 +72,7 @@ public class FormaPagamentoController {
 				.body(formaPagamentosModel);
 	}
 	
-	@GetMapping("/{formaPagamentoId}")
+	@GetMapping(path = "/{formaPagamentoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<FormaPagamentoModel> buscar(@PathVariable Long formaPagamentoId, ServletWebRequest request) {
 		
 		ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
@@ -91,7 +94,7 @@ public class FormaPagamentoController {
 				.body(formaPagamentoModel);
 	}
 	
-	@PostMapping
+	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public FormaPagamentoModel salvar(@RequestBody @Valid FormaPagamentoInput formaPagamentoInput) {
 		FormaPagamento formaPagamento = formaPagamentoInputDisassembler.toDomainObject(formaPagamentoInput);
 		
