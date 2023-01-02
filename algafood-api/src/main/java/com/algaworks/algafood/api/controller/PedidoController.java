@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +34,9 @@ import com.algaworks.algafood.domain.modelo.Usuario;
 import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.algaworks.algafood.infrastructure.repository.spec.PedidoSpecs;
+
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -72,6 +76,10 @@ public class PedidoController {
 //		return pedidosWrapper;
 //	}
 	
+	@ApiImplicitParams({
+		@ApiImplicitParam(value = "Nome das propriedades para filtrar na resposta, separados por vírgula",
+				name = "campos", paramType = "query", type = "string")
+	})
 	@GetMapping
 	public Page<PedidoResumoModel> pesquisar(PedidoFilter filter,
 			@PageableDefault(size = 2) Pageable pageable){
@@ -86,12 +94,16 @@ public class PedidoController {
 		
 		return pedidosPageModel;
 	}
-//	
-//	@GetMapping("/{codigoPedido}")
-//	public PedidoModel buscar(@PathVariable String codigoPedido) {
-//		Pedido pedido = emissaoPedidoService.buscarOuFalhar(codigoPedido);
-//		return pedidoModelAssembler.toModel(pedido);
-//	}
+	
+	@ApiImplicitParams({
+		@ApiImplicitParam(value = "Nome das propriedades para filtrar na resposta, separados por vírgula",
+				name = "campos", paramType = "query", type = "string")
+	})
+	@GetMapping("/{codigoPedido}")
+	public PedidoModel buscar(@PathVariable String codigoPedido) {
+		Pedido pedido = emissaoPedidoService.buscarOuFalhar(codigoPedido);
+		return pedidoModelAssembler.toModel(pedido);
+	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
