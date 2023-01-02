@@ -33,7 +33,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Import(BeanValidatorPluginsConfiguration.class)
 public class SpringFoxConfig{
 	
-	private static String MESSAGE_BAD_REQUEST = "Consulta inválida";
+	private static String MESSAGE_BAD_REQUEST = "Requesição inválida (erro do cliente)";
 	private static String MESSAGE_INTERNAL_SERVER_ERROR = "Erro interno do servidor";
 	private static String MESSAGE_NOT_ACCEPTABLE = "Recurso não possui representação que pode ser aceita pelo consumidor";
 	private static String MESSAGE_UNSUPPORTED_MEDIA_TYPE = "Tipo de midia não suportada";
