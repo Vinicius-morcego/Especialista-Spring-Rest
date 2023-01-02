@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,7 +36,7 @@ import io.swagger.annotations.ApiParam;
 
 
 @RestController
-@RequestMapping(value = "/cidades")
+@RequestMapping(path = "/cidades")
 public class CidadeController implements CidadeControllerOpenApi{
 
 	@Autowired 
@@ -50,12 +51,12 @@ public class CidadeController implements CidadeControllerOpenApi{
 	@Autowired 
 	private CidadeInputDisassembler cidadeInputDisassembler;
 	
-	@GetMapping
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<CidadeModel> listar(){
 		return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
 	}	
 	
-	@GetMapping("/{cidadeId}")
+	@GetMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CidadeModel buscar(@PathVariable Long cidadeId){
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
 		return cidadeModelAssembler.toModel(cidade);
@@ -67,7 +68,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 	}
 	
 	
-	@PostMapping("/salvar")
+	@PostMapping(path = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModel salvar(@RequestBody @Valid CidadeInput cidadeInput){
 		
@@ -81,7 +82,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 	}
 	
 	
-	@PutMapping("/{cidadeId}")
+	@PutMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CidadeModel atualizar(
 			@PathVariable Long cidadeId,			 
 			@RequestBody @Valid CidadeInput cidadeInput){

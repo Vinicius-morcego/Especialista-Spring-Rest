@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +31,7 @@ import com.algaworks.algafood.domain.repository.GrupoRepository;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 
 @RestController
-@RequestMapping("/grupos")
+@RequestMapping(path = "/grupos")
 public class GrupoController implements GrupoControllerOpenApi {
 	
 	public static String MSG_ENTIDADE_EM_USO = "Grupo de código %d está em uso e não pode ser excluído";
@@ -47,18 +48,18 @@ public class GrupoController implements GrupoControllerOpenApi {
 	@Autowired
 	private GrupoRepository grupoRepository;
 	
-	@GetMapping
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<GrupoModel> listar(){
 		return grupoAssembler.toCollectModel(grupoRepository.findAll());		
 	}
 	
-	@GetMapping("/{grupoId}")
+	@GetMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GrupoModel buscar(@PathVariable Long grupoId) {
 		Grupo grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
 		return grupoAssembler.toModel(grupo);
 	}
 	
-	@PostMapping("/salvar")
+	@PostMapping(path = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GrupoModel salvar(@RequestBody @Valid GrupoInput grupoInput) {
 		Grupo grupo = grupoInputDisassembler.toDomainObject(grupoInput);
 		
@@ -66,7 +67,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 		
 	}
 	
-	@PutMapping("/{grupoId}")
+	@PutMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GrupoModel atualizar(@PathVariable Long grupoId, @RequestBody @Valid GrupoInput grupoInput) {
 		Grupo grupoAtual = cadastroGrupoService.buscarOuFalhar(grupoId);
 		
