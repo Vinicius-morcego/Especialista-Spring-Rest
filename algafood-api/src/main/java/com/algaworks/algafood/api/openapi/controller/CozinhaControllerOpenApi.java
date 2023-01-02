@@ -18,7 +18,7 @@ public interface CozinhaControllerOpenApi {
 
 	@ApiOperation("Lista as cozinhas")
 	@ApiResponses({
-		@ApiResponse(code = 405, message = "Recurso não implementado", response = Problem.class)		
+		@ApiResponse(code = 405, message = "Recurso não implementado")		
 	})
 	public Page<CozinhaModel> listar(
 			@ApiParam(example = "corpo", value = "Página de representação das cozinhas") Pageable pageable);
