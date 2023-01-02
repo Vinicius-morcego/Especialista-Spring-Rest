@@ -67,7 +67,8 @@ public class SpringFoxConfig{
 	          .apiInfo(apiInfo())
 	          .tags(
 	        	  new Tag("Cidades", "Gerência as cidades"), 
-	        	  new Tag("Grupos", "Gerência os grupos")	          
+	        	  new Tag("Grupos", "Gerência os grupos"),
+	        	  new Tag("Cozinhas", "Gerência as cozinhas")
 	          );
 	    		
 	  }	 
