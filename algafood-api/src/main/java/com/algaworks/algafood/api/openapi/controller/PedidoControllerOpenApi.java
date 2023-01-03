@@ -30,7 +30,7 @@ public interface PedidoControllerOpenApi {
 				name = "campos", paramType = "query", type = "string")
 	})
 	
-	public Page<PedidoResumoModel> pesquisar(PedidoFilter filter,
+	Page<PedidoResumoModel> pesquisar(PedidoFilter filter,
 			@PageableDefault(size = 2) Pageable pageable);
 	
 	
@@ -43,14 +43,14 @@ public interface PedidoControllerOpenApi {
 		@ApiImplicitParam(value = "Nome das propriedades para filtrar na resposta, separados por vírgula",
 				name = "campos", paramType = "query", type = "string")
 	})
-	public PedidoModel buscar(@ApiParam(
+	PedidoModel buscar(@ApiParam(
 			value = "ID do pedido", example = "1", required = true) String codigoPedido);
 	
 	@ApiOperation("Cadastra um pedido")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Pedido cadastrado")
 	})
-	public PedidoModel adicionar(
+	PedidoModel adicionar(
 			@ApiParam(value = "corpo", example = "Representação de um pedido", required = true) 
 			PedidoInput pedidoInput);
 

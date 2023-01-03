@@ -3,10 +3,6 @@ package com.algaworks.algafood.api.openapi.controller;
 import java.util.Collection;
 import java.util.List;
 
-import javax.validation.Valid;
-
-import org.springframework.web.bind.annotation.RequestBody;
-
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
@@ -23,23 +19,23 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = "Restaurantes")
 public interface RestauranteControllerOpenApi {
 
-	public static final String LISTA_DE_ID_S_DE_RESTAURANTES = "Lista de ID´s de restaurantes";
-	public static final String LISTA_DE_ID_S_INVÁLIDA = "Lista de ID´s inválida";
-	public static final String ID_DO_RESTAURANTE = "ID do restaurante";
-	public static final String MSG_NOT_FOUND = "Restaurante não encontrado";
-	public static final String MSG_BAD_REQUEST = "ID do restaurante inválido";
-	public static final String BUSCA_UM_RESTAURANTE_POR_ID = "Busca um restaurante por ID";
-	public static final String LISTA_RESTAURANTES = "Lista restaurantes";
+	public static String LISTA_DE_ID_S_DE_RESTAURANTES = "Lista de ID´s de restaurantes";
+	public static String LISTA_DE_ID_S_INVÁLIDA = "Lista de ID´s inválida";
+	public static String ID_DO_RESTAURANTE = "ID do restaurante";
+	public static String MSG_NOT_FOUND = "Restaurante não encontrado";
+	public static String MSG_BAD_REQUEST = "ID do restaurante inválido";
+	public static String BUSCA_UM_RESTAURANTE_POR_ID = "Busca um restaurante por ID";
+	public static String LISTA_RESTAURANTES = "Lista restaurantes";
 
 	@ApiOperation(value = LISTA_RESTAURANTES, response = RestauranteBasicoModelOpenApi.class)
 	@ApiImplicitParams({
 		@ApiImplicitParam(value = "Nome da projeção de pedidos", allowableValues = "apenas-nome",
 				name = "projecao", paramType = "query", type = "string")
 	})	
-	public List<RestauranteModel> listar();
+	List<RestauranteModel> listar();
 	
 	@ApiOperation(value = LISTA_RESTAURANTES, hidden = true)	
-	public Collection<RestauranteModel> listarApenasNomes();
+	Collection<RestauranteModel> listarApenasNomes();
 	
 	@ApiOperation(BUSCA_UM_RESTAURANTE_POR_ID)
 	@ApiResponses({
@@ -47,7 +43,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 		
 	})
-	public RestauranteModel buscar(
+	RestauranteModel buscar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);	
 	
@@ -55,7 +51,7 @@ public interface RestauranteControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Restaurante cadastrado")
 	})
-	public RestauranteModel salvar(
+	RestauranteModel salvar(
 			@ApiParam(value = "corpo", example = "Representação de um restaurante", required = true) 
 			RestauranteInput restauranteInput);
 	
@@ -64,7 +60,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public RestauranteModel atualizar(
+	RestauranteModel atualizar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId, 
 			@ApiParam(value = "corpo", example = "Representação de um restaurante", required = true)
@@ -75,7 +71,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public void ativar(
+	void ativar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 	
@@ -86,7 +82,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public void inativar(
+	void inativar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 	
@@ -96,7 +92,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 		
 	})
-	public void abrir(
+	void abrir(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 	
@@ -105,7 +101,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = LISTA_DE_ID_S_INVÁLIDA, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public void ativarMultiplos(
+	void ativarMultiplos(
 			@ApiParam(value = LISTA_DE_ID_S_DE_RESTAURANTES, required = true)
 			List<Long> restauranteIds);
 	
@@ -114,7 +110,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = LISTA_DE_ID_S_INVÁLIDA, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public void inativarMultiplos(
+	void inativarMultiplos(
 			@ApiParam(value = LISTA_DE_ID_S_DE_RESTAURANTES, required = true) 
 			List<Long> restauranteIds);
 	
@@ -125,7 +121,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public void fechar(
+	void fechar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 	
@@ -134,7 +130,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public void excluir(
+	void excluir(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 }

@@ -3,7 +3,6 @@ package com.algaworks.algafood.api.openapi.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
@@ -23,7 +22,7 @@ public interface FormaPagamentoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 405, message = "Recurso não implementado", response = Problem.class)
 	})	
-	public ResponseEntity<List<FormaPagamentoModel>> consultar(
+		ResponseEntity<List<FormaPagamentoModel>> consultar(
 			@ApiParam(example = "corpo", value = "Representação de formas de pagamento")
 			ServletWebRequest request);
 	
@@ -32,7 +31,7 @@ public interface FormaPagamentoControllerOpenApi {
 		@ApiResponse(code = 400, message = "ID da forma de pagamento inválido", response = Problem.class),
 		@ApiResponse(code = 404, message = "Forma de pagamento não encontrada", response = Problem.class)
 	})	
-	public ResponseEntity<FormaPagamentoModel> buscar(
+		ResponseEntity<FormaPagamentoModel> buscar(
 			@ApiParam(example = "1", required = true) 
 			Long formaPagamentoId, 
 			@ApiParam
@@ -42,7 +41,7 @@ public interface FormaPagamentoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Forma de pagamento cadastrada")
 	})
-	public FormaPagamentoModel salvar(
+		FormaPagamentoModel salvar(
 			@ApiParam(example = "corpo", value = "Representação de uma forma de pagamento", required = true)
 			FormaPagamentoInput formaPagamentoInput);
 	
@@ -51,7 +50,7 @@ public interface FormaPagamentoControllerOpenApi {
 		@ApiResponse(code = 204, message = "Forma de pagamento excluída")
 		
 	})
-	public void excluir(@ApiParam(
+		void excluir(@ApiParam(
 			value = "ID de uma forma de pagamento", example = "1", required = true) 
 			Long formaPagamentoId);
 }

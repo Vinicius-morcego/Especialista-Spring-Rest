@@ -17,21 +17,21 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = "Estados")
 public interface EstadoControllerOpenApi {
 
-	public static final String MSG_NOT_FOUND = "Estado não encontrado";
-	public static final String MSG_BAD_REQUEST = "ID do estado inválido";
+	public static String MSG_NOT_FOUND = "Estado não encontrado";
+	public static String MSG_BAD_REQUEST = "ID do estado inválido";
 
 	@ApiOperation("Lista os estados")
 	@ApiResponses({
 		@ApiResponse(code = 405, message = "Recurso não implementado", response = Problem.class)
 	})
-	public List<EstadoModel> listar();
+	List<EstadoModel> listar();
 	
 	@ApiOperation("Busca um estado por ID")
 	@ApiResponses({
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})	
-	public EstadoModel buscar(
+		EstadoModel buscar(
 			@ApiParam(value = "ID do estado", example = "1", required = true)
 			Long estadoId);
 	
@@ -40,7 +40,7 @@ public interface EstadoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Estado cadastrado")		
 	})
-	public EstadoModel salvar(
+		EstadoModel salvar(
 			@ApiParam(value = "corpo", example = "Representação de um estado", required = true) 
 			EstadoInput estadoInput);
 	
@@ -49,7 +49,7 @@ public interface EstadoControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public EstadoModel atualizar(
+		EstadoModel atualizar(
 			@ApiParam(value = "ID do estado", example = "1", required = true) 
 			Long estadoId, 
 			@ApiParam(value = "corpo", example = "Representação de um estado", required = true)
@@ -60,5 +60,5 @@ public interface EstadoControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public void remover(@PathVariable Long estadoId);
+		void remover(@PathVariable Long estadoId);
 }

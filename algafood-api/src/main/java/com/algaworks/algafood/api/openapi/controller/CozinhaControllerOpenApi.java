@@ -20,7 +20,7 @@ public interface CozinhaControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 405, message = "Recurso não implementado")		
 	})
-	public Page<CozinhaModel> listar(
+	Page<CozinhaModel> listar(
 			@ApiParam(example = "corpo", value = "Página de representação das cozinhas") Pageable pageable);
 	
 	@ApiOperation("Busca uma cozinha por ID")
@@ -29,13 +29,13 @@ public interface CozinhaControllerOpenApi {
 		@ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)		
 	})
 	
-	public CozinhaModel buscar(@ApiParam(value = "ID da cozinha", required = true) Long cozinhaId);
+	CozinhaModel buscar(@ApiParam(value = "ID da cozinha", required = true) Long cozinhaId);
 	
 	@ApiOperation("Cadastra a cozinha")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Cozinha cadastrada")
 	})	
-	public CozinhaModel adicionar(
+	CozinhaModel adicionar(
 			@ApiParam(example = "corpo", value = "Representação da cozinha", required = true) 
 			CozinhaInput cozinhaInput);
 	
@@ -45,7 +45,7 @@ public interface CozinhaControllerOpenApi {
 		@ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)
 		
 	})
-	public CozinhaModel atualizar(
+	CozinhaModel atualizar(
 			@ApiParam(example = "1", value = "ID da cozinha", required = true) 
 			Long cozinhaId, 
 			@ApiParam(example = "corpo", value = "Representação da cozinha com dados novos", required = true)
@@ -57,5 +57,5 @@ public interface CozinhaControllerOpenApi {
 		@ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)
 		
 	})
-	public void remover(@ApiParam(value = "ID da cozinha", required = true) Long cozinhaId);
+	void remover(@ApiParam(value = "ID da cozinha", required = true) Long cozinhaId);
 }
