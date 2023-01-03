@@ -1,12 +1,8 @@
 package com.algaworks.algafood.api.openapi.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.PedidoModel;
@@ -18,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -46,24 +43,15 @@ public interface PedidoControllerOpenApi {
 		@ApiImplicitParam(value = "Nome das propriedades para filtrar na resposta, separados por vírgula",
 				name = "campos", paramType = "query", type = "string")
 	})
-	public PedidoModel buscar(@PathVariable String codigoPedido);
+	public PedidoModel buscar(@ApiParam(
+			value = "ID do pedido", example = "1", required = true) String codigoPedido);
 	
-	@ApiOperation("Cadatra um pedido")
+	@ApiOperation("Cadastra um pedido")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Pedido cadastrado")
 	})
-	public PedidoModel adicionar(@RequestBody @Valid PedidoInput pedidoInput);
-	
-//	private Pageable traduzirPageable(Pageable apiPageable) {
-//		
-//		var mapeamento = Map.of(
-//				
-//				"codigo", "codigo",
-//				"nomeCliente", "cliente.nome",
-//				"restaurante.nome", "restaurante.nome",
-//				"valorTotal", "valorTotal"
-//				);
-//		return PageableTranslator.translate(apiPageable, mapeamento);
-//	}
+	public PedidoModel adicionar(
+			@ApiParam(value = "corpo", example = "Representação de um pedido", required = true) 
+			PedidoInput pedidoInput);
 
 }

@@ -23,7 +23,7 @@ public interface GrupoControllerOpenApi {
 		@ApiResponse(code = 400, message = "ID não encontrado", response = Problem.class),
 		@ApiResponse(code = 404, message = "Grupo não encontrado", response = Problem.class)
 	})
-	public GrupoModel buscar(@ApiParam(value = "ID de um grupo", example = "1")
+	public GrupoModel buscar(@ApiParam(value = "ID de um grupo", example = "1", required = true)
 		Long grupoId);
 	
 	@ApiOperation("Cadastra um grupo")
@@ -31,7 +31,7 @@ public interface GrupoControllerOpenApi {
 		@ApiResponse(code = 201, message = "Grupo cadastrado")
 	})
 	public GrupoModel salvar(
-			@ApiParam(value = "corpo", example = "Representação de um grupo") 
+			@ApiParam(value = "corpo", example = "Representação de um grupo", required = true) 
 			GrupoInput grupoInput);
 	
 	@ApiOperation("Atualiza o grupo")
@@ -40,9 +40,9 @@ public interface GrupoControllerOpenApi {
 		@ApiResponse(code = 404, message = "Grupo não encontrado", response = Problem.class)
 	})
 	public GrupoModel atualizar(
-			@ApiParam(value = "ID de um grupo", example = "1") 
+			@ApiParam(value = "ID de um grupo", example = "1", required = true) 
 			Long grupoId, 
-			@ApiParam(value = "corpo", example = "Representação de grupo com novos dados")
+			@ApiParam(value = "corpo", example = "Representação de grupo com novos dados", required = true)
 			GrupoInput grupoInput);
 	
 	@ApiOperation("Remove o grupo")
@@ -50,5 +50,5 @@ public interface GrupoControllerOpenApi {
 		@ApiResponse(code = 204, message = "Grupo excluído"),
 		@ApiResponse(code = 404, message = "Grupo não encontrado", response = Problem.class)
 	})
-	public void excluir(@ApiParam(value = "ID de um grupo", example = "1") Long grupoId);
+	public void excluir(@ApiParam(value = "ID de um grupo", example = "1", required = true) Long grupoId);
 }

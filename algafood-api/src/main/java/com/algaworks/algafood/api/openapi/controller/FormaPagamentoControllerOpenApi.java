@@ -33,7 +33,7 @@ public interface FormaPagamentoControllerOpenApi {
 		@ApiResponse(code = 404, message = "Forma de pagamento não encontrada", response = Problem.class)
 	})	
 	public ResponseEntity<FormaPagamentoModel> buscar(
-			@ApiParam(example = "1") 
+			@ApiParam(example = "1", required = true) 
 			Long formaPagamentoId, 
 			@ApiParam
 			ServletWebRequest request);
@@ -43,7 +43,7 @@ public interface FormaPagamentoControllerOpenApi {
 		@ApiResponse(code = 201, message = "Forma de pagamento cadastrada")
 	})
 	public FormaPagamentoModel salvar(
-			@ApiParam(example = "corpo", value = "Representação de uma forma de pagamento")
+			@ApiParam(example = "corpo", value = "Representação de uma forma de pagamento", required = true)
 			FormaPagamentoInput formaPagamentoInput);
 	
 	@ApiOperation("Remove forma de pagamento")
@@ -51,5 +51,7 @@ public interface FormaPagamentoControllerOpenApi {
 		@ApiResponse(code = 204, message = "Forma de pagamento excluída")
 		
 	})
-	public void excluir(@PathVariable Long formaPagamentoId);
+	public void excluir(@ApiParam(
+			value = "ID de uma forma de pagamento", example = "1", required = true) 
+			Long formaPagamentoId);
 }

@@ -29,14 +29,14 @@ public interface CozinhaControllerOpenApi {
 		@ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)		
 	})
 	
-	public CozinhaModel buscar(@ApiParam("ID da cozinha") Long cozinhaId);
+	public CozinhaModel buscar(@ApiParam(value = "ID da cozinha", required = true) Long cozinhaId);
 	
 	@ApiOperation("Cadastra a cozinha")
 	@ApiResponses({
 		@ApiResponse(code = 201, message = "Cozinha cadastrada")
 	})	
 	public CozinhaModel adicionar(
-			@ApiParam(example = "corpo", value = "Representação da cozinha") 
+			@ApiParam(example = "corpo", value = "Representação da cozinha", required = true) 
 			CozinhaInput cozinhaInput);
 	
 	@ApiOperation("Atualiza a cozinha")
@@ -46,9 +46,9 @@ public interface CozinhaControllerOpenApi {
 		
 	})
 	public CozinhaModel atualizar(
-			@ApiParam(example = "1", value = "ID da cozinha") 
+			@ApiParam(example = "1", value = "ID da cozinha", required = true) 
 			Long cozinhaId, 
-			@ApiParam(example = "corpo", value = "Representação da cozinha com dados novos")
+			@ApiParam(example = "corpo", value = "Representação da cozinha com dados novos", required = true)
 			CozinhaInput cozinhaInput);
 	
 	@ApiOperation("Remove a cozinha")
@@ -57,5 +57,5 @@ public interface CozinhaControllerOpenApi {
 		@ApiResponse(code = 404, message = "Cozinha não encontrada", response = Problem.class)
 		
 	})
-	public void remover(@ApiParam("ID da cozinha") Long cozinhaId);
+	public void remover(@ApiParam(value = "ID da cozinha", required = true) Long cozinhaId);
 }
