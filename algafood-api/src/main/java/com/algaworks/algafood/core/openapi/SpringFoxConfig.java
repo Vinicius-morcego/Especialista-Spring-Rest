@@ -17,12 +17,9 @@ import org.springframework.web.context.request.ServletWebRequest;
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.CozinhaModel;
 import com.algaworks.algafood.api.model.PedidoResumoModel;
-import com.algaworks.algafood.api.model.RestauranteModel;
-import com.algaworks.algafood.api.model.view.RestauranteView;
 import com.algaworks.algafood.api.openapi.model.CozinhasModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.PageableModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.PedidosModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.RestauranteBasicoModelOpenApi;
 import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -89,7 +86,8 @@ public class SpringFoxConfig{
 	        	  new Tag("Cozinhas", "Gerência as cozinhas"),
 	        	  new Tag("Formas de pagamento", "Gerência as formas de pagamento"),
 	        	  new Tag("Pedidos", "Gerência os pedidos"),
-	        	  new Tag("Restaurantes", "Gerência os restaurantes")
+	        	  new Tag("Restaurantes", "Gerência os restaurantes"),
+	        	  new Tag("Estados", "Gerência os estados")
 	          );
 	    		
 	  }	 
