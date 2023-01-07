@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.assembler.GrupoModelAssembler;
 import com.algaworks.algafood.api.model.GrupoModel;
+import com.algaworks.algafood.api.openapi.controller.UsuarioGrupoControllerOpenApi;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
 
 @RestController
-@RequestMapping("/usuarios/{usuarioId}/grupos")
-public class UsuarioGrupoController {
+@RequestMapping(path = "/usuarios/{usuarioId}/grupos")
+public class UsuarioGrupoController implements UsuarioGrupoControllerOpenApi{
 	
 	@Autowired
 	private CadastroUsuarioService cadastroUsuarioService;
@@ -26,7 +28,7 @@ public class UsuarioGrupoController {
 	@Autowired
 	private GrupoModelAssembler grupoAssembler;
 	
-	@GetMapping
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public Collection<GrupoModel>  listar(@PathVariable Long usuarioId){
 		
 		var usuario = cadastroUsuarioService.buscarOuFalhar(usuarioId);

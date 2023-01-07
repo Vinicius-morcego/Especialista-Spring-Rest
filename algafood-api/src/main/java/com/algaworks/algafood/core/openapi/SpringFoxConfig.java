@@ -95,7 +95,8 @@ public class SpringFoxConfig{
 	        	  new Tag("Pedidos", "Gerência os pedidos"),
 	        	  new Tag("Restaurantes", "Gerência os restaurantes"),
 	        	  new Tag("Estados", "Gerência os estados"),
-	        	  new Tag("Produtos", "Gerência os produtos do restaurante")
+	        	  new Tag("Produtos", "Gerência os produtos do restaurante"),
+	        	  new Tag("Usuarios", "Gerência os produtos do restaurante")
 	          );
 	    		
 	  }	 
