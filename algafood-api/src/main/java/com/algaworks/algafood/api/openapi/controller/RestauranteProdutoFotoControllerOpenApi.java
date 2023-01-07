@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.FotoProdutoModel;
@@ -30,7 +31,9 @@ public interface RestauranteProdutoFotoControllerOpenApi {
 			@ApiParam(value = "ID do produto", example = "1", required = true) 
 			Long produtoId,
 			@ApiParam(value = "corpo", example = "Representação de um produto de um restaurante", required = true)
-			FotoProdutoInput fotoProdutoInput) throws IOException;
+			FotoProdutoInput fotoProdutoInput,
+			@ApiParam(value = "Arquivo da foto do produto (maximo 500KB, apenas JPEG, PNG)", required = true)
+			MultipartFile arquivo) throws IOException;
 	
 	@ApiOperation("Busca a foto do produto de um restaurante por ID")
 	@ApiResponses({
