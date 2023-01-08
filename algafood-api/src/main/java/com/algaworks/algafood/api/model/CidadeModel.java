@@ -1,5 +1,6 @@
 package com.algaworks.algafood.api.model;
 
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.stereotype.Component;
 
 import io.swagger.annotations.ApiModel;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Component
-public class CidadeModel {
+public class CidadeModel extends RepresentationModel<CidadeModel>{
 
 	@ApiModelProperty(example = "1")
 	private Long id;
