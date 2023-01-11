@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,7 +40,7 @@ import com.algaworks.algafood.domain.service.CadastroCidadeService;
 
 @RestController
 @RequestMapping(path = "/cidades")
-public class CidadeController implements CidadeControllerOpenApi{
+public class CidadeController implements CidadeControllerOpenApi{ 
 
 	@Autowired 
 	private CidadeRepository cidadeRepository;
@@ -54,8 +55,29 @@ public class CidadeController implements CidadeControllerOpenApi{
 	private CidadeInputDisassembler cidadeInputDisassembler;
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<CidadeModel> listar(){
-		return cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
+	public CollectionModel<CidadeModel> listar(){
+		List<CidadeModel> cidadesModel =  
+				cidadeModelAssembler.toCollectionModel(cidadeRepository.findAll());
+		
+		cidadesModel.forEach(cidadeModel ->{
+			cidadeModel.add(linkTo(methodOn(CidadeController.class)
+					.buscar(cidadeModel.getId())).withSelfRel());
+			
+			cidadeModel.add(linkTo(methodOn(CidadeController.class).listar())
+					.withRel("cidades"));
+			
+			cidadeModel.add(linkTo(methodOn(EstadoController.class)
+					.buscar(cidadeModel.getEstado().getId())).withSelfRel());
+			
+			
+		});
+		
+		
+		CollectionModel<CidadeModel> cidadesCollectionModel = 
+				CollectionModel.of(cidadesModel);
+		
+		cidadesCollectionModel.add(linkTo(CidadeController.class).withSelfRel());
+		return cidadesCollectionModel;
 	}	
 	
 	@GetMapping(path = "/{cidadeId}", produces = MediaType.APPLICATION_JSON_VALUE)
