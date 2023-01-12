@@ -1,7 +1,6 @@
 package com.algaworks.algafood.api.openapi.controller;
 
-import java.util.Collection;
-
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
@@ -20,7 +19,7 @@ public interface UsuarioGrupoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 415, message = "Recurso não implementado", response = Problem.class)		
 	})
-	public Collection<GrupoModel>  listar(@PathVariable Long usuarioId);
+	public CollectionModel<GrupoModel>  listar(@PathVariable Long usuarioId);
 	
 	@ApiOperation("Desassocia um usuário a um grupo")
 	@ApiResponses({

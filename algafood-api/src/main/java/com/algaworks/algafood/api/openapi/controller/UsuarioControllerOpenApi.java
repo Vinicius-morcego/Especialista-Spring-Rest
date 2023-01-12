@@ -1,9 +1,8 @@
 package com.algaworks.algafood.api.openapi.controller;
 
-import java.util.Collection;
-
 import javax.validation.Valid;
 
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -26,7 +25,7 @@ public interface UsuarioControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 415, message = "Recurso não implementado", response = Problem.class)
 	})
-	public Collection<UsuarioModel> listar();
+	public CollectionModel<UsuarioModel> listar();
 	
 	@ApiOperation("Busca um usuário por ID")
 	@ApiResponses({

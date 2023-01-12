@@ -1,12 +1,13 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,9 +49,10 @@ public class GrupoController implements GrupoControllerOpenApi {
 	@Autowired
 	private GrupoRepository grupoRepository;
 	
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<GrupoModel> listar(){
-		return grupoAssembler.toCollectModel(grupoRepository.findAll());		
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE) 
+	public CollectionModel<GrupoModel> listar(){
+		List<Grupo> todosGrupos = grupoRepository.findAll();
+		return grupoAssembler.toCollectionModel(todosGrupos);		
 	}
 	
 	@GetMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)

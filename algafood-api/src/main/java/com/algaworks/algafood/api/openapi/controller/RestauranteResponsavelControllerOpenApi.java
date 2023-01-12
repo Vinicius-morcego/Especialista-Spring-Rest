@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.openapi.controller;
 
-import java.util.Collection;
+import org.springframework.hateoas.CollectionModel;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.UsuarioModel;
@@ -21,7 +21,7 @@ public interface RestauranteResponsavelControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 405, message = "Recurso não implementado", response = Problem.class)
 	})
-	public Collection<UsuarioModel> listar(@ApiParam(value = "ID do restaurante", example = "1", required = true) 
+	public CollectionModel<UsuarioModel> listar(@ApiParam(value = "ID do restaurante", example = "1", required = true) 
 			Long restauranteId);
 	
 	@ApiOperation("Desassocia um usuario do restaurante por ID")

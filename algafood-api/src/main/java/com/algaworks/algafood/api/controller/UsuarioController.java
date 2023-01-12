@@ -1,10 +1,12 @@
 package com.algaworks.algafood.api.controller;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,8 +49,9 @@ public class UsuarioController implements UsuarioControllerOpenApi{
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<UsuarioModel> listar(){
-		return usuarioModelAssembler.toCollectionObject(usuarioRepository.findAll());
+	public CollectionModel<UsuarioModel> listar(){
+		List<Usuario> todosUsuarios = usuarioRepository.findAll(); 
+		return usuarioModelAssembler.toCollectionModel(todosUsuarios);
 	}
 	
 	@GetMapping(path = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
