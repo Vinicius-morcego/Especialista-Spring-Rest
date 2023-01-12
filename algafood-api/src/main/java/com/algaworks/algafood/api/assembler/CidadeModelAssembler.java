@@ -44,8 +44,8 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
 		
 		//cidadeModel.getEstado().add(linkTo(EstadoController.class)
 		//		.slash(cidadeModel.getEstado().getId()).withSelfRel());
-		cidadeModel.getEstado().add(linkTo(methodOn(EstadoController.class)
-				.buscar(cidadeModel.getEstado().getId())).withSelfRel());
+//		cidadeModel.getEstado().add(linkTo(methodOn(EstadoController.class)
+//				.buscar(cidadeModel.getEstado().getId())).withSelfRel());
 
 		return cidadeModel;
 	}

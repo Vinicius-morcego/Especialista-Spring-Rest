@@ -1,7 +1,6 @@
 package com.algaworks.algafood.api.openapi.controller;
 
-import java.util.List;
-
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
@@ -24,7 +23,7 @@ public interface EstadoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 405, message = "Recurso não implementado", response = Problem.class)
 	})
-	List<EstadoModel> listar();
+	CollectionModel<EstadoModel> listar();
 	
 	@ApiOperation("Busca um estado por ID")
 	@ApiResponses({
