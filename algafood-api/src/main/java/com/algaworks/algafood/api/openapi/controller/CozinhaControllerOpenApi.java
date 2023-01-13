@@ -2,6 +2,7 @@ package com.algaworks.algafood.api.openapi.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.hateoas.PagedModel;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.CozinhaModel;
@@ -20,7 +21,7 @@ public interface CozinhaControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 405, message = "Recurso não implementado")		
 	})
-	Page<CozinhaModel> listar(
+	PagedModel<CozinhaModel> listar(
 			@ApiParam(example = "corpo", value = "Página de representação das cozinhas") Pageable pageable);
 	
 	@ApiOperation("Busca uma cozinha por ID")

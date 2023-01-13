@@ -11,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,17 +50,18 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 	private CozinhaModelAssembler cozinhaModelAssembler;
 	
 	@Autowired
+	private PagedResourcesAssembler<Cozinha> pagedModelAssembler;
+	
+	@Autowired
 	private CozinhaInputDisassembler cozinhaInputDisassembler;
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
-	public Page<CozinhaModel> listar(@PageableDefault(size = 2) Pageable pageable){
+	public PagedModel<CozinhaModel> listar(@PageableDefault(size = 2) Pageable pageable){
 		Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);
-		List<CozinhaModel> cozinhasModel = 
-				cozinhaModelAssembler.toDomainCollector(cozinhasPage.getContent());
-		Page<CozinhaModel> cozinhasPageModel = 
-				new PageImpl<>(cozinhasModel, pageable, cozinhasPage.getTotalElements());
 		
-		return cozinhasPageModel;
+		PagedModel<CozinhaModel> cozinhaPagedModel = pagedModelAssembler
+				.toModel(cozinhasPage, cozinhaModelAssembler);
+		return cozinhaPagedModel;
 	} 
 	
 	//
