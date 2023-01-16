@@ -1,12 +1,12 @@
 package com.algaworks.algafood.api.controller;
 
 import java.time.OffsetDateTime;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,7 +49,7 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 	private CadastroFormaPagamentoService formaPagamentoService;
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<FormaPagamentoModel>> consultar(ServletWebRequest request){	
+	public ResponseEntity<CollectionModel<FormaPagamentoModel>> consultar(ServletWebRequest request){	
 		ShallowEtagHeaderFilter.disableContentCaching(request.getRequest());
 		
 		OffsetDateTime dataUltimaAtualizacao = formaPagamentoRepository.getUltimaDataAtualizacao();
@@ -60,8 +60,8 @@ public class FormaPagamentoController implements FormaPagamentoControllerOpenApi
 		if(request.checkNotModified(eTag))
 			return null;
 		
-		List<FormaPagamentoModel> formaPagamentosModel = formaPagamentoAssembler
-				.toDomainCollection(formaPagamentoRepository.findAll());
+		CollectionModel<FormaPagamentoModel> formaPagamentosModel = formaPagamentoAssembler
+				.toCollectionModel(formaPagamentoRepository.findAll());
 		return ResponseEntity.ok()
 				//.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS))
 				//.cacheControl(CacheControl.maxAge(10, TimeUnit.SECONDS).cachePrivate())

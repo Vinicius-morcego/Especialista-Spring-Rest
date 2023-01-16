@@ -4,15 +4,21 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.List;
 
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
+
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+@Relation(collectionRelation = "pedidos")
 @Getter
 @Setter
-public class PedidoModel {
+public class PedidoModel extends RepresentationModel<PedidoModel>{
 
-	@ApiModelProperty(example = "1")
+	@ApiModelProperty(example = "1")	
 	private String codigo;
 	
 	@ApiModelProperty(example = "15.2")
@@ -39,13 +45,18 @@ public class PedidoModel {
 	@ApiModelProperty(example = "2023-01-03T20:45:13.921583Z")
 	private OffsetDateTime dataCancelamento;	
 	
+	
 	private RestauranteResumoModel restaurante;	
+	
 	
 	private UsuarioModel cliente;	
 	
+	
 	private FormaPagamentoModel formaPagamento;
 	
+	
 	private EnderecoModel enderecoEntrega;
+	
 	
 	private List<ItemPedidoModel> itens;
 	

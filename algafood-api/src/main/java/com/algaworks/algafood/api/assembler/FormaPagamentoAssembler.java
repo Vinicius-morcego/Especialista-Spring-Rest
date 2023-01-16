@@ -1,25 +1,36 @@
 package com.algaworks.algafood.api.assembler;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import com.algaworks.algafood.api.controller.FormaPagamentoController;
 import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
 import com.algaworks.algafood.domain.modelo.FormaPagamento;
 
 @Component
-public class FormaPagamentoAssembler {
+public class FormaPagamentoAssembler 
+	extends RepresentationModelAssemblerSupport<FormaPagamento, FormaPagamentoModel>{
+
+	public FormaPagamentoAssembler() {
+		super(FormaPagamentoController.class, FormaPagamentoModel.class);
+		
+	}
 
 	@Autowired
 	private ModelMapper modelMapper;
 	
+	@Override
 	public FormaPagamentoModel toModel(FormaPagamento formaPagamento) {
-		return modelMapper.map(formaPagamento, FormaPagamentoModel.class);
+		FormaPagamentoModel formaPagamentoModel = createModelWithId(formaPagamento.getId(), formaPagamento);
+		modelMapper.map(formaPagamento, formaPagamentoModel);		
+		formaPagamentoModel.add(linkTo(FormaPagamentoController.class).withRel("formas de pagamento"));
+		return formaPagamentoModel;
 	}
 	
 	public void copyDomainObject(FormaPagamentoInput formaPagamentoInput, 
@@ -27,10 +38,10 @@ public class FormaPagamentoAssembler {
 		modelMapper.map(formaPagamento, formaPagamentoInput);
 	}
 	
-	public List<FormaPagamentoModel> toDomainCollection(Collection<FormaPagamento> formaPagamentos){
-		return formaPagamentos
-				.stream()
-				.map(formaPagamento -> toModel(formaPagamento))
-				.collect(Collectors.toList());
+
+	@Override
+	public CollectionModel<FormaPagamentoModel> toCollectionModel(Iterable<? extends FormaPagamento> entities) {		
+		return super.toCollectionModel(entities).add(
+				linkTo(FormaPagamentoController.class).withRel("formas de pagamento"));
 	}
 }

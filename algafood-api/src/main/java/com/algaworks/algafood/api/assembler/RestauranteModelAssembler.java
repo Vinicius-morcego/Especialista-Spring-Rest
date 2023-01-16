@@ -1,39 +1,42 @@
 package com.algaworks.algafood.api.assembler;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
+import com.algaworks.algafood.api.controller.RestauranteController;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.domain.modelo.Restaurante;
 
 @Component
-public class RestauranteModelAssembler {
+public class RestauranteModelAssembler extends RepresentationModelAssemblerSupport<Restaurante, RestauranteModel>{
 	
+
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	public RestauranteModelAssembler() {
+		super(RestauranteController.class, RestauranteModel.class);	
+	}
 
+	@Override
 	public RestauranteModel toModel(Restaurante restaurante) {
-//		RestauranteModel restauranteModel = new RestauranteModel();
-//		CozinhaModel cozinhaModel = new CozinhaModel();
-//		cozinhaModel.setId(restaurante.getCozinha().getId());
-//		cozinhaModel.setNome(restaurante.getCozinha().getNome());
-//		
-//		restauranteModel.setId(restaurante.getId());
-//		restauranteModel.setNome(restaurante.getNome());
-//		restauranteModel.setTaxaFrete(restaurante.getTaxaFrete());
-//		restauranteModel.setCozinha(cozinhaModel);
-//		return restauranteModel;
-		return modelMapper.map(restaurante, RestauranteModel.class);
+		RestauranteModel restauranteModel = createModelWithId(restaurante.getId(), restaurante);
+		
+		modelMapper.map(restaurante, restauranteModel);
+		
+		restauranteModel.add(linkTo(RestauranteController.class).withRel("restaurantes"));
+		return restauranteModel;
 	}
 	
-	public List<RestauranteModel> toCollectionModel(Collection<Restaurante> restaurantes){
-		return restaurantes.stream()
-				.map(restaurante -> toModel(restaurante))
-				.collect(Collectors.toList());
+	@Override
+	public CollectionModel<RestauranteModel> toCollectionModel(Iterable<? extends Restaurante> entities) {
+		// TODO Auto-generated method stub
+		return super.toCollectionModel(entities)
+				.add(linkTo(RestauranteController.class).withRel("restaurantes"));
 	}
 }

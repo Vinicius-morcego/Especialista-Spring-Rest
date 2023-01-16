@@ -1,6 +1,5 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -55,7 +55,7 @@ public class RestauranteController implements RestauranteControllerOpenApi{
 	
 	@JsonView(RestauranteView.Resumo.class)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<RestauranteModel> listar(){		
+	public CollectionModel<RestauranteModel> listar(){		
 		//BeanUtils.copyProperties(Restaurante.class, RestauranteModel.class);
 		
 		return restauranteModelAssembler
@@ -63,8 +63,8 @@ public class RestauranteController implements RestauranteControllerOpenApi{
 	}
 
 	@JsonView(RestauranteView.ApenasNome.class)
-	@GetMapping(params = "projecao=apenas-nome")
-	public Collection<RestauranteModel> listarApenasNomes(){
+	@GetMapping(params = "projecao=apenas-nome") 
+	public CollectionModel<RestauranteModel> listarApenasNomes(){
 		return listar();
 	}
 	

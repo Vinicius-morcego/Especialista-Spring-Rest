@@ -1,7 +1,6 @@
 package com.algaworks.algafood.api.openapi.controller;
 
-import java.util.List;
-
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -22,7 +21,7 @@ public interface FormaPagamentoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 405, message = "Recurso não implementado", response = Problem.class)
 	})	
-		ResponseEntity<List<FormaPagamentoModel>> consultar(
+		ResponseEntity<CollectionModel<FormaPagamentoModel>> consultar(
 			@ApiParam(example = "corpo", value = "Representação de formas de pagamento")
 			ServletWebRequest request);
 	

@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.openapi.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.hateoas.PagedModel;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.PedidoModel;
@@ -30,7 +31,7 @@ public interface PedidoControllerOpenApi {
 				name = "campos", paramType = "query", type = "string")
 	})
 	
-	Page<PedidoResumoModel> pesquisar(PedidoFilter filter,
+	PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filter,
 			@PageableDefault(size = 2) Pageable pageable);
 	
 	

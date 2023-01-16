@@ -1,6 +1,6 @@
 package com.algaworks.algafood.api.openapi.controller;
 
-import java.util.List;
+import org.springframework.hateoas.CollectionModel;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.FormaPagamentoModel;
@@ -21,7 +21,7 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
 	@ApiResponses({
 		@ApiResponse(code = 405, message = "Recurso não implementado", response = Problem.class)
 	})
-	public List<FormaPagamentoModel> listar(
+	public CollectionModel<FormaPagamentoModel> listar(
 			@ApiParam(value = "ID de um restaurante") Long restauranteId);
 	
 	@ApiOperation("Desassocia um restaurante a uma forma de pagamento por ID")

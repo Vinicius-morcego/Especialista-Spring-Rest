@@ -1,11 +1,11 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,7 +46,7 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 	private ProdutoRepository produtoRepository;
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Collection<ProdutoModel> listar(@PathVariable Long restauranteId,
+	public CollectionModel<ProdutoModel> listar(@PathVariable Long restauranteId,
 			@RequestParam(required = false) boolean incluirInativos) {
 		var restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 		
@@ -57,7 +57,7 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 			todosProdutos = produtoRepository.findAtivosByRestaurante(restaurante);
 			
 		}
-		return produtoAssembler.toCollectionObject(todosProdutos);		
+		return produtoAssembler.toCollectionModel(todosProdutos);		
 	}	
 	
 	@GetMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)

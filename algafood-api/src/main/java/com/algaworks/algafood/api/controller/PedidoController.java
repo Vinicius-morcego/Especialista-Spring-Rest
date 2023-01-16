@@ -1,15 +1,15 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -56,6 +56,9 @@ public class PedidoController implements PedidoControllerOpenApi{
 	@Autowired
 	private PedidoResumoModelAssembler pedidoResumoModelAssembler;
 	
+	@Autowired
+	private PagedResourcesAssembler<Pedido> pagedModelAssembler;
+	
 	@Autowired 
 	private EmissaoPedidoService emissaoPedidoService;
 	
@@ -83,18 +86,20 @@ public class PedidoController implements PedidoControllerOpenApi{
 				name = "campos", paramType = "query", type = "string")
 	})
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public Page<PedidoResumoModel> pesquisar(PedidoFilter filter,
+	public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filter,
 			@PageableDefault(size = 2) Pageable pageable){
 		
 		pageable = traduzirPageable(pageable);
 		Page<Pedido> pedidoPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filter), pageable);
-		List<PedidoResumoModel> pedidosModel =
-				pedidoResumoModelAssembler.toCollectionModel(pedidoPage.getContent());
+		PagedModel<PedidoResumoModel> pedidosModel =
+				 pagedModelAssembler.toModel(pedidoPage, pedidoResumoModelAssembler);
 		
-		Page<PedidoResumoModel> pedidosPageModel = 
-				new PageImpl<>(pedidosModel, pageable, pedidoPage.getTotalElements());
+//		pedidosModel.add(linkTo(PedidoController.class).withRel("pedidos"));
 		
-		return pedidosPageModel;
+//		PagedModel<PedidoResumoModel> pedidosPageModel = 
+//				new PageImpl<>(pedidosModel, pageable, pedidoPage.getTotalElements());
+		
+		return pedidosModel;
 	}
 	
 	@ApiImplicitParams({
@@ -104,6 +109,8 @@ public class PedidoController implements PedidoControllerOpenApi{
 	@GetMapping(path = "/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public PedidoModel buscar(@PathVariable String codigoPedido) {
 		Pedido pedido = emissaoPedidoService.buscarOuFalhar(codigoPedido);
+		
+		
 		return pedidoModelAssembler.toModel(pedido);
 	}
 	

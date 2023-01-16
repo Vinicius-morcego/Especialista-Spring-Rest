@@ -1,7 +1,6 @@
 package com.algaworks.algafood.api.openapi.controller;
 
-import java.util.Collection;
-
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -28,7 +27,7 @@ public interface ProdutoControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	public Collection<ProdutoModel> listar(
+	public CollectionModel<ProdutoModel> listar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true)
 			Long restauranteId,
 			@ApiParam(value = "Status do produto", example = "INATIVO")
