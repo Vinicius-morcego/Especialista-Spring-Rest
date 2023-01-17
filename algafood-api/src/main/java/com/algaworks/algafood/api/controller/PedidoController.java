@@ -27,6 +27,7 @@ import com.algaworks.algafood.api.model.PedidoModel;
 import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.api.model.input.PedidoInput;
 import com.algaworks.algafood.api.openapi.controller.PedidoControllerOpenApi;
+import com.algaworks.algafood.core.data.PageWrapper;
 import com.algaworks.algafood.core.data.PageableTranslator;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.NegocioException;
@@ -89,17 +90,15 @@ public class PedidoController implements PedidoControllerOpenApi{
 	public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filter,
 			@PageableDefault(size = 2) Pageable pageable){
 		
-		pageable = traduzirPageable(pageable);
-		Page<Pedido> pedidoPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filter), pageable);
-		PagedModel<PedidoResumoModel> pedidosModel =
-				 pagedModelAssembler.toModel(pedidoPage, pedidoResumoModelAssembler);
+		Pageable pageableTraduzido = traduzirPageable(pageable);
+		Page<Pedido> pedidoPage = pedidoRepository.findAll(PedidoSpecs.usandoFiltro(filter), pageableTraduzido);
+
+		pedidoPage = new PageWrapper<>(pedidoPage, pageable);
 		
-//		pedidosModel.add(linkTo(PedidoController.class).withRel("pedidos"));
+		return pagedModelAssembler.toModel(pedidoPage, pedidoResumoModelAssembler);
 		
-//		PagedModel<PedidoResumoModel> pedidosPageModel = 
-//				new PageImpl<>(pedidosModel, pageable, pedidoPage.getTotalElements());
 		
-		return pedidosModel;
+		
 	}
 	
 	@ApiImplicitParams({
