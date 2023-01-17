@@ -6,6 +6,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.TemplateVariable;
+import org.springframework.hateoas.TemplateVariable.VariableType;
+import org.springframework.hateoas.TemplateVariables;
+import org.springframework.hateoas.UriTemplate;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +38,7 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 		PedidoModel pedidoModel = createModelWithId(pedido.getId(), pedido);
 		
 		modelMapper.map(pedido, pedidoModel);		
-		pedidoModel.add(linkTo(PedidoController.class).withRel("pedidos"));
+		//pedidoModel.add(linkTo(PedidoController.class).withRel("pedidos"));
 		
 		if(pedidoModel.getCliente() != null)
 			pedidoModel.getCliente().add(linkTo(methodOn(UsuarioController.class)
@@ -53,6 +58,14 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 						.buscar(pedido.getRestaurante().getId(), item.getProduto().getId()))
 						.withSelfRel());
 		});
+		
+		var pageVariables = new TemplateVariables(
+				new TemplateVariable("page", VariableType.REQUEST_PARAM),
+				new TemplateVariable("page", VariableType.REQUEST_PARAM),
+				new TemplateVariable("page", VariableType.REQUEST_PARAM));
+		var pedidoUrl = linkTo(PedidoController.class).toUri().toString();
+		pedidoModel.add(Link.of(UriTemplate.of(pedidoUrl, pageVariables), "pedidos"));
+		
 		return pedidoModel;
 	}
 	
