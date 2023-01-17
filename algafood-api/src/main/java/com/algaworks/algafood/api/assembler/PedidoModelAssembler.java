@@ -17,6 +17,8 @@ import org.springframework.stereotype.Component;
 import com.algaworks.algafood.api.controller.CidadeController;
 import com.algaworks.algafood.api.controller.FormaPagamentoController;
 import com.algaworks.algafood.api.controller.PedidoController;
+import com.algaworks.algafood.api.controller.RestauranteController;
+import com.algaworks.algafood.api.controller.RestauranteFormaPagamentoController;
 import com.algaworks.algafood.api.controller.RestauranteProdutoController;
 import com.algaworks.algafood.api.controller.UsuarioController;
 import com.algaworks.algafood.api.model.PedidoModel;
@@ -39,13 +41,16 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 		
 		modelMapper.map(pedido, pedidoModel);		
 		//pedidoModel.add(linkTo(PedidoController.class).withRel("pedidos"));
-		
+		if(pedidoModel.getRestaurante() != null)
+			pedidoModel.getRestaurante().add(linkTo(methodOn(RestauranteController.class)
+					.buscar(pedidoModel.getRestaurante().getId())).withSelfRel());
 		if(pedidoModel.getCliente() != null)
 			pedidoModel.getCliente().add(linkTo(methodOn(UsuarioController.class)
 					.buscar(pedido.getCliente().getId())).withSelfRel());
 		if(pedidoModel.getFormaPagamento() != null)
-			pedidoModel.getFormaPagamento().add(linkTo(
-					FormaPagamentoController.class, pedido.getFormaPagamento().getId()).withSelfRel());
+			pedidoModel.getFormaPagamento().add(linkTo(methodOn(
+					RestauranteFormaPagamentoController.class).listar(pedidoModel.getRestaurante().getId()))
+					.withSelfRel());
 		if(pedidoModel.getEnderecoEntrega() != null)
 			pedidoModel.getEnderecoEntrega().getCidade()
 				.add(linkTo(methodOn(CidadeController.class)
