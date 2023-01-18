@@ -61,15 +61,23 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 				item.getProduto().add(linkTo(
 						methodOn(RestauranteProdutoController.class)
 						.buscar(pedido.getRestaurante().getId(), item.getProduto().getId()))
-						.withSelfRel());
+						.withRel("produto"));
 		});
 		
 		var pageVariables = new TemplateVariables(
 				new TemplateVariable("page", VariableType.REQUEST_PARAM),
-				new TemplateVariable("page", VariableType.REQUEST_PARAM),
-				new TemplateVariable("page", VariableType.REQUEST_PARAM));
+				new TemplateVariable("size", VariableType.REQUEST_PARAM),
+				new TemplateVariable("sort", VariableType.REQUEST_PARAM));
+		
+		var filterVariables = new TemplateVariables(
+				new TemplateVariable("clienteId", VariableType.REQUEST_PARAM),
+				new TemplateVariable("restauranteId", VariableType.REQUEST_PARAM),
+				new TemplateVariable("dataCriacaoInicio", VariableType.REQUEST_PARAM),
+				new TemplateVariable("dataCriacaoFim", VariableType.REQUEST_PARAM)
+				
+				);
 		var pedidoUrl = linkTo(PedidoController.class).toUri().toString();
-		pedidoModel.add(Link.of(UriTemplate.of(pedidoUrl, pageVariables), "pedidos"));
+		pedidoModel.add(Link.of(UriTemplate.of(pedidoUrl, filterVariables.concat(pageVariables)), "pedidos"));
 		
 		return pedidoModel;
 	}
