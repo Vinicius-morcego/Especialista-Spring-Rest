@@ -31,7 +31,8 @@ public class FormaPagamentoAssembler
 	public FormaPagamentoModel toModel(FormaPagamento formaPagamento) {
 		FormaPagamentoModel formaPagamentoModel = createModelWithId(formaPagamento.getId(), formaPagamento);
 		modelMapper.map(formaPagamento, formaPagamentoModel);		
-		formaPagamentoModel.add(algaLinks.linkToCidades("formas de pagamento"));
+		formaPagamentoModel.add(algaLinks.linkToFormaPagamentos("formas de pagamento"));
+		
 		return formaPagamentoModel;
 	}
 	
@@ -43,6 +44,6 @@ public class FormaPagamentoAssembler
 
 	@Override
 	public CollectionModel<FormaPagamentoModel> toCollectionModel(Iterable<? extends FormaPagamento> entities) {		
-		return super.toCollectionModel(entities).add(algaLinks.linkToCidades("formas de pagamento"));
+		return super.toCollectionModel(entities).add(algaLinks.linkToFormaPagamentos("formas de pagamento"));
 	}
 }

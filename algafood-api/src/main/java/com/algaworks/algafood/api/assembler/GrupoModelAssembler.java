@@ -30,7 +30,7 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
 		GrupoModel grupoModel = createModelWithId(grupo.getId(), grupo);
 		modelMapper.map(grupo, grupoModel);
 		
-		grupoModel.add(algaLinks.linkToGrupos("grupos"));
+		grupoModel.add(algaLinks.linkToGrupos("grupos"));		
 		
 		return grupoModel;
 	}

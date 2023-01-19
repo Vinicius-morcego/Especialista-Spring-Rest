@@ -1,7 +1,5 @@
 package com.algaworks.algafood.core.data;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

@@ -20,7 +20,9 @@ import com.algaworks.algafood.api.controller.PedidoController;
 import com.algaworks.algafood.api.controller.RestauranteController;
 import com.algaworks.algafood.api.controller.RestauranteFormaPagamentoController;
 import com.algaworks.algafood.api.controller.RestauranteProdutoController;
+import com.algaworks.algafood.api.controller.RestauranteResponsavelController;
 import com.algaworks.algafood.api.controller.UsuarioController;
+import com.algaworks.algafood.api.controller.UsuarioGrupoController;
 
 @Component
 public class AlgaLinks {
@@ -161,5 +163,34 @@ public class AlgaLinks {
 		return Link.of(grupoUrl);
 	}
 	
+	public Link linkToGruposUsuario(Long usuarioId, String rel) {
+		var grupoUsuarioUrl = linkTo(methodOn(UsuarioGrupoController.class)
+				.listar(usuarioId)).withRel(rel).toUri().toString();
+		return Link.of(grupoUsuarioUrl);
+	}
+	
+	public Link linkToGruposUsuario(Long usuarioId) {
+		return linkToGruposUsuario(usuarioId, IanaLinkRelations.SELF_VALUE);
+	}
+	
+	public Link linkToGruposUsuario(String rel) {
+		var grupoUsuarioUrl = linkTo(UsuarioGrupoController.class).withRel(rel).toUri().toString();
+		return Link.of(grupoUsuarioUrl);
+	}
+	
+	public Link linkToRestauranteResponsavel(Long restauranteId, String rel) {
+		var responsavelUrl = linkTo(methodOn(RestauranteResponsavelController.class)
+				.listar(restauranteId)).withRel(rel).toUri().toString();
+		return Link.of(responsavelUrl);		
+	}
+	
+	public Link linkToRestauranteResponsavel(Long restauranteId) {
+		return linkToRestauranteResponsavel(restauranteId, IanaLinkRelations.SELF_VALUE);
+	}
+	
+	public Link linkToRestauranteResponsavel(String rel) {
+		var responsavelUrl = linkTo(RestauranteResponsavelController.class).withRel(rel).toUri().toString();
+		return Link.of(responsavelUrl);
+	}
 	
 }

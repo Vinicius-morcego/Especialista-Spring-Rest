@@ -1,8 +1,5 @@
 package com.algaworks.algafood.api.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -11,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.api.AlgaLinks;
 import com.algaworks.algafood.api.controller.UsuarioController;
-import com.algaworks.algafood.api.controller.UsuarioGrupoController;
 import com.algaworks.algafood.api.model.UsuarioModel;
 import com.algaworks.algafood.api.model.input.SenhaInput;
 import com.algaworks.algafood.api.model.input.UsuarioInput;
@@ -38,8 +34,7 @@ public class UsuarioModelAssembler extends RepresentationModelAssemblerSupport<U
 		
 		usuarioModel.add(algaLinks.linkToUsuarios("clientes"));
 		
-		usuarioModel.add(linkTo(methodOn(UsuarioGrupoController.class).listar(
-				usuario.getId())).withRel("grupos-usuario"));
+		usuarioModel.add(algaLinks.linkToGruposUsuario(usuario.getId(), "grupos-usuario"));
 		
 		return usuarioModel;
 	}
@@ -54,7 +49,7 @@ public class UsuarioModelAssembler extends RepresentationModelAssemblerSupport<U
 	
 	@Override
 	public CollectionModel<UsuarioModel> toCollectionModel(Iterable<? extends Usuario> entities) {
-		// TODO Auto-generated method stub
+		
 		return super.toCollectionModel(entities).add(algaLinks.linkToUsuarios("clientes"));
 	}
 	

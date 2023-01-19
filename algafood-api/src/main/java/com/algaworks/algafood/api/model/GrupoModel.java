@@ -16,4 +16,6 @@ public class GrupoModel extends RepresentationModel<GrupoModel>{
 	private Long id;
 	@ApiModelProperty(example = "Financeiro")
 	private String descricao;
+	
+	
 }
