@@ -20,11 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.api.assembler.RestauranteBasicoModelAssembler;
 import com.algaworks.algafood.api.assembler.RestauranteInputDisassembler;
 import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
+import com.algaworks.algafood.api.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
-import com.algaworks.algafood.api.model.view.RestauranteView;
 import com.algaworks.algafood.api.openapi.controller.RestauranteControllerOpenApi;
 import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
@@ -34,7 +35,6 @@ import com.algaworks.algafood.domain.exception.RestauranteNaoEncontradoException
 import com.algaworks.algafood.domain.modelo.Restaurante;
 import com.algaworks.algafood.domain.repository.RestauranteRepository;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
-import com.fasterxml.jackson.annotation.JsonView;
 
 //@CrossOrigin(maxAge = 10)
 @RestController
@@ -51,28 +51,31 @@ public class RestauranteController implements RestauranteControllerOpenApi{
 	private RestauranteModelAssembler restauranteModelAssembler;
 	
 	@Autowired
+	private RestauranteBasicoModelAssembler restauranteBasicoModelAssembler;
+	
+	@Autowired
 	private RestauranteInputDisassembler restauranteInputDisassembler;
 	
-	@JsonView(RestauranteView.Resumo.class)
+	//@JsonView(RestauranteView.Resumo.class)
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public CollectionModel<RestauranteModel> listar(){		
+	public CollectionModel<RestauranteBasicoModel> listar(){		
 		//BeanUtils.copyProperties(Restaurante.class, RestauranteModel.class);
 		
-		return restauranteModelAssembler
+		return restauranteBasicoModelAssembler
 				.toCollectionModel(restauranteRepository.findAll());		 
 	}
 
-	@JsonView(RestauranteView.ApenasNome.class)
+	//@JsonView(RestauranteView.ApenasNome.class)
 	@GetMapping(params = "projecao=apenas-nome") 
-	public CollectionModel<RestauranteModel> listarApenasNomes(){
+	public CollectionModel<RestauranteBasicoModel> listarApenasNomes(){
 		return listar();
 	}
 	
 	@GetMapping(path = "/{restauranteId}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public RestauranteModel buscar(@PathVariable Long restauranteId) {
+	public RestauranteBasicoModel buscar(@PathVariable Long restauranteId) {
 
 		Restaurante restaurante = cadastroRestaurante.buscarOuFalhar(restauranteId);		
-		return restauranteModelAssembler.toModel(restaurante);
+		return restauranteBasicoModelAssembler.toModel(restaurante);
 //		Optional<Restaurante> restaurante = restauranteRepository.findById(restauranteId);
 //		if(restaurante.isPresent()) {
 //			return ResponseEntity.ok(restaurante.get());

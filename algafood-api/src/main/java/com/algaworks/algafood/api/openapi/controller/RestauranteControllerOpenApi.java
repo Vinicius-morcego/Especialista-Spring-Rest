@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.hateoas.CollectionModel;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
+import com.algaworks.algafood.api.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
 import com.algaworks.algafood.api.openapi.model.RestauranteBasicoModelOpenApi;
@@ -33,10 +34,10 @@ public interface RestauranteControllerOpenApi {
 		@ApiImplicitParam(value = "Nome da projeção de pedidos", allowableValues = "apenas-nome",
 				name = "projecao", paramType = "query", type = "string")
 	})	
-	CollectionModel<RestauranteModel> listar();
+	CollectionModel<RestauranteBasicoModel> listar();
 	
 	@ApiOperation(value = LISTA_RESTAURANTES, hidden = true)	
-	CollectionModel<RestauranteModel> listarApenasNomes();
+	CollectionModel<RestauranteBasicoModel> listarApenasNomes();
 	
 	@ApiOperation(BUSCA_UM_RESTAURANTE_POR_ID)
 	@ApiResponses({
@@ -44,7 +45,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 		
 	})
-	RestauranteModel buscar(
+	RestauranteBasicoModel buscar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);	
 	
