@@ -21,6 +21,7 @@ import com.algaworks.algafood.api.controller.RestauranteController;
 import com.algaworks.algafood.api.controller.RestauranteFormaPagamentoController;
 import com.algaworks.algafood.api.controller.RestauranteProdutoController;
 import com.algaworks.algafood.api.controller.RestauranteResponsavelController;
+import com.algaworks.algafood.api.controller.StatusPedidoController;
 import com.algaworks.algafood.api.controller.UsuarioController;
 import com.algaworks.algafood.api.controller.UsuarioGrupoController;
 
@@ -43,6 +44,24 @@ public class AlgaLinks {
 		var pedidoUrl = linkTo(PedidoController.class).toUri().toString();
 		return Link.of(UriTemplate.of(pedidoUrl, PAGE_VARIABLES.concat(filterVariables)), "pedidos");
 	}	
+	
+	public Link linkToConfirmacaoPedido(String codigo, String rel) {
+		var confirmarUrl = linkTo(methodOn(StatusPedidoController.class)
+				.confirmar(codigo)).withRel(rel).toUri().toString();
+		return Link.of(confirmarUrl);
+	}
+	
+	public Link linkToEntregaPedido(String codigo, String rel) {
+		var entregarUrl = linkTo(methodOn(StatusPedidoController.class)
+				.entregue(codigo)).withRel(rel).toUri().toString();
+		return Link.of(entregarUrl);
+	}
+	
+	public Link linkToCancelamentoPedido(String codigo, String rel) {
+		var cancelarUrl = linkTo(methodOn(StatusPedidoController.class)
+				.cancelar(codigo)).withRel(rel).toUri().toString();
+		return Link.of(cancelarUrl);
+	}
 	
 	public Link linkToRestaurantes(Long restauranteId, String rel) {
 		var restauranteUrl = linkTo(methodOn(RestauranteController.class)
