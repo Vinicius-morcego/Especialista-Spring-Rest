@@ -12,6 +12,7 @@ import com.algaworks.algafood.api.AlgaLinks;
 import com.algaworks.algafood.api.controller.PedidoController;
 import com.algaworks.algafood.api.model.PedidoModel;
 import com.algaworks.algafood.domain.modelo.Pedido;
+import com.algaworks.algafood.domain.modelo.StatusPedido;
 
 @Component
 public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pedido, PedidoModel>{
@@ -35,11 +36,15 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 		//pedidoModel.add(linkTo(PedidoController.class).withRel("pedidos"));
 		pedidoModel.add(algaLinks.linkToPedidos());		
 		
-		pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedidoModel.getCodigo(), "confirmar"));
-		
-		pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedidoModel.getCodigo(), "cancelar"));
-		
-		pedidoModel.add(algaLinks.linkToEntregaPedido(pedidoModel.getCodigo(), "entregar"));
+		if(pedido.getStatus().podeAlterarPara(StatusPedido.CONFIRMADO)) {
+			pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));			
+		}
+		if(pedido.getStatus().podeAlterarPara(StatusPedido.CANCELADO)) {
+			pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));			
+		}		
+		if(pedido.getStatus().podeAlterarPara(StatusPedido.ENTREGUE)) {
+			pedidoModel.add(algaLinks.linkToEntregaPedido(pedido.getCodigo(), "entregar"));			
+		}
 		
 		pedidoModel.getRestaurante().add(algaLinks.linkToRestaurantes(pedidoModel.getRestaurante().getId()));
 		
