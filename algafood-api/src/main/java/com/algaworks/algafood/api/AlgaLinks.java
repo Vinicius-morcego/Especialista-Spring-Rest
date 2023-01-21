@@ -107,6 +107,12 @@ public class AlgaLinks {
 		return Link.of(UriTemplate.of(restauranteUrl, templateVariables), rel);
 	}
 	
+	public Link linkToRestauranteFormasPagamentoDesassociacao(Long restauranteId, 
+			Long formaPagamentoId, String rel) {
+		var desassociacaoUrl = linkTo(methodOn(RestauranteFormaPagamentoController.class)
+				.desassociar(restauranteId, formaPagamentoId)).withRel(rel).toUri().toString();
+		return Link.of(desassociacaoUrl);
+	}
 	public Link linkToUsuarios(Long clienteId, String rel) {
 		var clienteUrl = linkTo(methodOn(UsuarioController.class)
 				.buscar(clienteId))
