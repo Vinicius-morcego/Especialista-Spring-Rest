@@ -47,52 +47,43 @@ public class AlgaLinks {
 	
 	
 	
-	public Link linkToAbrindoRestaurante(Long codigo, String rel) {
-		var abrirUrl = linkTo(methodOn(RestauranteController.class)
-				.abrir(codigo)).withRel(rel).toUri().toString();
-		return Link.of(abrirUrl);
+	public Link linkToAbrindoRestaurante(Long codigo, String rel) {		
+		return linkTo(methodOn(RestauranteController.class)
+				.abrir(codigo)).withRel(rel);
 	}
 	
-	public Link linkToFechandoRestaurante(Long codigo, String rel) {
-		var fecharUrl = linkTo(methodOn(RestauranteController.class)
-				.fechar(codigo)).withRel(rel).toUri().toString();
-		return Link.of(fecharUrl);
+	public Link linkToFechandoRestaurante(Long codigo, String rel) {		
+		return linkTo(methodOn(RestauranteController.class)
+				.fechar(codigo)).withRel(rel);
 	}
 	
-	public Link linkToAtivandoRestaurante(Long codigo, String rel) {
-		var ativandoUrl = linkTo(methodOn(RestauranteController.class)
-				.ativar(codigo)).withRel(rel).toUri().toString();
-		return Link.of(ativandoUrl);
+	public Link linkToAtivandoRestaurante(Long codigo, String rel) {		
+		return linkTo(methodOn(RestauranteController.class)
+				.ativar(codigo)).withRel(rel);
 	}
 	
-	public Link linkToInativandoRestaurante(Long codigo, String rel) {
-		var inativandoUrl = linkTo(methodOn(RestauranteController.class)
-				.inativar(codigo)).withRel(rel).toUri().toString();
-		return Link.of(inativandoUrl);
+	public Link linkToInativandoRestaurante(Long codigo, String rel) {		
+		return linkTo(methodOn(RestauranteController.class)
+				.inativar(codigo)).withRel(rel);
 	}
-	public Link linkToConfirmacaoPedido(String codigo, String rel) {
-		var confirmarUrl = linkTo(methodOn(StatusPedidoController.class)
-				.confirmar(codigo)).withRel(rel).toUri().toString();
-		return Link.of(confirmarUrl);
+	public Link linkToConfirmacaoPedido(String codigo, String rel) {		
+		return linkTo(methodOn(StatusPedidoController.class)
+				.confirmar(codigo)).withRel(rel);
 	}
 	
-	public Link linkToEntregaPedido(String codigo, String rel) {
-		var entregarUrl = linkTo(methodOn(StatusPedidoController.class)
-				.entregue(codigo)).withRel(rel).toUri().toString();
-		return Link.of(entregarUrl);
+	public Link linkToEntregaPedido(String codigo, String rel) {		
+		return linkTo(methodOn(StatusPedidoController.class)
+				.entregue(codigo)).withRel(rel);
 	}
 	
-	public Link linkToCancelamentoPedido(String codigo, String rel) {
-		var cancelarUrl = linkTo(methodOn(StatusPedidoController.class)
-				.cancelar(codigo)).withRel(rel).toUri().toString();
-		return Link.of(cancelarUrl);
+	public Link linkToCancelamentoPedido(String codigo, String rel) {		
+		return linkTo(methodOn(StatusPedidoController.class)
+				.cancelar(codigo)).withRel(rel);
 	}
 	
-	public Link linkToRestaurantes(Long restauranteId, String rel) {
-		var restauranteUrl = linkTo(methodOn(RestauranteController.class)
-				.buscar(restauranteId)).withRel(rel)
-				.toUri().toString();		
-		return Link.of(restauranteUrl);
+	public Link linkToRestaurantes(Long restauranteId, String rel) {		
+		return linkTo(methodOn(RestauranteController.class)
+				.buscar(restauranteId)).withRel(rel);
 	}
 	
 	public Link linkToRestaurantes(Long restauranteId) {
@@ -108,142 +99,137 @@ public class AlgaLinks {
 	}
 	
 	public Link linkToRestauranteFormasPagamentoDesassociacao(Long restauranteId, 
-			Long formaPagamentoId, String rel) {
-		var desassociacaoUrl = linkTo(methodOn(RestauranteFormaPagamentoController.class)
-				.desassociar(restauranteId, formaPagamentoId)).withRel(rel).toUri().toString();
-		return Link.of(desassociacaoUrl);
+			Long formaPagamentoId, String rel) {		
+		return linkTo(methodOn(RestauranteFormaPagamentoController.class)
+				.desassociar(restauranteId, formaPagamentoId)).withRel(rel);
 	}
-	public Link linkToUsuarios(Long clienteId, String rel) {
-		var clienteUrl = linkTo(methodOn(UsuarioController.class)
+	
+	public Link linkToRestauranteFormasPagamentoAssociacao(Long restauranteId, String rel) {
+		return linkTo(methodOn(RestauranteFormaPagamentoController.class)
+				.associar(restauranteId, null)).withRel(rel);
+	}
+	
+	public Link linkToUsuarios(Long clienteId, String rel) {		
+		return linkTo(methodOn(UsuarioController.class)
 				.buscar(clienteId))
-				.withRel(rel).toUri().toString();
-		return Link.of(clienteUrl);
+				.withRel(rel);
 	}
 	
 	public Link linkToUsuarios(Long clienteId) {		
 		return linkToUsuarios(clienteId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToUsuarios(String rel) {
-		var clienteUrl = linkTo(UsuarioController.class).withRel(rel).toUri().toString();
-		return Link.of(clienteUrl);
+	public Link linkToUsuarios(String rel) {		
+		return linkTo(UsuarioController.class).withRel(rel);
 	}
 	
-	public Link linkToFormaPagamentos(Long restauranteId, String rel) {
-		var formaPagamentosUrl = linkTo(methodOn(RestauranteFormaPagamentoController.class)
-				.listar(restauranteId)).withRel(rel).toUri().toString();
-		return Link.of(formaPagamentosUrl);
+	public Link linkToFormaPagamentos(Long restauranteId, String rel) {		
+		return linkTo(methodOn(RestauranteFormaPagamentoController.class)
+				.listar(restauranteId)).withRel(rel);
 	}
 	
 	public Link linkToFormaPagamentos(Long restauranteId) {		
 		return linkToFormaPagamentos(restauranteId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToFormaPagamentos(String rel) {
-		var formaPagamentosUrl = linkTo(FormaPagamentoController.class).withRel(rel).toUri().toString();
-		return Link.of(formaPagamentosUrl);
+	public Link linkToFormaPagamentos(String rel) {		
+		return linkTo(FormaPagamentoController.class).withRel(rel);
 	}
 	
-	public Link linkToCidades(Long cidadeId, String rel) {
-		var cidadesUrl = linkTo(methodOn(CidadeController.class).buscar(cidadeId)).withRel(rel).toUri().toString();
-		return Link.of(cidadesUrl);
+	public Link linkToCidades(Long cidadeId, String rel) {		
+		return linkTo(methodOn(CidadeController.class).buscar(cidadeId)).withRel(rel);
 	}
 	
 	public Link linkToCidades(Long cidadeId) {
 		return linkToCidades(cidadeId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToCidades(String rel) {
-		var cidadeUrl = linkTo(CidadeController.class).withRel(rel).toUri().toString();
-		return Link.of(cidadeUrl);
+	public Link linkToCidades(String rel) {		
+		return linkTo(CidadeController.class).withRel(rel);
 	}
 	public Link linkToRestauranteProduto(Long restauranteId, Long produtoId, String rel) {
-		var itensUrl = linkTo(methodOn(RestauranteProdutoController.class)
-				.buscar(restauranteId, produtoId)).withRel(rel).toUri().toString();
-		return Link.of(itensUrl);
+		
+		return linkTo(methodOn(RestauranteProdutoController.class)
+				.buscar(restauranteId, produtoId)).withRel(rel);
 	}
 	
 	public Link linkToRestauranteProduto(Long restauranteId, Long produtoId) {
 		return linkToRestauranteProduto(restauranteId, produtoId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToRestauranteProduto(String rel) {
-		var produtoUrl = linkTo(RestauranteProdutoController.class).withRel(rel).toUri().toString();
-		return Link.of(produtoUrl);
+	public Link linkToRestauranteProduto(String rel) {		
+		return linkTo(RestauranteProdutoController.class).withRel(rel);
 	}
 	
-	public Link linkToCozinhas(Long cozinhaId, String rel) {
-		var cozinhaUrl = linkTo(methodOn(CozinhaController.class)
-				.buscar(cozinhaId))
-				.withRel(rel).toUri().toString();
-		return Link.of(cozinhaUrl);
+	public Link linkToCozinhas(Long cozinhaId, String rel) {		
+		return linkTo(methodOn(CozinhaController.class).buscar(cozinhaId)).withRel(rel);
 	}
 	
 	public Link linkToCozinhas(Long cozinhaId) {
 		return linkToCozinhas(cozinhaId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToCozinhas(String rel) {
-		var cozinhaUrl = linkTo(CozinhaController.class).withRel(rel).toUri().toString();
-		return Link.of(cozinhaUrl);
+	public Link linkToCozinhas(String rel) {		
+		return linkTo(CozinhaController.class).withRel(rel);
 	}
 	
-	public Link linkToEstados(Long estadoId, String rel) {
-		var estadoUrl = linkTo(methodOn(EstadoController.class).buscar(estadoId)).withRel(rel).toUri().toString();
-		return Link.of(estadoUrl);
+	public Link linkToEstados(Long estadoId, String rel) {		
+		return linkTo(methodOn(EstadoController.class).buscar(estadoId)).withRel(rel);
 	}
 	
 	public Link linkToEstados(Long estadoId) {
 		return linkToEstados(estadoId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToEstados(String rel) {
-		var estadoUrl = linkTo(EstadoController.class).withRel(rel).toUri().toString();
-		return Link.of(estadoUrl);
+	public Link linkToEstados(String rel) {		
+		return linkTo(EstadoController.class).withRel(rel);
 	}
 	
-	public Link linkToGrupos(Long grupoId, String rel) {
-		var grupoUrl = linkTo(methodOn(GrupoController.class).buscar(grupoId)).withRel(rel).toUri().toString();
-		return Link.of(grupoUrl);
+	public Link linkToGrupos(Long grupoId, String rel) {		
+		return linkTo(methodOn(GrupoController.class).buscar(grupoId)).withRel(rel);
 	}
 	
 	public Link linkToGrupos(Long grupoId) {
 		return linkToGrupos(grupoId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToGrupos(String rel) {
-		var grupoUrl = linkTo(GrupoController.class).withRel(rel).toUri().toString();
-		return Link.of(grupoUrl);
+	public Link linkToGrupos(String rel) {		
+		return linkTo(GrupoController.class).withRel(rel);
 	}
 	
-	public Link linkToGruposUsuario(Long usuarioId, String rel) {
-		var grupoUsuarioUrl = linkTo(methodOn(UsuarioGrupoController.class)
-				.listar(usuarioId)).withRel(rel).toUri().toString();
-		return Link.of(grupoUsuarioUrl);
+	public Link linkToGruposUsuario(Long usuarioId, String rel) {		
+		return linkTo(methodOn(UsuarioGrupoController.class).listar(usuarioId)).withRel(rel);
 	}
 	
 	public Link linkToGruposUsuario(Long usuarioId) {
 		return linkToGruposUsuario(usuarioId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToGruposUsuario(String rel) {
-		var grupoUsuarioUrl = linkTo(UsuarioGrupoController.class).withRel(rel).toUri().toString();
-		return Link.of(grupoUsuarioUrl);
+	public Link linkToGruposUsuario(String rel) {		
+		return linkTo(UsuarioGrupoController.class).withRel(rel);
 	}
 	
-	public Link linkToRestauranteResponsavel(Long restauranteId, String rel) {
-		var responsavelUrl = linkTo(methodOn(RestauranteResponsavelController.class)
-				.listar(restauranteId)).withRel(rel).toUri().toString();
-		return Link.of(responsavelUrl);		
+	public Link linkToRestauranteResponsavel(Long restauranteId, String rel) {		
+		return linkTo(methodOn(RestauranteResponsavelController.class)
+				.listar(restauranteId)).withRel(rel);		
 	}
 	
 	public Link linkToRestauranteResponsavel(Long restauranteId) {
 		return linkToRestauranteResponsavel(restauranteId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToRestauranteResponsavel(String rel) {
-		var responsavelUrl = linkTo(RestauranteResponsavelController.class).withRel(rel).toUri().toString();
-		return Link.of(responsavelUrl);
+	public Link linkToRestauranteResponsavel(String rel) {		
+		return linkTo(RestauranteResponsavelController.class).withRel(rel);
+	}
+	
+	public Link linkToRestauranteResponsavelDesassociar(Long restauranteId, Long usuarioId, String rel) {
+		return linkTo(methodOn(RestauranteResponsavelController.class)
+				.desassociar(restauranteId, usuarioId)).withRel(rel);
+	}
+	
+	public Link linkToRestauranteResponsavelAssociar(Long restauranteId, String rel) {
+		return linkTo(methodOn(RestauranteResponsavelController.class)
+				.associar(restauranteId, null)).withRel(rel);
 	}
 	
 }

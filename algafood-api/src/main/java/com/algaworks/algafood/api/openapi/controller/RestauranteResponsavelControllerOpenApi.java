@@ -1,6 +1,7 @@
 package com.algaworks.algafood.api.openapi.controller;
 
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.ResponseEntity;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.UsuarioModel;
@@ -29,7 +30,7 @@ public interface RestauranteResponsavelControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND),
 	})
-	public void desassociar(
+	public ResponseEntity<Void> desassociar(
 			@ApiParam(value = "ID do restaurante", example = "1", required = true) 
 			Long restauranteId, 
 			@ApiParam(value = "ID do usuario", example = "1", required = true) 
@@ -40,7 +41,7 @@ public interface RestauranteResponsavelControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND),
 	})
-	public void associar(
+	public ResponseEntity<Void> associar(
 		@ApiParam(value = "ID do restaurante", example = "1", required = true) 
 		Long restauranteId, 
 		@ApiParam(value = "ID do usuario", example = "1", required = true) 
