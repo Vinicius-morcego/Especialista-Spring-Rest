@@ -144,21 +144,27 @@ public class AlgaLinks {
 		return linkToCidades(cidadeId, IanaLinkRelations.SELF_VALUE);
 	}
 	
-	public Link linkToCidades(String rel) {		
+	public Link linkToCidades(String rel) {
 		return linkTo(CidadeController.class).withRel(rel);
 	}
-	public Link linkToRestauranteProduto(Long restauranteId, Long produtoId, String rel) {
-		
+	
+	public Link linkToProduto(Long restauranteId, Long produtoId, String rel) {
 		return linkTo(methodOn(RestauranteProdutoController.class)
-				.buscar(restauranteId, produtoId)).withRel(rel);
+				.buscar(restauranteId, produtoId))
+				.withRel(rel);
 	}
 	
-	public Link linkToRestauranteProduto(Long restauranteId, Long produtoId) {
-		return linkToRestauranteProduto(restauranteId, produtoId, IanaLinkRelations.SELF_VALUE);
+	public Link linkToProduto(Long restauranteId, Long produtoId) {
+		return linkToProduto(restauranteId, produtoId, IanaLinkRelations.SELF.value());
 	}
 	
-	public Link linkToRestauranteProduto(String rel) {		
-		return linkTo(RestauranteProdutoController.class).withRel(rel);
+	public Link linkToProdutos(Long restauranteId, String rel) {
+		return linkTo(methodOn(RestauranteProdutoController.class)
+				.listar(restauranteId, null)).withRel(rel);
+	}
+	
+	public Link linkToProdutos(Long restauranteId) {
+		return linkToProdutos(restauranteId, IanaLinkRelations.SELF.value());
 	}
 	
 	public Link linkToCozinhas(Long cozinhaId, String rel) {		

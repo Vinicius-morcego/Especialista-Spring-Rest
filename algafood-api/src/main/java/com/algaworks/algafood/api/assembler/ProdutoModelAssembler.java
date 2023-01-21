@@ -27,19 +27,14 @@ public class ProdutoModelAssembler extends RepresentationModelAssemblerSupport<P
 	
 	@Override
 	public ProdutoModel toModel(Produto produto) {
-		ProdutoModel produtoModel = createModelWithId(produto.getId(), produto);
+		ProdutoModel produtoModel = createModelWithId(produto.getId(), produto, produto.getRestaurante().getId());
 		modelMapper.map(produto, produtoModel);
-		produtoModel.add(algaLinks.linkToRestauranteProduto("produtos"));
+		produtoModel.add(algaLinks.linkToProdutos(produto.getRestaurante().getId(), "produtos"));		
 		return produtoModel;
 	}
 	
 	public void copyDomainToObject(ProdutoInput produtoInput, Produto produto) {
 		modelMapper.map(produtoInput, produto);
-	}
-	
-	@Override
-	public CollectionModel<ProdutoModel> toCollectionModel(Iterable<? extends Produto> entities) {		
-		return super.toCollectionModel(entities).add(algaLinks.linkToRestauranteProduto("produtos"));
-	}
+	}	
 	
 }

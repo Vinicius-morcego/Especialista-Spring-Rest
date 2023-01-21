@@ -39,4 +39,6 @@ public class ProdutoModel extends RepresentationModel<ProdutoModel>{
 	private Boolean ativo;
 	
 	
+	
+	
 }

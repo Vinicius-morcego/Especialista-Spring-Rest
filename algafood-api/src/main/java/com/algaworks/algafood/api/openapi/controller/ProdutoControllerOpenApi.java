@@ -31,7 +31,7 @@ public interface ProdutoControllerOpenApi {
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true)
 			Long restauranteId,
 			@ApiParam(value = "Status do produto", example = "INATIVO")
-			boolean incluirIntativos);	
+			Boolean incluirIntativos);	
 	
 	@ApiOperation("Busca os produtos do restaurante por ID")
 	@ApiResponses({

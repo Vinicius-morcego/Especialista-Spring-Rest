@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.api.AlgaLinks;
 import com.algaworks.algafood.api.assembler.ProdutoInputDisassembler;
 import com.algaworks.algafood.api.assembler.ProdutoModelAssembler;
 import com.algaworks.algafood.api.model.ProdutoModel;
@@ -45,9 +46,12 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
+	@Autowired
+	private AlgaLinks algaLinks;
+	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public CollectionModel<ProdutoModel> listar(@PathVariable Long restauranteId,
-			@RequestParam(required = false) boolean incluirInativos) {
+			@RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
 		var restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 		
 		List<Produto> todosProdutos = null;
@@ -57,7 +61,8 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 			todosProdutos = produtoRepository.findAtivosByRestaurante(restaurante);
 			
 		}
-		return produtoAssembler.toCollectionModel(todosProdutos);		
+		return produtoAssembler.toCollectionModel(todosProdutos)
+				.add(algaLinks.linkToProdutos(restaurante.getId(), "produtos"));
 	}	
 	
 	@GetMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)

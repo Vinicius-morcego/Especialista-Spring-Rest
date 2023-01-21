@@ -56,8 +56,7 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 				algaLinks.linkToCidades(pedidoModel.getEnderecoEntrega().getCidade().getId()));
 		
 		pedidoModel.getItens().forEach(item ->{			
-				item.getProduto().add(algaLinks.linkToRestauranteProduto(pedidoModel
-				.getRestaurante().getId(), item.getProduto().getId(), "produto"));
+				item.getProduto().add(algaLinks.linkToProdutos(pedido.getRestaurante().getId(), "produto"));
 		});
 		
 		return pedidoModel;
