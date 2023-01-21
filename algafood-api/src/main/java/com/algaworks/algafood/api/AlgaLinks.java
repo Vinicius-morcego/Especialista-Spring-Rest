@@ -33,7 +33,7 @@ public class AlgaLinks {
 			new TemplateVariable("size", VariableType.REQUEST_PARAM),
 			new TemplateVariable("sort", VariableType.REQUEST_PARAM));
 	
-	public Link linkToPedidos() {
+	public Link linkToPedidos(String rel) {
 		var filterVariables = new TemplateVariables(
 				new TemplateVariable("clienteId", VariableType.REQUEST_PARAM),
 				new TemplateVariable("restauranteId", VariableType.REQUEST_PARAM),
@@ -42,8 +42,10 @@ public class AlgaLinks {
 				
 				);
 		var pedidoUrl = linkTo(PedidoController.class).toUri().toString();
-		return Link.of(UriTemplate.of(pedidoUrl, PAGE_VARIABLES.concat(filterVariables)), "pedidos");
+		return Link.of(UriTemplate.of(pedidoUrl, PAGE_VARIABLES.concat(filterVariables)), rel);
 	}	
+	
+	
 	
 	public Link linkToAbrindoRestaurante(Long codigo, String rel) {
 		var abrirUrl = linkTo(methodOn(RestauranteController.class)
@@ -89,7 +91,7 @@ public class AlgaLinks {
 	public Link linkToRestaurantes(Long restauranteId, String rel) {
 		var restauranteUrl = linkTo(methodOn(RestauranteController.class)
 				.buscar(restauranteId)).withRel(rel)
-				.toUri().toString();
+				.toUri().toString();		
 		return Link.of(restauranteUrl);
 	}
 	
@@ -99,7 +101,10 @@ public class AlgaLinks {
 	
 	public Link linkToRestaurantes(String rel) {
 		var restauranteUrl = linkTo(RestauranteController.class).withRel(rel).toUri().toString();
-		return Link.of(restauranteUrl);
+		var templateVariables = new TemplateVariables(
+				new TemplateVariable("projecao", VariableType.REQUEST_PARAM)		
+			);
+		return Link.of(UriTemplate.of(restauranteUrl, templateVariables), rel);
 	}
 	
 	public Link linkToUsuarios(Long clienteId, String rel) {

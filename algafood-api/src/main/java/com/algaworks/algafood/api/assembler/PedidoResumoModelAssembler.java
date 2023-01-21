@@ -28,14 +28,14 @@ public class PedidoResumoModelAssembler extends RepresentationModelAssemblerSupp
 	public PedidoResumoModel toModel(Pedido pedido) {
 		PedidoResumoModel pedidoResumoModel = createModelWithId(pedido.getId(), pedido);		
 		modelMapper.map(pedido, pedidoResumoModel);		
-		pedidoResumoModel.add(algaLinks.linkToPedidos());
+		pedidoResumoModel.add(algaLinks.linkToPedidos("pedidos"));
 		
 		return pedidoResumoModel;
 	}
 	
 	@Override
 	public CollectionModel<PedidoResumoModel> toCollectionModel(Iterable<? extends Pedido> entities) {		
-		return super.toCollectionModel(entities).add(algaLinks.linkToPedidos());
+		return super.toCollectionModel(entities).add(algaLinks.linkToPedidos("pedidos"));
 	}
 //	public List<PedidoResumoModel> toCollectionModel(List<Pedido> pedidos){
 //		return pedidos.stream()

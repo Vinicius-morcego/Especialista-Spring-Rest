@@ -14,4 +14,8 @@ public class RestauranteBasicoModel extends RepresentationModel<RestauranteBasic
 	private Long id;
 	
 	private String nome;
+	
+	private boolean aberto;
+	
+	private boolean ativo;
 }
