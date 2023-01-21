@@ -36,6 +36,18 @@ public class RestauranteBasicoModelAssembler extends RepresentationModelAssemble
 		restauranteBasicoModel.add(algaLinks.linkToRestaurantes("restaurantes"));
 		restauranteBasicoModel.add(algaLinks.linkToFormaPagamentos(restaurante.getId(), "formas-pagamento"));
 		restauranteBasicoModel.add(algaLinks.linkToRestauranteResponsavel(restaurante.getId()));
+		if(restaurante.getAberto()) {
+			restauranteBasicoModel.add(algaLinks.linkToFechandoRestaurante(restaurante.getId(), "fechar"));
+		}
+		if(!restaurante.getAberto()) {
+			restauranteBasicoModel.add(algaLinks.linkToAbrindoRestaurante(restaurante.getId(), "abrir"));
+		}
+		if(restaurante.getAtivo()) {
+			restauranteBasicoModel.add(algaLinks.linkToInativandoRestaurante(restaurante.getId(), "inativar"));
+		}
+		if(!restaurante.getAtivo()) {
+			restauranteBasicoModel.add(algaLinks.linkToAtivandoRestaurante(restaurante.getId(), "ativar"));
+		}
 		return restauranteBasicoModel;
 		
 	}

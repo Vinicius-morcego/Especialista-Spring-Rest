@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.openapi.controller;
 import java.util.List;
 
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.ResponseEntity;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.RestauranteBasicoModel;
@@ -73,7 +74,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	void ativar(
+	ResponseEntity<Void> ativar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 	
@@ -84,7 +85,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	void inativar(
+	ResponseEntity<Void> inativar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 	
@@ -94,7 +95,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 		
 	})
-	void abrir(
+	ResponseEntity<Void> abrir(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 	
@@ -123,7 +124,7 @@ public interface RestauranteControllerOpenApi {
 		@ApiResponse(code = 400, message = MSG_BAD_REQUEST, response = Problem.class),
 		@ApiResponse(code = 404, message = MSG_NOT_FOUND, response = Problem.class)
 	})
-	void fechar(
+	ResponseEntity<Void> fechar(
 			@ApiParam(value = ID_DO_RESTAURANTE, example = "1", required = true) 
 			Long restauranteId);
 	

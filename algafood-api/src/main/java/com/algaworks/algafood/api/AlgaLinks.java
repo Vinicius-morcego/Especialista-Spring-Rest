@@ -45,6 +45,29 @@ public class AlgaLinks {
 		return Link.of(UriTemplate.of(pedidoUrl, PAGE_VARIABLES.concat(filterVariables)), "pedidos");
 	}	
 	
+	public Link linkToAbrindoRestaurante(Long codigo, String rel) {
+		var abrirUrl = linkTo(methodOn(RestauranteController.class)
+				.abrir(codigo)).withRel(rel).toUri().toString();
+		return Link.of(abrirUrl);
+	}
+	
+	public Link linkToFechandoRestaurante(Long codigo, String rel) {
+		var fecharUrl = linkTo(methodOn(RestauranteController.class)
+				.fechar(codigo)).withRel(rel).toUri().toString();
+		return Link.of(fecharUrl);
+	}
+	
+	public Link linkToAtivandoRestaurante(Long codigo, String rel) {
+		var ativandoUrl = linkTo(methodOn(RestauranteController.class)
+				.ativar(codigo)).withRel(rel).toUri().toString();
+		return Link.of(ativandoUrl);
+	}
+	
+	public Link linkToInativandoRestaurante(Long codigo, String rel) {
+		var inativandoUrl = linkTo(methodOn(RestauranteController.class)
+				.inativar(codigo)).withRel(rel).toUri().toString();
+		return Link.of(inativandoUrl);
+	}
 	public Link linkToConfirmacaoPedido(String codigo, String rel) {
 		var confirmarUrl = linkTo(methodOn(StatusPedidoController.class)
 				.confirmar(codigo)).withRel(rel).toUri().toString();
