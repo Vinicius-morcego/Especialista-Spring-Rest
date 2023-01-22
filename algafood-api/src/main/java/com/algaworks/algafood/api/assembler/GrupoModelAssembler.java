@@ -31,6 +31,7 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
 		modelMapper.map(grupo, grupoModel);
 		
 		grupoModel.add(algaLinks.linkToGrupos("grupos"));		
+		grupoModel.add(algaLinks.linkToPermissoesGrupo(grupo.getId(), "permissões"));
 		
 		return grupoModel;
 	}

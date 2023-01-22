@@ -76,6 +76,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 	}
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	//@GetMapping
 	public FotoProdutoModel listar(@PathVariable Long produtoId, @PathVariable Long restauranteId) {
 			FotoProduto foto = catalogoFotoProduto.buscarOuFalhar(produtoId, restauranteId);			
 			return fotoProdutoModelAssembler.toModel(foto);
