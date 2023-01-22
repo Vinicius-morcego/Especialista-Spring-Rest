@@ -18,6 +18,7 @@ import com.algaworks.algafood.api.controller.FormaPagamentoController;
 import com.algaworks.algafood.api.controller.GrupoController;
 import com.algaworks.algafood.api.controller.GrupoPermissaoController;
 import com.algaworks.algafood.api.controller.PedidoController;
+import com.algaworks.algafood.api.controller.PermissaoController;
 import com.algaworks.algafood.api.controller.RestauranteController;
 import com.algaworks.algafood.api.controller.RestauranteFormaPagamentoController;
 import com.algaworks.algafood.api.controller.RestauranteProdutoController;
@@ -226,6 +227,9 @@ public class AlgaLinks {
 		return linkTo(methodOn(GrupoPermissaoController.class).listar(grupoId)).withRel(rel);
 	}
 	
+	public Link linkToPermissoes(String rel) {
+		return linkTo(PermissaoController.class).withRel(rel);
+	}
 	public Link linkToRestauranteResponsavel(Long restauranteId, String rel) {		
 		return linkTo(methodOn(RestauranteResponsavelController.class)
 				.listar(restauranteId)).withRel(rel);		

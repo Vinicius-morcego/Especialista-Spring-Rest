@@ -14,7 +14,7 @@ import com.algaworks.algafood.domain.modelo.Permissao;
 
 @Component
 public class PermissaoModelAssembler {
-
+	
 	@Autowired
 	private ModelMapper modelMapper;
 	
