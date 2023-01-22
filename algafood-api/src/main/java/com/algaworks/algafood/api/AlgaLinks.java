@@ -20,6 +20,7 @@ import com.algaworks.algafood.api.controller.PedidoController;
 import com.algaworks.algafood.api.controller.RestauranteController;
 import com.algaworks.algafood.api.controller.RestauranteFormaPagamentoController;
 import com.algaworks.algafood.api.controller.RestauranteProdutoController;
+import com.algaworks.algafood.api.controller.RestauranteProdutoFotoController;
 import com.algaworks.algafood.api.controller.RestauranteResponsavelController;
 import com.algaworks.algafood.api.controller.StatusPedidoController;
 import com.algaworks.algafood.api.controller.UsuarioController;
@@ -146,6 +147,11 @@ public class AlgaLinks {
 	
 	public Link linkToCidades(String rel) {
 		return linkTo(CidadeController.class).withRel(rel);
+	}
+	
+	public Link linkToFotoProduto(Long produtoId, Long restauranteId, String rel) {
+		return linkTo(methodOn(RestauranteProdutoFotoController.class)
+				.listar(produtoId, restauranteId)).withRel(rel);
 	}
 	
 	public Link linkToProduto(Long restauranteId, Long produtoId, String rel) {
