@@ -32,6 +32,16 @@ public class EstatisticasController implements EstatisticaControllerOpenApi{
 	@Autowired
 	private AlgaLinks algaLinks;	
 	
+	@Override
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
+	public EstatisticasModel estatistica(){
+		var estatisticaModel = new EstatisticasModel();
+		
+		estatisticaModel.add(algaLinks.linkToEstatisticasVendasDiarias("estatisticas"));
+		
+		return estatisticaModel;
+	}
+	
 	@GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<VendaDiaria> consultarVendasDiarias(			
 			VendaDiariaFilter filtro, 
@@ -54,17 +64,5 @@ public class EstatisticasController implements EstatisticaControllerOpenApi{
 				.body(bytesPdf);
 	}
 	
-	@Override
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
-	public EstatisticasModel estatistica(){
-		var estatisticaModel = new EstatisticasModel();
-		
-		estatisticaModel.add(algaLinks.linkToEstatisticasVendasDiarias("estatisticas"));
-		
-		return estatisticaModel;
-	}
-	
 	public static class EstatisticasModel extends RepresentationModel<EstatisticasModel>{}
-
-
 }
