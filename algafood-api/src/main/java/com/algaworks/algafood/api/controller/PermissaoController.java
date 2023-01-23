@@ -1,19 +1,20 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.assembler.PermissaoModelAssembler;
 import com.algaworks.algafood.api.model.PermissaoModel;
+import com.algaworks.algafood.api.openapi.controller.PermissaoOpenOpenApi;
 import com.algaworks.algafood.domain.repository.PermissaoRepository;
 
 @RestController
 @RequestMapping("/permissoes")
-public class PermissaoController {
+public class PermissaoController implements PermissaoOpenOpenApi{
 
 	@Autowired
 	private PermissaoRepository permissaoRepository;
@@ -21,9 +22,11 @@ public class PermissaoController {
 	@Autowired
 	private PermissaoModelAssembler permissaoModelAssembler;
 	
-	@GetMapping
-	public Collection<PermissaoModel> listar(){
-		return permissaoModelAssembler.toCollectionModel(permissaoRepository.findAll());
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	public CollectionModel<PermissaoModel> listar(){
+		CollectionModel<PermissaoModel> permissoesModel =
+				permissaoModelAssembler.toCollectionModel(permissaoRepository.findAll());
+		return permissoesModel;
 	}
 	
 }

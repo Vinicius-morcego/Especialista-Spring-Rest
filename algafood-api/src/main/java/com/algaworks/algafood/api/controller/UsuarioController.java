@@ -1,6 +1,5 @@
 package com.algaworks.algafood.api.controller;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -56,8 +55,10 @@ public class UsuarioController implements UsuarioControllerOpenApi{
 	
 	@GetMapping(path = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UsuarioModel buscar(@PathVariable Long usuarioId) {
-		Usuario usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
-		return usuarioModelAssembler.toModel(usuario);
+		var usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
+		var usuarioModel = usuarioModelAssembler.toModel(usuario);
+		
+		return usuarioModel; 
 	}	 
 	 
 	@PostMapping(path = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE)

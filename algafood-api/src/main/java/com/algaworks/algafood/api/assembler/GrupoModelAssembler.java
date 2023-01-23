@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.assembler;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.TemplateVariables;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -31,9 +32,8 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
 		modelMapper.map(grupo, grupoModel);
 		
 		grupoModel.add(algaLinks.linkToGrupos("grupos"));		
-		grupoModel.add(algaLinks.linkToPermissoesGrupo(grupo.getId(), "grupo-permissao"));
-		grupoModel.add(algaLinks.linkToPermissoes("permissões"));
-		
+		grupoModel.add(algaLinks.linkToPermissoesGrupo(grupo.getId(), "grupo-permissao"));		
+		grupoModel.add(algaLinks.linkToPermissoes("permissões"));	
 		return grupoModel;
 	}
 	

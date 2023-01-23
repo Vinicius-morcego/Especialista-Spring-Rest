@@ -227,9 +227,26 @@ public class AlgaLinks {
 		return linkTo(methodOn(GrupoPermissaoController.class).listar(grupoId)).withRel(rel);
 	}
 	
+	public Link linkToPermissaoGrupoAssociar(Long grupoId, String rel) {
+		return linkTo(methodOn(GrupoPermissaoController.class).associar(grupoId, null)).withRel(rel);
+	}
+	
+	public Link linkToPermissaoGrupoDesassociar(Long grupoId, String rel) {
+		return linkTo(methodOn(GrupoPermissaoController.class).desassociar(grupoId, null)).withRel(rel);
+	}
+	
 	public Link linkToPermissoes(String rel) {
 		return linkTo(PermissaoController.class).withRel(rel);
 	}
+	
+	public Link linkToUsuarioPermissoesAssociar(Long usuarioId, String rel) {
+		return linkTo(methodOn(UsuarioGrupoController.class).associar(usuarioId, null)).withRel(rel);
+	}
+	
+	public Link linkToUsuarioPermissoesDesassociar(Long usuarioId, Long grupoId, String rel) {
+		return linkTo(methodOn(UsuarioGrupoController.class).desassociar(usuarioId, grupoId)).withRel(rel);
+	}
+	
 	public Link linkToRestauranteResponsavel(Long restauranteId, String rel) {		
 		return linkTo(methodOn(RestauranteResponsavelController.class)
 				.listar(restauranteId)).withRel(rel);		
