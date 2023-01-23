@@ -3,6 +3,7 @@ package com.algaworks.algafood.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.RepresentationModel;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.api.AlgaLinks;
 import com.algaworks.algafood.api.openapi.controller.EstatisticaControllerOpenApi;
 import com.algaworks.algafood.domain.filter.VendaDiariaFilter;
 import com.algaworks.algafood.domain.modelo.dto.VendaDiaria;
@@ -22,10 +24,13 @@ import com.algaworks.algafood.domain.service.VendaReportService;
 public class EstatisticasController implements EstatisticaControllerOpenApi{
 
 	@Autowired(required = true)
-	private VendaQueryService vendaQueryService;
+	private VendaQueryService vendaQueryService; 
 	
 	@Autowired(required = true)
 	private VendaReportService vendaReportService;
+	
+	@Autowired
+	private AlgaLinks algaLinks;	
 	
 	@GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<VendaDiaria> consultarVendasDiarias(			
@@ -48,4 +53,18 @@ public class EstatisticasController implements EstatisticaControllerOpenApi{
 				.headers(headers)
 				.body(bytesPdf);
 	}
+	
+	@Override
+	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
+	public EstatisticasModel estatistica(){
+		var estatisticaModel = new EstatisticasModel();
+		
+		estatisticaModel.add(algaLinks.linkToEstatisticasVendasDiarias("estatisticas"));
+		
+		return estatisticaModel;
+	}
+	
+	public static class EstatisticasModel extends RepresentationModel<EstatisticasModel>{}
+
+
 }

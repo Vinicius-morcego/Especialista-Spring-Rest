@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Setter
 @Getter
 public class VendaDiariaFilter {
