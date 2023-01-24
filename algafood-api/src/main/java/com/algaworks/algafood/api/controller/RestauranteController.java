@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.algaworks.algafood.api.assembler.RestauranteApenasNomeModelAssembler;
 import com.algaworks.algafood.api.assembler.RestauranteBasicoModelAssembler;
 import com.algaworks.algafood.api.assembler.RestauranteInputDisassembler;
 import com.algaworks.algafood.api.assembler.RestauranteModelAssembler;
+import com.algaworks.algafood.api.model.RestauranteApenasNomeModel;
 import com.algaworks.algafood.api.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
@@ -55,6 +57,9 @@ public class RestauranteController implements RestauranteControllerOpenApi{
 	private RestauranteBasicoModelAssembler restauranteBasicoModelAssembler;
 	
 	@Autowired
+	private RestauranteApenasNomeModelAssembler restauranteApenasNomeModelAssembler;
+	
+	@Autowired
 	private RestauranteInputDisassembler restauranteInputDisassembler;
 	
 	//@JsonView(RestauranteView.Resumo.class)
@@ -68,8 +73,9 @@ public class RestauranteController implements RestauranteControllerOpenApi{
 
 	//@JsonView(RestauranteView.ApenasNome.class)
 	@GetMapping(params = "projecao=apenas-nome") 
-	public CollectionModel<RestauranteBasicoModel> listarApenasNomes(){
-		return listar();
+	public CollectionModel<RestauranteApenasNomeModel> listarApenasNomes(){
+		return restauranteApenasNomeModelAssembler
+				.toCollectionModel(restauranteRepository.findAll());
 	}
 	
 	@GetMapping(path = "/{restauranteId}", produces = MediaType.APPLICATION_JSON_VALUE)

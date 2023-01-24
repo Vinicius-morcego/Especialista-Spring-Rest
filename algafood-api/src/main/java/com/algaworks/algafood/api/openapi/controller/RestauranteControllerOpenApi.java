@@ -6,10 +6,10 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.ResponseEntity;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
+import com.algaworks.algafood.api.model.RestauranteApenasNomeModel;
 import com.algaworks.algafood.api.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.model.RestauranteModel;
 import com.algaworks.algafood.api.model.input.RestauranteInput;
-import com.algaworks.algafood.api.openapi.model.RestauranteBasicoModelOpenApi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Api(tags = "Restaurantes")
 public interface RestauranteControllerOpenApi {
@@ -37,8 +38,9 @@ public interface RestauranteControllerOpenApi {
 	})	
 	CollectionModel<RestauranteBasicoModel> listar();
 	
+	@ApiIgnore
 	@ApiOperation(value = LISTA_RESTAURANTES, hidden = true)	
-	CollectionModel<RestauranteBasicoModel> listarApenasNomes();
+	CollectionModel<RestauranteApenasNomeModel> listarApenasNomes();
 	
 	@ApiOperation(BUSCA_UM_RESTAURANTE_POR_ID)
 	@ApiResponses({
