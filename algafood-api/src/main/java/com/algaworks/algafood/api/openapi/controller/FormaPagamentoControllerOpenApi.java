@@ -7,6 +7,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 import com.algaworks.algafood.api.exceptionhandler.Problem;
 import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.input.FormaPagamentoInput;
+import com.algaworks.algafood.api.openapi.model.FormasPagamentoModelOpenApi;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,9 +18,9 @@ import io.swagger.annotations.ApiResponses;
 @Api(tags = "Formas de pagamento")
 public interface FormaPagamentoControllerOpenApi {
 
-	@ApiOperation("Lista formas de pagamento")
-	@ApiResponses({
-		@ApiResponse(code = 405, message = "Recurso não implementado", response = Problem.class)
+	@ApiOperation(value = "Lista as formas de pagamento")
+	@io.swagger.annotations.ApiResponses(value = {
+	@io.swagger.annotations.ApiResponse(code = 200, message = "OK", response = FormasPagamentoModelOpenApi.class)
 	})	
 		ResponseEntity<CollectionModel<FormaPagamentoModel>> consultar(
 			@ApiParam(example = "corpo", value = "Representação de formas de pagamento")
