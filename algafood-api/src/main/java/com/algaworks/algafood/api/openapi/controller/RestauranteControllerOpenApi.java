@@ -30,7 +30,7 @@ public interface RestauranteControllerOpenApi {
 	public static String BUSCA_UM_RESTAURANTE_POR_ID = "Busca um restaurante por ID";
 	public static String LISTA_RESTAURANTES = "Lista restaurantes";
 
-	@ApiOperation(value = LISTA_RESTAURANTES, response = RestauranteBasicoModelOpenApi.class)
+	@ApiOperation(value = LISTA_RESTAURANTES)
 	@ApiImplicitParams({
 		@ApiImplicitParam(value = "Nome da projeção de pedidos", allowableValues = "apenas-nome",
 				name = "projecao", paramType = "query", type = "string")

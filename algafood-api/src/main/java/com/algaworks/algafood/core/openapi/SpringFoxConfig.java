@@ -29,10 +29,11 @@ import com.algaworks.algafood.api.model.CozinhaModel;
 import com.algaworks.algafood.api.model.EstadoModel;
 import com.algaworks.algafood.api.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.model.GrupoModel;
-import com.algaworks.algafood.api.model.PedidoModel;
 import com.algaworks.algafood.api.model.PedidoResumoModel;
 import com.algaworks.algafood.api.model.PermissaoModel;
 import com.algaworks.algafood.api.model.ProdutoModel;
+import com.algaworks.algafood.api.model.RestauranteBasicoModel;
+import com.algaworks.algafood.api.model.UsuarioModel;
 import com.algaworks.algafood.api.openapi.model.CidadesModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.CozinhasModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.EstadosModelOpenApi;
@@ -43,6 +44,8 @@ import com.algaworks.algafood.api.openapi.model.PageableModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.PedidosResumoModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.PermissoesModelOpenApi;
 import com.algaworks.algafood.api.openapi.model.ProdutosModelOpenApi;
+import com.algaworks.algafood.api.openapi.model.RestaurantesBasicoModelOpenApi;
+import com.algaworks.algafood.api.openapi.model.UsuariosModelOpenApi;
 import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -116,7 +119,13 @@ public class SpringFoxConfig{
 		        		 CollectionModel.class, PermissaoModel.class), PermissoesModelOpenApi.class))
 	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
 		        		 CollectionModel.class, ProdutoModel.class), ProdutosModelOpenApi.class))
-	          .apiInfo(apiInfo())	          
+	          .apiInfo(apiInfo())
+	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
+		        		 CollectionModel.class, RestauranteBasicoModel.class), RestaurantesBasicoModelOpenApi.class))
+	          .apiInfo(apiInfo())	
+	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
+		        		 CollectionModel.class, UsuarioModel.class), UsuariosModelOpenApi.class))
+	          .apiInfo(apiInfo())
 	          .tags( 
 	        	  new Tag("Cidades", "Gerência as cidades"), 
 	        	  new Tag("Grupos", "Gerência os grupos"),
@@ -126,7 +135,7 @@ public class SpringFoxConfig{
 	        	  new Tag("Restaurantes", "Gerência os restaurantes"),
 	        	  new Tag("Estados", "Gerência os estados"),
 	        	  new Tag("Produtos", "Gerência os produtos do restaurante"),
-	        	  new Tag("Usuarios", "Gerência os produtos do restaurante"),
+	        	  new Tag("Usuarios", "Gerência os usuarios"),
 	        	  new Tag("Estatisticas", "Gerência as estatisticas de vendas"),
 	        	  new Tag("Permissões", "Gerência as permissões")
 	          );
