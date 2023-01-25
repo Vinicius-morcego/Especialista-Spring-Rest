@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.GrupoModel;
+import com.algaworks.algafood.api.v1.model.GrupoModel;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

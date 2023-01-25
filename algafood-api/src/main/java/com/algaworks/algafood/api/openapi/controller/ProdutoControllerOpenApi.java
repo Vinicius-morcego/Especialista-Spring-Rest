@@ -5,8 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.model.ProdutoModel;
 import com.algaworks.algafood.api.model.input.ProdutoInput;
+import com.algaworks.algafood.api.v1.model.ProdutoModel;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
