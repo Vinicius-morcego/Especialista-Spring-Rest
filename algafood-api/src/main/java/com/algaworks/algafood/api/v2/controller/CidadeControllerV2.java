@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,9 +31,11 @@ import com.algaworks.algafood.domain.service.CadastroCidadeService;
 
 
 @RestController
-@RequestMapping(path = "/cidades")
+@RequestMapping(path = "/v2/cidades")
 public class CidadeControllerV2 { 
 
+	private static final String VERSIONAMENTO_POR_MEDIA_TYPE = AlgaMediaTypes.V2_APPLICATION_JSON_VALUE;
+	private static final String VERSIONAMENTO_POR_URI = MediaType.APPLICATION_JSON_VALUE;
 	@Autowired 
 	private CidadeRepository cidadeRepository;
 	
@@ -45,13 +48,13 @@ public class CidadeControllerV2 {
 	@Autowired 
 	private CidadeInputDisassemblerV2 cidadeInputDisassembler;
 	
-	@GetMapping(produces = AlgaMediaTypes.V2_APPLICATION_JSON_VALUE)
+	@GetMapping(produces = VERSIONAMENTO_POR_URI)
 	public CollectionModel<CidadeModelV2> listar(){
 		List<Cidade> todasCidades = cidadeRepository.findAll();
 		return cidadeModelAssembler.toCollectionModel(todasCidades);		
 	}	
 	
-	@GetMapping(path = "/{cidadeId}", produces = AlgaMediaTypes.V2_APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModelV2 buscar(@PathVariable Long cidadeId){
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
 		return cidadeModelAssembler.toModel(cidade);
@@ -63,7 +66,7 @@ public class CidadeControllerV2 {
 	}
 	
 	
-	@PostMapping(path = "/salvar", produces = AlgaMediaTypes.V2_APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/salvar", produces = VERSIONAMENTO_POR_URI)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModelV2 salvar(@RequestBody @Valid CidadeInputV2 cidadeInput){
 		
@@ -81,7 +84,7 @@ public class CidadeControllerV2 {
 	}
 	
 	
-	@PutMapping(path = "/{cidadeId}", produces = AlgaMediaTypes.V2_APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModelV2 atualizar(
 			@PathVariable Long cidadeId,			 
 			@RequestBody @Valid CidadeInputV2 cidadeInput){

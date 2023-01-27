@@ -9,6 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +37,11 @@ import com.algaworks.algafood.domain.service.CadastroCidadeService;
 
 
 @RestController
-@RequestMapping(path = "/cidades")
+@RequestMapping(path = "/v1/cidades")
 public class CidadeController implements CidadeControllerOpenApi{ 
+
+	private static final String VERSIONAMENTO_POR_MEDIA_TYPE = AlgaMediaTypes.V1_APPLICATION_JSON_VALUE;
+	private static final String VERSIONAMENTO_POR_URI = MediaType.APPLICATION_JSON_VALUE;
 
 	@Autowired 
 	private CidadeRepository cidadeRepository;
@@ -51,13 +55,13 @@ public class CidadeController implements CidadeControllerOpenApi{
 	@Autowired 
 	private CidadeInputDisassembler cidadeInputDisassembler;
 	
-	@GetMapping(produces = AlgaMediaTypes.V1_APPLICATION_JSON_VALUE)
+	@GetMapping(produces = VERSIONAMENTO_POR_URI)
 	public CollectionModel<CidadeModel> listar(){
 		List<Cidade> todasCidades = cidadeRepository.findAll();
 		return cidadeModelAssembler.toCollectionModel(todasCidades);		
 	}	
 	
-	@GetMapping(path = "/{cidadeId}", produces = AlgaMediaTypes.V1_APPLICATION_JSON_VALUE)
+	@GetMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModel buscar(@PathVariable Long cidadeId){
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
 		return cidadeModelAssembler.toModel(cidade);
@@ -69,7 +73,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 	}
 	
 	
-	@PostMapping(path = "/salvar", produces = AlgaMediaTypes.V1_APPLICATION_JSON_VALUE)
+	@PostMapping(path = "/salvar", produces = VERSIONAMENTO_POR_URI)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModel salvar(@RequestBody @Valid CidadeInput cidadeInput){
 		
@@ -87,7 +91,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 	}
 	
 	
-	@PutMapping(path = "/{cidadeId}", produces = AlgaMediaTypes.V1_APPLICATION_JSON_VALUE)
+	@PutMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModel atualizar(
 			@PathVariable Long cidadeId,			 
 			@RequestBody @Valid CidadeInput cidadeInput){
