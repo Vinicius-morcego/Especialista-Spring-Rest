@@ -32,7 +32,7 @@ import com.algaworks.algafood.domain.repository.GrupoRepository;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 
 @RestController
-@RequestMapping(path = "/grupos")
+@RequestMapping(path = "/v1/grupos")
 public class GrupoController implements GrupoControllerOpenApi {
 	
 	public static String MSG_ENTIDADE_EM_USO = "Grupo de código %d está em uso e não pode ser excluído";

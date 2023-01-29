@@ -33,7 +33,7 @@ import com.algaworks.algafood.domain.service.CadastroFormaPagamentoService;
 
 
 @RestController
-@RequestMapping(path = "/formaPagamentos")
+@RequestMapping(path = "/v1/formaPagamentos")
 public class FormaPagamentoController implements FormaPagamentoControllerOpenApi{
 	
 	@Autowired

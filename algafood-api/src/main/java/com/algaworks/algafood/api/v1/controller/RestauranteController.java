@@ -41,7 +41,7 @@ import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 //@CrossOrigin(maxAge = 10)
 @RestController
-@RequestMapping(path = "/restaurantes")
+@RequestMapping(path = "/v1/restaurantes")
 public class RestauranteController implements RestauranteControllerOpenApi{
 
 	@Autowired

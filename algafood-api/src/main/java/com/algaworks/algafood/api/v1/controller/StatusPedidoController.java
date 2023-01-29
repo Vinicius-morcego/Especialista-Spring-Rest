@@ -13,7 +13,7 @@ import com.algaworks.algafood.api.openapi.controller.StatusPedidoControllerOpenA
 import com.algaworks.algafood.domain.service.StatusPedidoService;
 
 @RestController
-@RequestMapping("/pedidos/{codigoPedido}")
+@RequestMapping("/v1/pedidos/{codigoPedido}")
 public class StatusPedidoController implements StatusPedidoControllerOpenApi{	
 	
 	@Autowired

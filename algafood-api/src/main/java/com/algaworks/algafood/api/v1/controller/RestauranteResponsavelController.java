@@ -20,7 +20,7 @@ import com.algaworks.algafood.api.v1.model.UsuarioModel;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
 
 @RestController
-@RequestMapping(path = "/restaurantes/{restauranteId}/responsaveis")
+@RequestMapping(path = "/v1/restaurantes/{restauranteId}/responsaveis")
 public class RestauranteResponsavelController implements RestauranteResponsavelControllerOpenApi{
 	
 	@Autowired
