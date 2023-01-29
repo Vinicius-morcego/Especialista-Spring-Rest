@@ -6,10 +6,10 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import com.algaworks.algafood.api.model.input.PermissaoInput;
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.PermissaoController;
 import com.algaworks.algafood.api.v1.model.PermissaoModel;
+import com.algaworks.algafood.api.v1.model.input.PermissaoInput;
 import com.algaworks.algafood.domain.modelo.Permissao;
 
 @Component

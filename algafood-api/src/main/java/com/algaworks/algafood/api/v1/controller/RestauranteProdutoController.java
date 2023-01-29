@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.algaworks.algafood.api.model.input.ProdutoInput;
-import com.algaworks.algafood.api.openapi.controller.ProdutoControllerOpenApi;
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.assembler.ProdutoInputDisassembler;
 import com.algaworks.algafood.api.v1.assembler.ProdutoModelAssembler;
 import com.algaworks.algafood.api.v1.model.ProdutoModel;
+import com.algaworks.algafood.api.v1.model.input.ProdutoInput;
+import com.algaworks.algafood.api.v1.openapi.controller.ProdutoControllerOpenApi;
 import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.repository.ProdutoRepository;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;

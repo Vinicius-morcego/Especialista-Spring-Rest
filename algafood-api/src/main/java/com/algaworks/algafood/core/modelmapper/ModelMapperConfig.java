@@ -4,9 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.algaworks.algafood.api.model.input.ItemPedidoInput;
 import com.algaworks.algafood.api.v1.model.EnderecoModel;
 import com.algaworks.algafood.api.v1.model.GrupoModel;
+import com.algaworks.algafood.api.v1.model.input.ItemPedidoInput;
 import com.algaworks.algafood.api.v2.model.input.CidadeInputV2;
 import com.algaworks.algafood.domain.modelo.Cidade;
 import com.algaworks.algafood.domain.modelo.Endereco;

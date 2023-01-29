@@ -7,10 +7,10 @@ import org.springframework.hateoas.TemplateVariables;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
-import com.algaworks.algafood.api.model.input.GrupoInput;
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.GrupoController;
 import com.algaworks.algafood.api.v1.model.GrupoModel;
+import com.algaworks.algafood.api.v1.model.input.GrupoInput;
 import com.algaworks.algafood.domain.modelo.Grupo;
 
 @Component

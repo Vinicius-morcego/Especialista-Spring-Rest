@@ -24,18 +24,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.context.request.ServletWebRequest;
 
 import com.algaworks.algafood.api.exceptionhandler.Problem;
-import com.algaworks.algafood.api.openapi.model.CidadesModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.CozinhasModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.EstadosModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.FormasPagamentoModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.GruposModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.LinksModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.PageableModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.PedidosResumoModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.PermissoesModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.ProdutosModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.RestaurantesBasicoModelOpenApi;
-import com.algaworks.algafood.api.openapi.model.UsuariosModelOpenApi;
 import com.algaworks.algafood.api.v1.model.CidadeModel;
 import com.algaworks.algafood.api.v1.model.CozinhaModel;
 import com.algaworks.algafood.api.v1.model.EstadoModel;
@@ -46,6 +34,24 @@ import com.algaworks.algafood.api.v1.model.PermissaoModel;
 import com.algaworks.algafood.api.v1.model.ProdutoModel;
 import com.algaworks.algafood.api.v1.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.v1.model.UsuarioModel;
+import com.algaworks.algafood.api.v1.openapi.model.CidadesModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.CozinhasModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.EstadosModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.FormasPagamentoModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.GruposModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.LinksModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.PageableModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.PedidosResumoModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.PermissoesModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.ProdutosModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.RestaurantesBasicoModelOpenApi;
+import com.algaworks.algafood.api.v1.openapi.model.UsuariosModelOpenApi;
+import com.algaworks.algafood.api.v2.model.CidadeModelV2;
+import com.algaworks.algafood.api.v2.model.CozinhaModelV2;
+import com.algaworks.algafood.api.v2.openapi.model.CidadesModelV2OpenApi;
+import com.algaworks.algafood.api.v2.openapi.model.CozinhasModelV2OpenApi;
+import com.algaworks.algafood.api.v2.openapi.model.LinksModelV2OpenApi;
+import com.algaworks.algafood.api.v2.openapi.model.PageableModelV2OpenApi;
 import com.fasterxml.classmate.TypeResolver;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -158,13 +164,21 @@ public class SpringFoxConfig{
 					.globalResponses(HttpMethod.POST, globalPostResponseMessages())
 					.globalResponses(HttpMethod.PUT, globalPostResponseMessages())
 					.globalResponses(HttpMethod.DELETE, globalDeleteResponseMessages())
-					.additionalModels(typeResolver.resolve(Problem.class))
+					.alternateTypeRules(AlternateTypeRules.newRule(
+							typeResolver.resolve(PagedModel.class, CozinhaModelV2.class),
+						    CozinhasModelV2OpenApi.class))
+					.alternateTypeRules(AlternateTypeRules.newRule(
+					        typeResolver.resolve(CollectionModel.class, CidadeModelV2.class),
+					        CidadesModelV2OpenApi.class))
 					.ignoredParameterTypes(ServletWebRequest.class,
 							URL.class, URI.class, URLStreamHandler.class, Resource.class,
 							File.class, InputStream.class)
-					.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
-					.directModelSubstitute(Links.class, LinksModelOpenApi.class)
-					.apiInfo(apiInfoV2());
+					.directModelSubstitute(Pageable.class, PageableModelV2OpenApi.class)
+					.directModelSubstitute(Links.class, LinksModelV2OpenApi.class)
+					.apiInfo(apiInfoV2())
+					.tags(new Tag("Cidades", "Gerência as cidades"),
+						  new Tag("Cozinhas", "Gerência as cozinhas")
+					);
 		}
 	 
 	 	@Bean

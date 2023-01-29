@@ -25,6 +25,7 @@ import com.algaworks.algafood.api.v2.assembler.CozinhaInputDisassemblerV2;
 import com.algaworks.algafood.api.v2.assembler.CozinhaModelAssemblerV2;
 import com.algaworks.algafood.api.v2.model.CozinhaModelV2;
 import com.algaworks.algafood.api.v2.model.input.CozinhaInputV2;
+import com.algaworks.algafood.api.v2.openapi.controller.CozinhaControllerV2OpenApi;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.modelo.Cozinha;
@@ -33,7 +34,7 @@ import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 
 @RestController
 @RequestMapping(path = "/v2/cozinhas")
-public class CozinhaControllerV2 {
+public class CozinhaControllerV2 implements CozinhaControllerV2OpenApi{
 	
 	@Autowired
 	private CozinhaRepository cozinhaRepository;
@@ -48,7 +49,7 @@ public class CozinhaControllerV2 {
 	private PagedResourcesAssembler<Cozinha> pagedModelAssembler;
 	
 	@Autowired
-	private CozinhaInputDisassemblerV2 cozinhaInputDisassembler;
+	private CozinhaInputDisassemblerV2 cozinhaInputDisassembler;	
 	
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
 	public PagedModel<CozinhaModelV2> listar(@PageableDefault(size = 2) Pageable pageable){

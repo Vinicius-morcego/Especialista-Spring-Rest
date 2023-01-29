@@ -22,6 +22,7 @@ import com.algaworks.algafood.api.v2.assembler.CidadeInputDisassemblerV2;
 import com.algaworks.algafood.api.v2.assembler.CidadeModelAssemblerV2;
 import com.algaworks.algafood.api.v2.model.CidadeModelV2;
 import com.algaworks.algafood.api.v2.model.input.CidadeInputV2;
+import com.algaworks.algafood.api.v2.openapi.controller.CidadeControllerV2OpenApi;
 import com.algaworks.algafood.core.web.AlgaMediaTypes;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
@@ -32,7 +33,7 @@ import com.algaworks.algafood.domain.service.CadastroCidadeService;
 
 @RestController
 @RequestMapping(path = "/v2/cidades")
-public class CidadeControllerV2 { 
+public class CidadeControllerV2 implements CidadeControllerV2OpenApi{ 
 
 	private static final String VERSIONAMENTO_POR_MEDIA_TYPE = AlgaMediaTypes.V2_APPLICATION_JSON_VALUE;
 	private static final String VERSIONAMENTO_POR_URI = MediaType.APPLICATION_JSON_VALUE;
@@ -46,14 +47,16 @@ public class CidadeControllerV2 {
 	private CidadeModelAssemblerV2 cidadeModelAssembler;
 	
 	@Autowired 
-	private CidadeInputDisassemblerV2 cidadeInputDisassembler;
-	
+	private CidadeInputDisassemblerV2 cidadeInputDisassembler;	
+
+	@Override
 	@GetMapping(produces = VERSIONAMENTO_POR_URI)
 	public CollectionModel<CidadeModelV2> listar(){
 		List<Cidade> todasCidades = cidadeRepository.findAll();
 		return cidadeModelAssembler.toCollectionModel(todasCidades);		
-	}	
+	}		
 	
+	@Override
 	@GetMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModelV2 buscar(@PathVariable Long cidadeId){
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
@@ -65,7 +68,7 @@ public class CidadeControllerV2 {
 //		return ResponseEntity.notFound().build();
 	}
 	
-	
+	@Override
 	@PostMapping(path = "/salvar", produces = VERSIONAMENTO_POR_URI)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModelV2 salvar(@RequestBody @Valid CidadeInputV2 cidadeInput){
@@ -83,7 +86,7 @@ public class CidadeControllerV2 {
 			
 	}
 	
-	
+	@Override
 	@PutMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModelV2 atualizar(
 			@PathVariable Long cidadeId,			 

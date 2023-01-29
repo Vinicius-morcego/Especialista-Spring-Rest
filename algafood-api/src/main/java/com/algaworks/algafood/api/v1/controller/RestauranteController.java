@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.algaworks.algafood.api.model.input.RestauranteInput;
-import com.algaworks.algafood.api.openapi.controller.RestauranteControllerOpenApi;
 import com.algaworks.algafood.api.v1.assembler.RestauranteApenasNomeModelAssembler;
 import com.algaworks.algafood.api.v1.assembler.RestauranteBasicoModelAssembler;
 import com.algaworks.algafood.api.v1.assembler.RestauranteInputDisassembler;
@@ -30,6 +28,8 @@ import com.algaworks.algafood.api.v1.assembler.RestauranteModelAssembler;
 import com.algaworks.algafood.api.v1.model.RestauranteApenasNomeModel;
 import com.algaworks.algafood.api.v1.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.v1.model.RestauranteModel;
+import com.algaworks.algafood.api.v1.model.input.RestauranteInput;
+import com.algaworks.algafood.api.v1.openapi.controller.RestauranteControllerOpenApi;
 import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
