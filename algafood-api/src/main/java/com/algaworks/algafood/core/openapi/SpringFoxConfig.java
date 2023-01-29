@@ -74,15 +74,16 @@ public class SpringFoxConfig{
 	private static String MESSAGE_UNSUPPORTED_MEDIA_TYPE = "Tipo de midia não suportada";
 	
 	 @Bean
-	  public Docket apiDocket() {
+	  public Docket apiDocketV1() {
 		 
 		 var typeResolver = new TypeResolver();
 	    return new Docket(DocumentationType.OAS_30)
+	    	.groupName("V1")
 	        .select()
 	          //.apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
 	        	//.paths(PathSelectors.ant("/restaurantes/*"))
 	        	.apis(RequestHandlerSelectors.basePackage("com.algaworks.algafood.api"))
-	        	.paths(PathSelectors.any())
+	        	.paths(PathSelectors.ant("/v1/**"))
 	          .build()
 	          .useDefaultResponseMessages(false)
 	          .globalResponses(HttpMethod.GET, globalGetResponseMessages())
@@ -119,13 +120,13 @@ public class SpringFoxConfig{
 		        		 CollectionModel.class, PermissaoModel.class), PermissoesModelOpenApi.class))
 	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
 		        		 CollectionModel.class, ProdutoModel.class), ProdutosModelOpenApi.class))
-	          .apiInfo(apiInfo())
+	          .apiInfo(apiInfoV1())
 	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
 		        		 CollectionModel.class, RestauranteBasicoModel.class), RestaurantesBasicoModelOpenApi.class))
-	          .apiInfo(apiInfo())	
+	          .apiInfo(apiInfoV1())	
 	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
 		        		 CollectionModel.class, UsuarioModel.class), UsuariosModelOpenApi.class))
-	          .apiInfo(apiInfo())
+	          .apiInfo(apiInfoV1())
 	          .tags( 
 	        	  new Tag("Cidades", "Gerência as cidades"), 
 	        	  new Tag("Grupos", "Gerência os grupos"),
@@ -141,6 +142,30 @@ public class SpringFoxConfig{
 	          );
 	    		
 	  }	 
+	 
+	 @Bean
+		public Docket apiDocketV2() {
+			var typeResolver = new TypeResolver();
+
+			return new Docket(DocumentationType.OAS_30)
+					.groupName("V2")
+					.select()
+					.apis(RequestHandlerSelectors.basePackage("com.algaworks.algafood.api"))
+					.paths(PathSelectors.ant("/v2/**"))
+					.build()
+					.useDefaultResponseMessages(false)
+					.globalResponses(HttpMethod.GET, globalGetResponseMessages())
+					.globalResponses(HttpMethod.POST, globalPostResponseMessages())
+					.globalResponses(HttpMethod.PUT, globalPostResponseMessages())
+					.globalResponses(HttpMethod.DELETE, globalDeleteResponseMessages())
+					.additionalModels(typeResolver.resolve(Problem.class))
+					.ignoredParameterTypes(ServletWebRequest.class,
+							URL.class, URI.class, URLStreamHandler.class, Resource.class,
+							File.class, InputStream.class)
+					.directModelSubstitute(Pageable.class, PageableModelOpenApi.class)
+					.directModelSubstitute(Links.class, LinksModelOpenApi.class)
+					.apiInfo(apiInfoV2());
+		}
 	 
 	 	@Bean
 		public JacksonModuleRegistrar springFoxJacksonConfig() {
@@ -212,11 +237,21 @@ public class SpringFoxConfig{
 		 
 	 }
 	 
-	 private ApiInfo apiInfo() {
+	 private ApiInfo apiInfoV1() {
 		 return new ApiInfoBuilder()
 				 .title("Algafood")
 				 .description("API aberta para clientes e restaurantes.")
 				 .version("1")
+				 .contact(new Contact("Vinícius", "https://www.vinicius.templario.com", "vinicius.templario@gmail.com"))
+				 .build();
+				 
+	 }
+	 
+	 private ApiInfo apiInfoV2() {
+		 return new ApiInfoBuilder()
+				 .title("Algafood")
+				 .description("API aberta para clientes e restaurantes.")
+				 .version("2")
 				 .contact(new Contact("Vinícius", "https://www.vinicius.templario.com", "vinicius.templario@gmail.com"))
 				 .build();
 				 
