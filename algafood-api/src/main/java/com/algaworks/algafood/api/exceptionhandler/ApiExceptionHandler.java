@@ -34,6 +34,9 @@ import com.fasterxml.jackson.databind.exc.IgnoredPropertyException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @ControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 
@@ -179,7 +182,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handleExceptionGenerica(Exception ex, WebRequest request){
-		
+		log.error("Erro de runtime");
 		HttpStatus status = HttpStatus.valueOf(500);
 		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
 		
