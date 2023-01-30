@@ -15,6 +15,9 @@ public class WebConfig implements WebMvcConfigurer{
 	
 	@Autowired
 	private ApiDeprecatedHandler apiDeprecatedHandler;
+	
+	@Autowired
+	private ApiRetirementHandler apiReterementHandler;
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {	
 		registry.addMapping("/**")
@@ -31,7 +34,8 @@ public class WebConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {	
-		registry.addInterceptor(apiDeprecatedHandler);
+		registry.addInterceptor(apiDeprecatedHandler);//deprecia apenas metodos
+		//registry.addInterceptor(apiReterementHandler);//deprecia a API inteira
 	}
 	@Bean
 	public Filter shallowEtagHeaderFilter() {

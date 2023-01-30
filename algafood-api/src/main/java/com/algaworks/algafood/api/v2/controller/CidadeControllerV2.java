@@ -47,16 +47,14 @@ public class CidadeControllerV2 implements CidadeControllerV2OpenApi{
 	private CidadeModelAssemblerV2 cidadeModelAssembler;
 	
 	@Autowired 
-	private CidadeInputDisassemblerV2 cidadeInputDisassembler;	
-
-	@Override
+	private CidadeInputDisassemblerV2 cidadeInputDisassembler;
+	
 	@GetMapping(produces = VERSIONAMENTO_POR_URI)
 	public CollectionModel<CidadeModelV2> listar(){
 		List<Cidade> todasCidades = cidadeRepository.findAll();
 		return cidadeModelAssembler.toCollectionModel(todasCidades);		
-	}		
+	}	
 	
-	@Override
 	@GetMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModelV2 buscar(@PathVariable Long cidadeId){
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
@@ -66,9 +64,8 @@ public class CidadeControllerV2 implements CidadeControllerV2OpenApi{
 //			return ResponseEntity.ok(cidade.get());
 //		}
 //		return ResponseEntity.notFound().build();
-	}
+	}	
 	
-	@Override
 	@PostMapping(path = "/salvar", produces = VERSIONAMENTO_POR_URI)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModelV2 salvar(@RequestBody @Valid CidadeInputV2 cidadeInput){
@@ -84,9 +81,8 @@ public class CidadeControllerV2 implements CidadeControllerV2OpenApi{
 			throw new NegocioException(e.getMessage(), e);
 		}
 			
-	}
+	}	
 	
-	@Override
 	@PutMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModelV2 atualizar(
 			@PathVariable Long cidadeId,			 
