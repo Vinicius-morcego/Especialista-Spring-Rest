@@ -55,6 +55,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 	@Autowired 
 	private CidadeInputDisassembler cidadeInputDisassembler;
 	
+	@Deprecated
 	@GetMapping(produces = VERSIONAMENTO_POR_URI)
 	public CollectionModel<CidadeModel> listar(){
 		List<Cidade> todasCidades = cidadeRepository.findAll();
