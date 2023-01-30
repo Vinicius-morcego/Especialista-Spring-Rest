@@ -21,6 +21,7 @@
 		<squiggly.version>1.3.18</squiggly.version>
 		<jasperreports.version>6.20.0</jasperreports.version>
 		<aws-java-sdk-s3.version>1.12.336</aws-java-sdk-s3.version>
+		<logback-ext-loggly.version>0.1.5</logback-ext-loggly.version>
 		
 	</properties>
 
@@ -45,6 +46,14 @@
 		    <groupId>com.fasterxml.jackson.datatype</groupId>
 		    <artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
+		
+		<!-- Log-back -->
+		<dependency>
+			  <groupId>org.logback-extensions</groupId>
+			  <artifactId>logback-ext-loggly</artifactId>
+			   <version>${logback-ext-loggly.version}</version>
+		</dependency>
+		
 		<!-- Ferramentas -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -182,7 +182,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<?> handleExceptionGenerica(Exception ex, WebRequest request){
-		log.error("Erro de runtime");
+		log.error(ex.getMessage(), ex);
 		HttpStatus status = HttpStatus.valueOf(500);
 		ProblemType problemType = ProblemType.ERRO_DE_SISTEMA;
 		
