@@ -1,8 +1,5 @@
 package com.algaworks.algafood.api.v1.assembler;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -11,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.CidadeController;
-import com.algaworks.algafood.api.v1.controller.EstadoController;
 import com.algaworks.algafood.api.v1.model.CidadeModel;
 import com.algaworks.algafood.api.v1.model.input.CidadeInput;
 import com.algaworks.algafood.domain.modelo.Cidade;
