@@ -39,7 +39,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.authorizedGrantTypes("client_credentials")
 				.scopes("write", "read")
 			.and()
-				.withClient("foodnanalytics")
+				.withClient("foodanalytics")
 				.secret(passwordEncoder.encode("food123"))
 				.authorizedGrantTypes("authorization_code")
 				.scopes("write", "read")
