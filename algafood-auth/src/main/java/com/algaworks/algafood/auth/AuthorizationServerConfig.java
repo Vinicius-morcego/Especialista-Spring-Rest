@@ -30,48 +30,53 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory()
+		clients
+			.inMemory()
 				.withClient("algafood-web")
 				.secret(passwordEncoder.encode("web123"))
 				.authorizedGrantTypes("password", "refresh_token")
 				.scopes("write", "read")
-				.accessTokenValiditySeconds(60 * 60 * 6) //6 horas (o padrão é 12 horas)
+				.accessTokenValiditySeconds(6 * 60 * 60)// 6 horas
 				.refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias
-			.and()			
-				.withClient("faturamento")
-				.secret(passwordEncoder.encode("faturamento123"))
-				.authorizedGrantTypes("client_credentials")
-				.scopes("write", "read")
+			
 			.and()
 				.withClient("foodanalytics")
-				.secret(passwordEncoder.encode("food123"))
+				.secret(passwordEncoder.encode(""))
 				.authorizedGrantTypes("authorization_code")
 				.scopes("write", "read")
 				.redirectUris("http://www.foodanalytics.local:8082")
+			
 			.and()
 				.withClient("webadmin")
 				.authorizedGrantTypes("implicit")
 				.scopes("write", "read")
-				.redirectUris("http://www.aplicacao-cliente")
-			.and() 
+				.redirectUris("http://aplicacao-cliente")
+				
+			.and()
+				.withClient("faturamento")
+				.secret(passwordEncoder.encode("faturamento123"))
+				.authorizedGrantTypes("client_credentials")
+				.scopes("write", "read")
+				
+			.and()
 				.withClient("checktoken")
-				.secret("check123");	
-		
+					.secret(passwordEncoder.encode("check123"));
 	}
 	
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-		
-		//security.checkTokenAccess("isAuthenticated()");
-		security.checkTokenAccess("permitAll()");
-		
+//		security.checkTokenAccess("isAuthenticated()");
+		security.checkTokenAccess("permitAll()")
+			.allowFormAuthenticationForClients();
 	}
 	
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-		endpoints.authenticationManager(authenticationManager)
-				 .userDetailsService(userDetailsService)
-				 .tokenGranter(tokenGranter(endpoints));
+		endpoints
+			.authenticationManager(authenticationManager)
+			.userDetailsService(userDetailsService)
+			.reuseRefreshTokens(false)
+			.tokenGranter(tokenGranter(endpoints));
 	}
 	
 	private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints) {
@@ -84,4 +89,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		
 		return new CompositeTokenGranter(granters);
 	}
+	
 }
