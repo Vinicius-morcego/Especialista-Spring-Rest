@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -14,6 +15,8 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.CompositeTokenGranter;
 import org.springframework.security.oauth2.provider.TokenGranter;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -28,6 +31,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
+	@Autowired
+	private RedisConnectionFactory redisConnectionFactory;
+	
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients
@@ -37,27 +43,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.authorizedGrantTypes("password", "refresh_token")
 				.scopes("write", "read")
 				.accessTokenValiditySeconds(6 * 60 * 60)// 6 horas
-				.refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias
-			
+				.refreshTokenValiditySeconds(60 * 24 * 60 * 60) // 60 dias			
 			.and()
 				.withClient("foodanalytics")
 				.secret(passwordEncoder.encode(""))
 				.authorizedGrantTypes("authorization_code")
 				.scopes("write", "read")
-				.redirectUris("http://www.foodanalytics.local:8082")
-			
+				.redirectUris("http://www.foodanalytics.local:8082")			
 			.and()
 				.withClient("webadmin")
 				.authorizedGrantTypes("implicit")
 				.scopes("write", "read")
-				.redirectUris("http://aplicacao-cliente")
-				
+				.redirectUris("http://aplicacao-cliente")				
 			.and()
 				.withClient("faturamento")
 				.secret(passwordEncoder.encode("faturamento123"))
 				.authorizedGrantTypes("client_credentials")
-				.scopes("write", "read")
-				
+				.scopes("write", "read")				
 			.and()
 				.withClient("checktoken")
 					.secret(passwordEncoder.encode("check123"));
@@ -76,9 +78,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.authenticationManager(authenticationManager)
 			.userDetailsService(userDetailsService)
 			.reuseRefreshTokens(false)
+			.tokenStore(redisTokenStore())
 			.tokenGranter(tokenGranter(endpoints));
 	}
 	
+	private TokenStore redisTokenStore() {		
+		return new RedisTokenStore(redisConnectionFactory);
+	}
+
 	private TokenGranter tokenGranter(AuthorizationServerEndpointsConfigurer endpoints) {
 		var pkceAuthorizationCodeTokenGranter = new PkceAuthorizationCodeTokenGranter(endpoints.getTokenServices(),
 				endpoints.getAuthorizationCodeServices(), endpoints.getClientDetailsService(),
