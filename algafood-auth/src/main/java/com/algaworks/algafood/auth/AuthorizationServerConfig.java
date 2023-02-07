@@ -88,7 +88,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Bean
 	public JwtAccessTokenConverter jwtAccessTokenConverter() {
 		JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-		jwtAccessTokenConverter.setSigningKey("algaworks");
+		jwtAccessTokenConverter.setSigningKey("sadASDsadÇLKJ~LJLKsadSADadadfasdfasdfadsfs");
 		return jwtAccessTokenConverter;
 	}
 //	private TokenStore redisTokenStore() {		
