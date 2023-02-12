@@ -60,7 +60,7 @@ public class Usuario {
 	}
 	
 	public boolean isNovo() {
-		return verificaSeUsuarioEstaCadastrado(getEmail());
+		return getId() == null;
 	}
 
 }
