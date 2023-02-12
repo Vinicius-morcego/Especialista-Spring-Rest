@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.modelo;
+package com.algaworks.algafood.auth.domain;
 
 import java.time.OffsetDateTime;
 import java.util.HashSet;
@@ -35,32 +35,6 @@ public class Usuario {
 	private String email;
 	
 	@Column(name = "senha_usuario")	
-	private String senha;	
+	private String senha;
 	
-	@CreationTimestamp
-	@Column(nullable = false, columnDefinition = "datetime")
-	private OffsetDateTime dataCadastro;	
-	
-	@ManyToMany
-	@JoinTable(name = "usuario_grupo",
-			joinColumns = @JoinColumn(name = "usuario_id"),
-			inverseJoinColumns = @JoinColumn(name = "grupo_id"))
-	private Set<Grupo> grupos = new HashSet<>();
-	
-	public boolean desassociar(Grupo grupo) {
-		return getGrupos().remove(grupo);
-	}
-	
-	public boolean associar(Grupo grupo) {
-		return getGrupos().add(grupo);
-	}
-	
-	public boolean verificaSeUsuarioEstaCadastrado(String email) {
-		return email.equals(getEmail());
-	}
-	
-	public boolean isNovo() {
-		return verificaSeUsuarioEstaCadastrado(getEmail());
-	}
-
 }
