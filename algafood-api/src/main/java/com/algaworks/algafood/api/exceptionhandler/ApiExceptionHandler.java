@@ -207,10 +207,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		HttpStatus status = HttpStatus.valueOf(403);
 		
 		ProblemType problemType = ProblemType.ACESSO_NEGADO;
-		ex.printStackTrace();
-		String detail = "Acesso negado, você não tem autorização para executar essa operação.";
+		//ex.printStackTrace();
+		String detail = "Acesso negado";
 		Problem problem = createProblemBuilder(status, problemType, detail)
-				.userMessage("Acesso negado")
+				.userMessage("Você não tem autorização para executar essa operação.")
 				.build();
 		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
 		
