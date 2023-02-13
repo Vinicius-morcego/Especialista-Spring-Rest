@@ -56,5 +56,17 @@ public @interface CheckSecurity {
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodePesquisar{}
+		
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and hasAuthority('GERENCIAR_PEDIDOS') or "
+				+ "@algaSecurity.gerenciaPedido(#codigoPedido)")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeGerenciaPedido{}
+		
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and isAuthenticated()")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface podeCriar{}
+
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.v1.openapi.controller.StatusPedidoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.service.StatusPedidoService;
 
 @RestController
@@ -19,6 +20,7 @@ public class StatusPedidoController implements StatusPedidoControllerOpenApi{
 	@Autowired
 	private StatusPedidoService statusPedidoService;
 	
+	@CheckSecurity.Pedidos.PodeGerenciaPedido
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/confirmar")
 	public ResponseEntity<Void> confirmar(@PathVariable String codigoPedido){		
