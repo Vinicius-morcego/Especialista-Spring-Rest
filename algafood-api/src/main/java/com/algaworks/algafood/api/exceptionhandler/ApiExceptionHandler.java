@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.Nullable;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.vote.AffirmativeBased;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.method.support.InvocableHandlerMethod;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -56,7 +59,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 	protected ResponseEntity<Object> handleHttpMediaTypeNotAcceptable(HttpMediaTypeNotAcceptableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		return ResponseEntity.status(status).headers(headers).build();
-	}
+	}	
 	
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
@@ -130,6 +133,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		return handleExceptionInternal(ex, problem, headers, status, request);
 	}
 	
+	
+	
 	private ResponseEntity<Object> handleIgnoredPropertyException(IgnoredPropertyException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 			String path = joinPath(ex.getPath());
@@ -194,6 +199,21 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler{
 		
 		
 		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);	
+	}
+	
+	@ExceptionHandler(AccessDeniedException.class)
+	public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex,
+			WebRequest request) {
+		HttpStatus status = HttpStatus.valueOf(403);
+		
+		ProblemType problemType = ProblemType.ACESSO_NEGADO;
+		ex.printStackTrace();
+		String detail = "Acesso negado, você não tem autorização para executar essa operação.";
+		Problem problem = createProblemBuilder(status, problemType, detail)
+				.userMessage("Acesso negado")
+				.build();
+		return handleExceptionInternal(ex, problem, new HttpHeaders(), status, request);
+		
 	}
 	
 	@ExceptionHandler(ValidacaoException.class)

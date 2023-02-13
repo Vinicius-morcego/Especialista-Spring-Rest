@@ -13,7 +13,8 @@ public enum ProblemType {
 	PROPRIEDADE_INEXISTENTE("/propriedade-inexistente", "Propriedade inexistente"),
 	PROPRIEDADE_IGNORADA("/propriedade-ignorada", "Propriedade ignorada"),
 	PARAMETRO_INVALIDO("/parametro-invalido", "Parametro inválido"),
-	DADOS_INVALIDOS("/dados-invalidos", "Dados inválidos");
+	DADOS_INVALIDOS("/dados-invalidos", "Dados inválidos"),
+	ACESSO_NEGADO("/acesso-negado", "Acesso negado");
 	
 	private String titulo;
 	private String uri;

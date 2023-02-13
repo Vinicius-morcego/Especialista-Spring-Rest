@@ -86,7 +86,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 		
 	}
 	
-	@PreAuthorize("hasAuthority(EDITAR_COZINHAS)")
+	@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
 	@PostMapping(path = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
@@ -95,7 +95,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 		return cozinhaModelAssembler.toModel(cadastroCozinhaService.salvar(cozinha));
 	}
 	
-	@PreAuthorize("hasAuthority(EDITAR_COZINHAS)")
+	@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
 	@PutMapping(path = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CozinhaModel atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput){
 		
@@ -137,7 +137,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 //				
 //	}
 	
-	@PreAuthorize("hasAuthority(EDITAR_COZINHAS)")
+	@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
 	@DeleteMapping(path = "/{cozinhaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long cozinhaId){
