@@ -28,6 +28,9 @@ import com.algaworks.algafood.api.v1.assembler.CozinhaModelAssembler;
 import com.algaworks.algafood.api.v1.model.CozinhaModel;
 import com.algaworks.algafood.api.v1.model.input.CozinhaInput;
 import com.algaworks.algafood.api.v1.openapi.controller.CozinhaControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
+import com.algaworks.algafood.core.security.PodeConsultarCozinhas;
+import com.algaworks.algafood.core.security.PodeEditarCozinhas;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.modelo.Cozinha;
@@ -58,7 +61,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 	@Autowired
 	private CozinhaInputDisassembler cozinhaInputDisassembler;
 	
-	@PreAuthorize("isAuthenticated()")
+	@CheckSecurity.Cozinhas.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
 	public PagedModel<CozinhaModel> listar(@PageableDefault(size = 2) Pageable pageable){
 		log.info("Listando cozinhas com páginas de {} registros.", pageable.getPageSize());
@@ -69,7 +72,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 		return cozinhaPagedModel;
 	} 
 	
-	@PreAuthorize("isAuthenticated()")
+	@CheckSecurity.Cozinhas.PodeConsultar
 	@GetMapping(path = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CozinhaModel buscar(@PathVariable Long cozinhaId) {
 		Cozinha cozinha = cadastroCozinhaService.busarOuFalhar(cozinhaId); 
@@ -86,7 +89,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 		
 	}
 	
-	@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
+	@CheckSecurity.Cozinhas.PodeEditar
 	@PostMapping(path = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CozinhaModel adicionar(@RequestBody @Valid CozinhaInput cozinhaInput) {
@@ -95,7 +98,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 		return cozinhaModelAssembler.toModel(cadastroCozinhaService.salvar(cozinha));
 	}
 	
-	@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
+	@CheckSecurity.Cozinhas.PodeEditar
 	@PutMapping(path = "/{cozinhaId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public CozinhaModel atualizar(@PathVariable Long cozinhaId, @RequestBody @Valid CozinhaInput cozinhaInput){
 		
@@ -137,7 +140,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 //				
 //	}
 	
-	@PreAuthorize("hasAuthority('EDITAR_COZINHAS')")
+	@CheckSecurity.Cozinhas.PodeEditar
 	@DeleteMapping(path = "/{cozinhaId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long cozinhaId){
