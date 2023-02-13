@@ -52,7 +52,7 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 	@Autowired
 	private FotoStorageService fotoStorage;
 	
-	@CheckSecurity.Restaurantes.PodeEditar
+	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
 	@PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public FotoProdutoModel atualizarFoto(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@Valid FotoProdutoInput fotoProdutoInput, 
@@ -85,14 +85,14 @@ public class RestauranteProdutoFotoController implements RestauranteProdutoFotoC
 			return fotoProdutoModelAssembler.toModel(foto);
 	}
 	
-	@CheckSecurity.Restaurantes.PodeEditar
+	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
 	@DeleteMapping
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removerFotoProduto(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
 		catalogoFotoProduto.removerFotoProduto(produtoId, restauranteId);		
 	}
 	
-	@CheckSecurity.Restaurantes.PodeEditar
+	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
 	@GetMapping(produces = MediaType.ALL_VALUE)
 	public ResponseEntity<InputStreamResource> servirFoto(@PathVariable Long produtoId, 
 			@PathVariable Long restauranteId, @RequestHeader(name = "accept") String acceptHeader)

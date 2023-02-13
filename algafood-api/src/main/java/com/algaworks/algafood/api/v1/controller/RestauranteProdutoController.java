@@ -74,7 +74,7 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 		return produtoAssembler.toModel(produto);
 	}
 	
-	@CheckSecurity.Restaurantes.PodeEditar
+	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProdutoModel salvar(@PathVariable Long restauranteId,
 			@RequestBody @Valid ProdutoInput produtoInput) {
@@ -84,7 +84,7 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 		return produtoAssembler.toModel(cadastroProdutoService.salvar(produto));
 	}
 	
-	@CheckSecurity.Restaurantes.PodeEditar
+	@CheckSecurity.Restaurantes.PodeGerenciarCadastro
 	@PutMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProdutoModel atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@RequestBody @Valid ProdutoInput produtoInput) {
