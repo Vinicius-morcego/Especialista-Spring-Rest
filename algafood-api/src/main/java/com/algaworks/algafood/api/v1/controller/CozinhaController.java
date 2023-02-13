@@ -12,7 +12,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,8 +29,6 @@ import com.algaworks.algafood.api.v1.model.CozinhaModel;
 import com.algaworks.algafood.api.v1.model.input.CozinhaInput;
 import com.algaworks.algafood.api.v1.openapi.controller.CozinhaControllerOpenApi;
 import com.algaworks.algafood.core.security.CheckSecurity;
-import com.algaworks.algafood.core.security.PodeConsultarCozinhas;
-import com.algaworks.algafood.core.security.PodeEditarCozinhas;
 import com.algaworks.algafood.domain.exception.CozinhaNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.modelo.Cozinha;
@@ -64,6 +62,7 @@ public class CozinhaController implements CozinhaControllerOpenApi{
 	@CheckSecurity.Cozinhas.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
 	public PagedModel<CozinhaModel> listar(@PageableDefault(size = 2) Pageable pageable){
+		//System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 		log.info("Listando cozinhas com páginas de {} registros.", pageable.getPageSize());
 		
 		Page<Cozinha> cozinhasPage = cozinhaRepository.findAll(pageable);		
