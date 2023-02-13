@@ -22,6 +22,7 @@ import com.algaworks.algafood.api.v1.assembler.ProdutoModelAssembler;
 import com.algaworks.algafood.api.v1.model.ProdutoModel;
 import com.algaworks.algafood.api.v1.model.input.ProdutoInput;
 import com.algaworks.algafood.api.v1.openapi.controller.ProdutoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.repository.ProdutoRepository;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
@@ -49,6 +50,7 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@CheckSecurity.Restaurantes.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public CollectionModel<ProdutoModel> listar(@PathVariable Long restauranteId,
 			@RequestParam(required = false, defaultValue = "false") Boolean incluirInativos) {
@@ -65,12 +67,14 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 				.add(algaLinks.linkToProdutos(restaurante.getId(), "produtos"));
 	}	
 	
+	@CheckSecurity.Restaurantes.PodeConsultar
 	@GetMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProdutoModel buscar(@PathVariable Long restauranteId, @PathVariable Long produtoId) {
 		var produto = cadastroProdutoService.buscarOuFalhar(restauranteId, produtoId);
 		return produtoAssembler.toModel(produto);
 	}
 	
+	@CheckSecurity.Restaurantes.PodeEditar
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProdutoModel salvar(@PathVariable Long restauranteId,
 			@RequestBody @Valid ProdutoInput produtoInput) {
@@ -80,6 +84,7 @@ public class RestauranteProdutoController implements ProdutoControllerOpenApi{
 		return produtoAssembler.toModel(cadastroProdutoService.salvar(produto));
 	}
 	
+	@CheckSecurity.Restaurantes.PodeEditar
 	@PutMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProdutoModel atualizar(@PathVariable Long restauranteId, @PathVariable Long produtoId,
 			@RequestBody @Valid ProdutoInput produtoInput) {
