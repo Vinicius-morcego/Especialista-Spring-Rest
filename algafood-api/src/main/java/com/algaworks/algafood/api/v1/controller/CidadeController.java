@@ -26,6 +26,7 @@ import com.algaworks.algafood.api.v1.assembler.CidadeModelAssembler;
 import com.algaworks.algafood.api.v1.model.CidadeModel;
 import com.algaworks.algafood.api.v1.model.input.CidadeInput;
 import com.algaworks.algafood.api.v1.openapi.controller.CidadeControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.core.web.AlgaMediaTypes;
 import com.algaworks.algafood.domain.exception.CidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
@@ -55,6 +56,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 	@Autowired 
 	private CidadeInputDisassembler cidadeInputDisassembler;
 	
+	@CheckSecurity.Cidade.PodeConsultar
 	@Deprecated
 	@GetMapping(produces = VERSIONAMENTO_POR_URI)
 	public CollectionModel<CidadeModel> listar(){
@@ -62,6 +64,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 		return cidadeModelAssembler.toCollectionModel(todasCidades);		
 	}	
 	
+	@CheckSecurity.Cidade.PodeConsultar
 	@GetMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModel buscar(@PathVariable Long cidadeId){
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
@@ -73,7 +76,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 //		return ResponseEntity.notFound().build();
 	}
 	
-	
+	@CheckSecurity.Cidade.PodeEditar
 	@PostMapping(path = "/salvar", produces = VERSIONAMENTO_POR_URI)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModel salvar(@RequestBody @Valid CidadeInput cidadeInput){
@@ -91,7 +94,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 			
 	}
 	
-	
+	@CheckSecurity.Cidade.PodeEditar
 	@PutMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModel atualizar(
 			@PathVariable Long cidadeId,			 
@@ -121,6 +124,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 //		}
 	}	
 	
+	@CheckSecurity.Cidade.PodeEditar
 	@DeleteMapping("/{cidadeId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(			 

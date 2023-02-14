@@ -23,6 +23,7 @@ import com.algaworks.algafood.api.v1.assembler.EstadoModelAssembler;
 import com.algaworks.algafood.api.v1.model.EstadoModel;
 import com.algaworks.algafood.api.v1.model.input.EstadoInput;
 import com.algaworks.algafood.api.v1.openapi.controller.EstadoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.modelo.Estado;
@@ -45,12 +46,14 @@ public class EstadoController implements EstadoControllerOpenApi{
 	@Autowired
 	private EstadoInputDisassembler estadoInputDisassembler;
 	
+	@CheckSecurity.Cidade.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public CollectionModel<EstadoModel> listar(){
 		List<Estado> todosEstados = estadoRepository.findAll();
 		return estadoModelAssembler.toCollectionModel(todosEstados);
 	}
 	
+	@CheckSecurity.Cidade.PodeConsultar
 	@GetMapping(path = "/{estadoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public EstadoModel buscar(@PathVariable Long estadoId){
 		
@@ -64,8 +67,9 @@ public class EstadoController implements EstadoControllerOpenApi{
 //		return ResponseEntity.notFound().build();
 	}
 	
-	
+	@CheckSecurity.Cidade.PodeEditar
 	@PostMapping(path = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
 	public EstadoModel salvar(@RequestBody @Valid EstadoInput estadoInput){
 		try {
 			Estado estado = estadoInputDisassembler.toDomainObject(estadoInput);
@@ -76,6 +80,7 @@ public class EstadoController implements EstadoControllerOpenApi{
 		}
 	}
 	
+	@CheckSecurity.Cidade.PodeEditar
 	@PutMapping(path = "/{estadoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public EstadoModel atualizar(@PathVariable Long estadoId, @RequestBody @Valid EstadoInput estadoInput){
 		
@@ -100,6 +105,7 @@ public class EstadoController implements EstadoControllerOpenApi{
 //		}
 	}
 	
+	@CheckSecurity.Cidade.PodeEditar
 	@DeleteMapping("/{estadoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long estadoId){

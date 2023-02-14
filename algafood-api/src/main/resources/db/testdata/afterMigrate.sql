@@ -60,9 +60,9 @@ insert into forma_pagamento (descricao, data_atualizacao) values('Pix', utc_time
 #insert into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
 insert into permissao (id, nome, descricao) values (1, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
 insert into permissao (id, nome, descricao) values (2, 'CONSULTAR_CIDADES', 'Permite consultar cidades');
-#insert into permissao (id, nome, descricao) values (5, 'EDITAR_CIDADES', 'Permite editar cozinhas');
+insert into permissao (id, nome, descricao) values (12, 'EDITAR_CIDADES', 'Permite editar cozinhas');
 insert into permissao (id, nome, descricao) values (3, 'CONSULTAR_ESTADOS', 'Permite consultar estados');
-#insert into permissao (id, nome, descricao) values (7, 'EDITAR_ESTADOS', 'Permite editar estados');
+#]insert into permissao (id, nome, descricao) values (13, 'EDITAR_ESTADOS', 'Permite editar estados');
 insert into permissao (id, nome, descricao) values (4, 'CONSULTAR_USUARIOS', 'Permite consultar usuarios');
 insert into permissao (id, nome, descricao) values (5, 'EDITAR_USUARIOS', 'Permite editar usuarios');
 insert into permissao (id, nome, descricao) values (6, 'CONSULTAR_RESTAURANTES', 'Permite consultar restaurantes');

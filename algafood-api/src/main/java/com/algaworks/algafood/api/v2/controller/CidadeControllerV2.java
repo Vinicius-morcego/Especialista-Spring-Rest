@@ -23,6 +23,7 @@ import com.algaworks.algafood.api.v2.assembler.CidadeModelAssemblerV2;
 import com.algaworks.algafood.api.v2.model.CidadeModelV2;
 import com.algaworks.algafood.api.v2.model.input.CidadeInputV2;
 import com.algaworks.algafood.api.v2.openapi.controller.CidadeControllerV2OpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.core.web.AlgaMediaTypes;
 import com.algaworks.algafood.domain.exception.EstadoNaoEncontradoException;
 import com.algaworks.algafood.domain.exception.NegocioException;
@@ -49,12 +50,14 @@ public class CidadeControllerV2 implements CidadeControllerV2OpenApi{
 	@Autowired 
 	private CidadeInputDisassemblerV2 cidadeInputDisassembler;
 	
+	@CheckSecurity.Cidade.PodeConsultar
 	@GetMapping(produces = VERSIONAMENTO_POR_URI)
 	public CollectionModel<CidadeModelV2> listar(){
 		List<Cidade> todasCidades = cidadeRepository.findAll();
 		return cidadeModelAssembler.toCollectionModel(todasCidades);		
 	}	
 	
+	@CheckSecurity.Cidade.PodeConsultar
 	@GetMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModelV2 buscar(@PathVariable Long cidadeId){
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
@@ -66,6 +69,7 @@ public class CidadeControllerV2 implements CidadeControllerV2OpenApi{
 //		return ResponseEntity.notFound().build();
 	}	
 	
+	@CheckSecurity.Cidade.PodeEditar
 	@PostMapping(path = "/salvar", produces = VERSIONAMENTO_POR_URI)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModelV2 salvar(@RequestBody @Valid CidadeInputV2 cidadeInput){
@@ -83,6 +87,7 @@ public class CidadeControllerV2 implements CidadeControllerV2OpenApi{
 			
 	}	
 	
+	@CheckSecurity.Cidade.PodeEditar
 	@PutMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModelV2 atualizar(
 			@PathVariable Long cidadeId,			 
