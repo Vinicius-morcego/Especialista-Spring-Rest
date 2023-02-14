@@ -62,9 +62,9 @@ insert into permissao (id, nome, descricao) values (1, 'EDITAR_COZINHAS', 'Permi
 insert into permissao (id, nome, descricao) values (2, 'CONSULTAR_CIDADES', 'Permite consultar cidades');
 insert into permissao (id, nome, descricao) values (12, 'EDITAR_CIDADES', 'Permite editar cozinhas');
 insert into permissao (id, nome, descricao) values (3, 'CONSULTAR_ESTADOS', 'Permite consultar estados');
-#]insert into permissao (id, nome, descricao) values (13, 'EDITAR_ESTADOS', 'Permite editar estados');
-insert into permissao (id, nome, descricao) values (4, 'CONSULTAR_USUARIOS', 'Permite consultar usuarios');
-insert into permissao (id, nome, descricao) values (5, 'EDITAR_USUARIOS', 'Permite editar usuarios');
+#insert into permissao (id, nome, descricao) values (13, 'EDITAR_ESTADOS', 'Permite editar estados');
+insert into permissao (id, nome, descricao) values (4, 'CONSULTAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite consultar usuarios');
+insert into permissao (id, nome, descricao) values (5, 'EDITAR_USUARIOS_GRUPOS_PERMISSOES', 'Permite editar usuarios');
 insert into permissao (id, nome, descricao) values (6, 'CONSULTAR_RESTAURANTES', 'Permite consultar restaurantes');
 #insert into permissao (id, nome, descricao) values (11, 'EDITAR_RESTAURANTES', 'Permite editar restaurantes');
 insert into permissao (id, nome, descricao) values (7, 'CONSULTAR_PRODUTOS', 'Permite consultar produtos');
@@ -83,7 +83,7 @@ select 1, id from permissao;
 
 #Adiciona todas as permissoes no grupo do vendedor
 insert into grupo_permissao (grupo_id, permissao_id)
-select 2, id from permissao where nome like 'CONSULTAR_%';
+select 2, id from permissao where nome like '%_RESTAURANTES' or nome like '%_PRODUTOS';
 
 #insert into grupo_permissao (grupo_id, permissao_id) values(2, 14);
 
@@ -97,7 +97,7 @@ select 4, id from permissao where nome like 'EDITAR_%';
 
 insert into usuario(nome_usuario, email_usuario, senha_usuario, data_cadastro) values 
 ('VINICIUS', 'vinicius.ger@gmail.com','$2a$12$wuwUH4YO1ux9qi82rIjB9OOZxBCS69bdGkYFVxOrwR04Dud3sKBeG', utc_timestamp),
-('LUQUE', 'luque.loja@gmail.com', '$2a$12$wuwUH4YO1ux9qi82rIjB9OOZxBCS69bdGkYFVxOrwR04Dud3sKBeG', utc_timestamp), 
+('LUQUE', 'luque.ven@gmail.com', '$2a$12$wuwUH4YO1ux9qi82rIjB9OOZxBCS69bdGkYFVxOrwR04Dud3sKBeG', utc_timestamp), 
 ('PEDRO AUGUSTO', 'pedrim.cad@gmail.com', '$2a$12$wuwUH4YO1ux9qi82rIjB9OOZxBCS69bdGkYFVxOrwR04Dud3sKBeG', utc_timestamp), 
 ('BRANCA', 'branca.aux@gmail.com', '$2a$12$wuwUH4YO1ux9qi82rIjB9OOZxBCS69bdGkYFVxOrwR04Dud3sKBeG', utc_timestamp),
 ('DEBORA', 'aws-teste+debora@gmail.com', '$2a$12$wuwUH4YO1ux9qi82rIjB9OOZxBCS69bdGkYFVxOrwR04Dud3sKBeG', utc_timestamp),

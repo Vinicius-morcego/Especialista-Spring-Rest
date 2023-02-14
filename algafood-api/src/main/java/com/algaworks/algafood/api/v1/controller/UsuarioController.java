@@ -25,6 +25,7 @@ import com.algaworks.algafood.api.v1.model.input.SenhaInput;
 import com.algaworks.algafood.api.v1.model.input.UsuarioComSenhaInput;
 import com.algaworks.algafood.api.v1.model.input.UsuarioInput;
 import com.algaworks.algafood.api.v1.openapi.controller.UsuarioControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.modelo.Usuario;
 import com.algaworks.algafood.domain.repository.UsuarioRepository;
 import com.algaworks.algafood.domain.service.CadastroUsuarioService;
@@ -47,12 +48,14 @@ public class UsuarioController implements UsuarioControllerOpenApi{
 	@Autowired
 	private UsuarioInputDisassembler usuarioInputDisassembler;
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public CollectionModel<UsuarioModel> listar(){
 		List<Usuario> todosUsuarios = usuarioRepository.findAll(); 
 		return usuarioModelAssembler.toCollectionModel(todosUsuarios);
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@GetMapping(path = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UsuarioModel buscar(@PathVariable Long usuarioId) {
 		var usuario = cadastroUsuario.buscarOuFalhar(usuarioId);
@@ -68,6 +71,7 @@ public class UsuarioController implements UsuarioControllerOpenApi{
 		return usuarioModelAssembler.toModel(cadastroUsuario.salvar(usuario));
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarUsuario
 	@PutMapping(path = "/{usuarioId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public UsuarioModel atualizar(@PathVariable Long usuarioId, @RequestBody @Valid UsuarioInput usuarioInput) {
 		var usuarioAtual = cadastroUsuario.buscarOuFalhar(usuarioId);
@@ -75,6 +79,7 @@ public class UsuarioController implements UsuarioControllerOpenApi{
 		return usuarioModelAssembler.toModel(cadastroUsuario.salvar(usuarioAtual));
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeAlterarPropriaSenha
 	@PutMapping("/{usuarioId}/senha")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizarSenha(@PathVariable Long usuarioId, @RequestBody SenhaInput senhaInput) {
@@ -82,6 +87,7 @@ public class UsuarioController implements UsuarioControllerOpenApi{
 		
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
 	@DeleteMapping("/{usuarioId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long usuarioId) {

@@ -34,4 +34,8 @@ public class AlgaSecurity {
 	public boolean gerenciaPedido(String codigoPedido) {
 		return pedidoRepository.existsResponsavelPedido(codigoPedido, getUsuarioId());
 	}
+	
+	public boolean podeAlterarPropriaSenha(Long usuarioId) {
+		return getUsuarioId().equals(usuarioId);
+	}
 }

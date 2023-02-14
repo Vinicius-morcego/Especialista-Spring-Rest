@@ -25,6 +25,7 @@ import com.algaworks.algafood.api.v1.assembler.GrupoModelAssembler;
 import com.algaworks.algafood.api.v1.model.GrupoModel;
 import com.algaworks.algafood.api.v1.model.input.GrupoInput;
 import com.algaworks.algafood.api.v1.openapi.controller.GrupoControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
 import com.algaworks.algafood.domain.exception.GrupoNaoEncontradoException;
 import com.algaworks.algafood.domain.modelo.Grupo;
@@ -49,18 +50,21 @@ public class GrupoController implements GrupoControllerOpenApi {
 	@Autowired
 	private GrupoRepository grupoRepository;
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE) 
 	public CollectionModel<GrupoModel> listar(){
 		List<Grupo> todosGrupos = grupoRepository.findAll();
 		return grupoAssembler.toCollectionModel(todosGrupos);		
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@GetMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GrupoModel buscar(@PathVariable Long grupoId) {
 		Grupo grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
 		return grupoAssembler.toModel(grupo);
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
 	@PostMapping(path = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GrupoModel salvar(@RequestBody @Valid GrupoInput grupoInput) {
 		Grupo grupo = grupoInputDisassembler.toDomainObject(grupoInput);
@@ -69,6 +73,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 		
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
 	@PutMapping(path = "/{grupoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GrupoModel atualizar(@PathVariable Long grupoId, @RequestBody @Valid GrupoInput grupoInput) {
 		Grupo grupoAtual = cadastroGrupoService.buscarOuFalhar(grupoId);
@@ -78,6 +83,7 @@ public class GrupoController implements GrupoControllerOpenApi {
 		return grupoAssembler.toModel(cadastroGrupoService.salvar(grupoAtual));
 	}
 	
+	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{grupoId}")
 	public void excluir(@PathVariable Long grupoId) {
