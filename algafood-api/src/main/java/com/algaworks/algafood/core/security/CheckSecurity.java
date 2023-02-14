@@ -112,8 +112,8 @@ public @interface CheckSecurity {
 	}
 	
 	public @interface UsuariosGruposPermissoes{
-		@PreAuthorize("hasAuthority('SCOPE_WRITE') and (hasAuthority('EDITAR_USUARIOS_GRUPOS_PERMISSOES') or "
-				+ "@algaSecurity.podeAlterarPropriaSenha(#usuarioId))")
+		
+		@PreAuthorize("hasAuthority('SCOPE_WRITE') and @algaSecurity.podeAlterarPropriaSenha(#usuarioId)")
 		@Retention(RUNTIME)
 		@Target(METHOD)
 		public @interface PodeAlterarPropriaSenha{ }
@@ -134,5 +134,13 @@ public @interface CheckSecurity {
 		@Target(METHOD)
 		public @interface PodeConsultar{ }
 		
+	}
+	
+	public @interface Estatistica{
+		
+		@PreAuthorize("hasAuthority('SCOPE_READ') and hasAuthority('GERAR_RELATORIOS')")
+		@Retention(RUNTIME)
+		@Target(METHOD)
+		public @interface PodeConsultar{ }
 	}
 }

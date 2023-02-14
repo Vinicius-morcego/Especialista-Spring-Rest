@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.openapi.controller.EstatisticaControllerOpenApi;
+import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.filter.VendaDiariaFilter;
 import com.algaworks.algafood.domain.modelo.dto.VendaDiaria;
 import com.algaworks.algafood.domain.service.VendaQueryService;
@@ -32,6 +33,7 @@ public class EstatisticasController implements EstatisticaControllerOpenApi{
 	@Autowired
 	private AlgaLinks algaLinks;	
 	
+	@CheckSecurity.Estatistica.PodeConsultar
 	@Override
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)	
 	public EstatisticasModel estatistica(){
@@ -42,6 +44,7 @@ public class EstatisticasController implements EstatisticaControllerOpenApi{
 		return estatisticaModel;
 	}
 	
+	@CheckSecurity.Estatistica.PodeConsultar
 	@GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<VendaDiaria> consultarVendasDiarias(			
 			VendaDiariaFilter filtro, 
@@ -49,6 +52,7 @@ public class EstatisticasController implements EstatisticaControllerOpenApi{
 		return vendaQueryService.consultarVendasDiarias(filtro, timeOffset);
 	}
 	
+	@CheckSecurity.Estatistica.PodeConsultar
 	@GetMapping(path = "/vendas-diarias", produces = MediaType.APPLICATION_PDF_VALUE)
 	public ResponseEntity<byte[]> consultarVendasDiariasPdf(VendaDiariaFilter filtro, 
 			@RequestParam(required = false, defaultValue = "+00:00") String timeOffset){
