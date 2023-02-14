@@ -59,7 +59,6 @@ insert into forma_pagamento (descricao, data_atualizacao) values('Pix', utc_time
 
 #insert into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
 insert into permissao (id, nome, descricao) values (1, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
-#insert into permissao (id, nome, descricao) values (3, 'EDITAR_FORMAS_PAGAMENTO', 'Permite editar formas de pagamento');
 insert into permissao (id, nome, descricao) values (2, 'CONSULTAR_CIDADES', 'Permite consultar cidades');
 #insert into permissao (id, nome, descricao) values (5, 'EDITAR_CIDADES', 'Permite editar cozinhas');
 insert into permissao (id, nome, descricao) values (3, 'CONSULTAR_ESTADOS', 'Permite consultar estados');
@@ -74,6 +73,7 @@ insert into permissao (id, nome, descricao) values (7, 'CONSULTAR_PRODUTOS', 'Pe
 insert into permissao (id, nome, descricao) values (8, 'EDITAR_PEDIDOS', 'Permite editar pedidos');
 insert into permissao (id, nome, descricao) values (9, 'GERENCIAR_PEDIDOS', 'Permite gerenciar pedidos');
 insert into permissao (id, nome, descricao) values (10, 'GERAR_RELATORIOS', 'Permite gerar relatórios');
+insert into permissao (id, nome, descricao) values (11, 'EDITAR_FORMAS_PAGAMENTO', 'Permite editar formas de pagamento');
 
 insert into grupo (id, nome) values(1, 'Gerente'), (2, 'Vendedor'), (4, 'Cadastrador'), (3, 'Secretária'); 
 
@@ -88,12 +88,12 @@ select 2, id from permissao where nome like 'CONSULTAR_%';
 #insert into grupo_permissao (grupo_id, permissao_id) values(2, 14);
 
 #Adiciona todas as permissoes no grupo do auxiliar
-#insert into grupo_permissao (grupo_id, permissao_id)
-#select 3 from permissao where nome like 'CONSULTAR_%';
+insert into grupo_permissao (grupo_id, permissao_id)
+select 3, id from permissao where nome like 'CONSULTAR_%';
 
 #Adiciona todas as permissoes no grupo do cadastrador
 insert into grupo_permissao (grupo_id, permissao_id)
-select 4, id from permissao where nome like '%_RESTAURANTES' or nome like '%_PRODUTOS';
+select 4, id from permissao where nome like 'EDITAR_%';
 
 insert into usuario(nome_usuario, email_usuario, senha_usuario, data_cadastro) values 
 ('VINICIUS', 'vinicius.ger@gmail.com','$2a$12$wuwUH4YO1ux9qi82rIjB9OOZxBCS69bdGkYFVxOrwR04Dud3sKBeG', utc_timestamp),
