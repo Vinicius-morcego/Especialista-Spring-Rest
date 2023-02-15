@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.PedidoController;
 import com.algaworks.algafood.api.v1.model.PedidoModel;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.modelo.Pedido;
 import com.algaworks.algafood.domain.modelo.StatusPedido;
 
@@ -24,6 +25,9 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;
+	
 	public PedidoModelAssembler() {
 		super(PedidoController.class, PedidoModel.class);		
 	}
@@ -35,15 +39,16 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 		modelMapper.map(pedido, pedidoModel);		
 		//pedidoModel.add(linkTo(PedidoController.class).withRel("pedidos"));
 		pedidoModel.add(algaLinks.linkToPedidos("pedidos"));		
-		
-		if(pedido.getStatus().podeAlterarPara(StatusPedido.CONFIRMADO)) {
-			pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));			
-		}
-		if(pedido.getStatus().podeAlterarPara(StatusPedido.CANCELADO)) {
-			pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));			
-		}		
-		if(pedido.getStatus().podeAlterarPara(StatusPedido.ENTREGUE)) {
-			pedidoModel.add(algaLinks.linkToEntregaPedido(pedido.getCodigo(), "entregar"));			
+		if(algaSecurity.podeGerenciarPedido(pedido.getCodigo())) {
+			if(pedido.getStatus().podeAlterarPara(StatusPedido.CONFIRMADO)) {
+				pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));			
+			}
+			if(pedido.getStatus().podeAlterarPara(StatusPedido.CANCELADO)) {
+				pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));			
+			}		
+			if(pedido.getStatus().podeAlterarPara(StatusPedido.ENTREGUE)) {
+				pedidoModel.add(algaLinks.linkToEntregaPedido(pedido.getCodigo(), "entregar"));			
+			}
 		}
 		
 		pedidoModel.getRestaurante().add(algaLinks.linkToRestaurantes(pedidoModel.getRestaurante().getId()));
