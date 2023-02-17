@@ -48,4 +48,66 @@ public class AlgaSecurity {
 		return hasAuthority("SCOPE_WRITE") && (hasAuthority("GERENCIAR_PEDIDOS")
 				|| gerenciaPedido(codigoPedido));
 	}
+	
+	public boolean isAuthenticated() {
+		return getAuthentication().isAuthenticated();
+	}
+	
+	public boolean temEscopoEscrita() {
+		return hasAuthority("SCOPE_WRITE");
+	}
+	
+	public boolean temEscopoLeitura() {
+		return hasAuthority("SCOPE_READ");
+	}
+	
+	public boolean podeConsultarRestaurantes() {
+	    return temEscopoLeitura() && isAuthenticated();
+	}
+
+	public boolean podeGerenciarCadastroRestaurantes() {
+	    return temEscopoEscrita() && hasAuthority("EDITAR_RESTAURANTES");
+	}
+
+	public boolean podeGerenciarFuncionamentoRestaurantes(Long restauranteId) {
+	    return temEscopoEscrita() && (hasAuthority("EDITAR_RESTAURANTES")
+	            || gerenciaRestaurante(restauranteId));
+	}
+
+	public boolean podeConsultarUsuariosGruposPermissoes() {
+	    return temEscopoLeitura() && hasAuthority("CONSULTAR_USUARIOS_GRUPOS_PERMISSOES");
+	}
+
+	public boolean podeEditarUsuariosGruposPermissoes() {
+	    return temEscopoEscrita() && hasAuthority("EDITAR_USUARIOS_GRUPOS_PERMISSOES");
+	}
+
+	public boolean podePesquisarPedidos(Long clienteId, Long restauranteId) {
+	    return temEscopoLeitura() && (hasAuthority("CONSULTAR_PEDIDOS")
+	            || usuarioAutenticadoIgual(clienteId) || gerenciaRestaurante(restauranteId));
+	}
+
+	public boolean podePesquisarPedidos() {
+	    return isAuthenticated() && temEscopoLeitura();
+	}
+
+	public boolean podeConsultarFormasPagamento() {
+	    return isAuthenticated() && temEscopoLeitura();
+	}
+
+	public boolean podeConsultarCidades() {
+	    return isAuthenticated() && temEscopoLeitura();
+	}
+
+	public boolean podeConsultarEstados() {
+	    return isAuthenticated() && temEscopoLeitura();
+	}
+
+	public boolean podeConsultarCozinhas() {
+	    return isAuthenticated() && temEscopoLeitura();
+	}
+
+	public boolean podeConsultarEstatisticas() {
+	    return temEscopoLeitura() && hasAuthority("GERAR_RELATORIOS");
+	}    
 }

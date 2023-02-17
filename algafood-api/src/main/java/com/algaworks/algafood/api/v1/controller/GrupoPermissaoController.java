@@ -17,7 +17,9 @@ import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.assembler.PermissaoModelAssembler;
 import com.algaworks.algafood.api.v1.model.PermissaoModel;
 import com.algaworks.algafood.api.v1.openapi.controller.GrupoPermissaoControllerOpenApi;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.core.security.CheckSecurity;
+import com.algaworks.algafood.domain.modelo.Grupo;
 import com.algaworks.algafood.domain.service.CadastroGrupoService;
 
 @RestController
@@ -33,19 +35,29 @@ public class GrupoPermissaoController implements GrupoPermissaoControllerOpenApi
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;
+	
 	@CheckSecurity.UsuariosGruposPermissoes.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public CollectionModel<PermissaoModel> listar(@PathVariable Long grupoId){
-		var grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
-		CollectionModel<PermissaoModel> grupoPermissoesModel = 
-				permissaoAssembler.toCollectionModel(grupo.getPermissoes());
-		grupoPermissoesModel.getContent().forEach(grupoPermissaoModel -> {
-			grupoPermissaoModel.add(algaLinks.linkToPermissaoGrupoDesassociar(grupo.getId(), "desassociar"));
-		});
+		 Grupo grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
+		    
+		    CollectionModel<PermissaoModel> permissoesModel 
+		        = permissaoAssembler.toCollectionModel(grupo.getPermissoes())
+		            .removeLinks();
+		    
+		    permissoesModel.add(algaLinks.linkToPermissoesGrupo(grupoId, "grupos"));
+		    
+		    if (algaSecurity.podeEditarUsuariosGruposPermissoes()) {
+		        permissoesModel.add(algaLinks.linkToPermissaoGrupoAssociar(grupoId, "associar"));
+		    
+		        permissoesModel.getContent().forEach(permissaoModel -> {
+		            permissaoModel.add(algaLinks.linkToPermissaoGrupoDesassociar(grupoId, "desassociar"));
+		        });
+		    }
 		
-		grupoPermissoesModel.add(algaLinks.linkToPermissaoGrupoAssociar(grupo.getId(), "associar"));
-		
-		return grupoPermissoesModel;			
+		return permissoesModel;			
 	}	
 	
 	@CheckSecurity.UsuariosGruposPermissoes.PodeEditar

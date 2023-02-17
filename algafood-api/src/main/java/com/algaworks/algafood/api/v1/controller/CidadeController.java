@@ -56,7 +56,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 	@Autowired 
 	private CidadeInputDisassembler cidadeInputDisassembler;
 	
-	@CheckSecurity.Cidade.PodeConsultar
+	@CheckSecurity.Cidades.PodeConsultar
 	@Deprecated
 	@GetMapping(produces = VERSIONAMENTO_POR_URI)
 	public CollectionModel<CidadeModel> listar(){
@@ -64,7 +64,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 		return cidadeModelAssembler.toCollectionModel(todasCidades);		
 	}	
 	
-	@CheckSecurity.Cidade.PodeConsultar
+	@CheckSecurity.Cidades.PodeConsultar
 	@GetMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModel buscar(@PathVariable Long cidadeId){
 		Cidade cidade = cadastroCidade.buscarOuFalhar(cidadeId);
@@ -76,7 +76,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 //		return ResponseEntity.notFound().build();
 	}
 	
-	@CheckSecurity.Cidade.PodeEditar
+	@CheckSecurity.Cidades.PodeEditar
 	@PostMapping(path = "/salvar", produces = VERSIONAMENTO_POR_URI)
 	@ResponseStatus(HttpStatus.CREATED)
 	public CidadeModel salvar(@RequestBody @Valid CidadeInput cidadeInput){
@@ -94,7 +94,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 			
 	}
 	
-	@CheckSecurity.Cidade.PodeEditar
+	@CheckSecurity.Cidades.PodeEditar
 	@PutMapping(path = "/{cidadeId}", produces = VERSIONAMENTO_POR_URI)
 	public CidadeModel atualizar(
 			@PathVariable Long cidadeId,			 
@@ -124,7 +124,7 @@ public class CidadeController implements CidadeControllerOpenApi{
 //		}
 	}	
 	
-	@CheckSecurity.Cidade.PodeEditar
+	@CheckSecurity.Cidades.PodeEditar
 	@DeleteMapping("/{cidadeId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(			 

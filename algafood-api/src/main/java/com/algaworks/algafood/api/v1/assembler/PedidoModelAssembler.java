@@ -37,38 +37,61 @@ public class PedidoModelAssembler extends RepresentationModelAssemblerSupport<Pe
 		PedidoModel pedidoModel = createModelWithId(pedido.getId(), pedido);
 		
 		modelMapper.map(pedido, pedidoModel);		
-		//pedidoModel.add(linkTo(PedidoController.class).withRel("pedidos"));
-		pedidoModel.add(algaLinks.linkToPedidos("pedidos"));		
-		if(algaSecurity.podeGerenciarPedido(pedido.getCodigo())) {
-			if(pedido.getStatus().podeAlterarPara(StatusPedido.CONFIRMADO)) {
-				pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));			
-			}
-			if(pedido.getStatus().podeAlterarPara(StatusPedido.CANCELADO)) {
-				pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));			
-			}		
-			if(pedido.getStatus().podeAlterarPara(StatusPedido.ENTREGUE)) {
-				pedidoModel.add(algaLinks.linkToEntregaPedido(pedido.getCodigo(), "entregar"));			
-			}
-		}
 		
-		pedidoModel.getRestaurante().add(algaLinks.linkToRestaurantes(pedidoModel.getRestaurante().getId()));
-		
-		pedidoModel.getCliente().add(algaLinks.linkToUsuarios(pedidoModel.getCliente().getId()));
-		
-		pedidoModel.getFormaPagamento().add(algaLinks.linkToFormaPagamentos(pedidoModel.getRestaurante().getId()));
-		
-		pedidoModel.getEnderecoEntrega().getCidade().add(
-				algaLinks.linkToCidades(pedidoModel.getEnderecoEntrega().getCidade().getId()));
-		
-		pedidoModel.getItens().forEach(item ->{			
-				item.getProduto().add(algaLinks.linkToProdutos(pedido.getRestaurante().getId(), "produto"));
-		});
-		
+		 if (algaSecurity.podePesquisarPedidos()) {
+		        pedidoModel.add(algaLinks.linkToPedidos("pedidos"));
+		    }
+		    
+		    if (algaSecurity.podeGerenciarPedido(pedido.getCodigo())) {
+		        if (pedido.podeSerConfirmado()) {
+		            pedidoModel.add(algaLinks.linkToConfirmacaoPedido(pedido.getCodigo(), "confirmar"));
+		        }
+		        
+		        if (pedido.podeSerCancelado()) {
+		            pedidoModel.add(algaLinks.linkToCancelamentoPedido(pedido.getCodigo(), "cancelar"));
+		        }
+		        
+		        if (pedido.podeSerEntregue()) {
+		            pedidoModel.add(algaLinks.linkToEntregaPedido(pedido.getCodigo(), "entregar"));
+		        }
+		    }
+		    
+		    if (algaSecurity.podeConsultarRestaurantes()) {
+		        pedidoModel.getRestaurante().add(
+		                algaLinks.linkToRestaurantes(pedido.getRestaurante().getId()));
+		    }
+		    
+		    if (algaSecurity.podeConsultarUsuariosGruposPermissoes()) {
+		        pedidoModel.getCliente().add(
+		                algaLinks.linkToUsuarios(pedido.getCliente().getId()));
+		    }
+		    
+		    if (algaSecurity.podeConsultarFormasPagamento()) {
+		        pedidoModel.getFormaPagamento().add(
+		                algaLinks.linkToFormaPagamentos(pedido.getFormaPagamento().getId()));
+		    }
+		    
+		    if (algaSecurity.podeConsultarCidades()) {
+		        pedidoModel.getEnderecoEntrega().getCidade().add(
+		                algaLinks.linkToCidades(pedido.getEnderecoEntrega().getCidade().getId()));
+		    }
+		    
+		    // Quem pode consultar restaurantes, também pode consultar os produtos dos restaurantes
+		    if (algaSecurity.podeConsultarRestaurantes()) {
+		        pedidoModel.getItens().forEach(item -> {
+		            item.add(algaLinks.linkToProduto(
+		                    pedidoModel.getRestaurante().getId(), item.getProduto().getId(), "produto"));
+		        });
+		    }	
 		return pedidoModel;
 	}
 	
 	@Override
-	public CollectionModel<PedidoModel> toCollectionModel(Iterable<? extends Pedido> entities) {		
-		return super.toCollectionModel(entities).add(linkTo(PedidoController.class).withRel("pedidos"));
+	public CollectionModel<PedidoModel> toCollectionModel(Iterable<? extends Pedido> entities) {	
+		var collectionModel = super.toCollectionModel(entities);
+		if(algaSecurity.podePesquisarPedidos()) {
+			collectionModel.add(linkTo(PedidoController.class).withRel("pedidos"));
+		}
+		return collectionModel;
 	}
 }

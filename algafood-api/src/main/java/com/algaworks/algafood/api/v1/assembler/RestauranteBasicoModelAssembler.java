@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.RestauranteController;
 import com.algaworks.algafood.api.v1.model.RestauranteBasicoModel;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.modelo.Restaurante;
 
 @Component
@@ -20,7 +21,8 @@ public class RestauranteBasicoModelAssembler extends RepresentationModelAssemble
 	@Autowired
 	private AlgaLinks algaLinks; 
 	
-	
+	@Autowired
+	private AlgaSecurity algaSecurity;
 	
 	public RestauranteBasicoModelAssembler() {
 		super(RestauranteController.class, RestauranteBasicoModel.class);
@@ -32,29 +34,43 @@ public class RestauranteBasicoModelAssembler extends RepresentationModelAssemble
 				createModelWithId(restaurante.getId(), restaurante);
 		
 		modelMapper.map(restaurante, restauranteBasicoModel);
+		if(algaSecurity.podeConsultarRestaurantes()) {
+			restauranteBasicoModel.add(algaLinks.linkToRestaurantes("restaurantes"));			
+		}
 		
-		restauranteBasicoModel.add(algaLinks.linkToRestaurantes("restaurantes"));
-		restauranteBasicoModel.add(algaLinks.linkToFormaPagamentos(restaurante.getId(), "formas-pagamento"));
-		restauranteBasicoModel.add(algaLinks.linkToRestauranteResponsavel(restaurante.getId()));
-		if(restaurante.getAberto()) {
-			restauranteBasicoModel.add(algaLinks.linkToFechandoRestaurante(restaurante.getId(), "fechar"));
+		if(algaSecurity.podeGerenciarFuncionamentoRestaurantes(restaurante.getId())) {
+			if(restaurante.getAberto()) {
+				restauranteBasicoModel.add(algaLinks.linkToFechandoRestaurante(restaurante.getId(), "fechar"));
+			}
+			if(!restaurante.getAberto()) {
+				restauranteBasicoModel.add(algaLinks.linkToAbrindoRestaurante(restaurante.getId(), "abrir"));
+			}
 		}
-		if(!restaurante.getAberto()) {
-			restauranteBasicoModel.add(algaLinks.linkToAbrindoRestaurante(restaurante.getId(), "abrir"));
+		
+		if(algaSecurity.podeGerenciarCadastroRestaurantes()) {
+			if(restaurante.getAtivo()) {
+				restauranteBasicoModel.add(algaLinks.linkToInativandoRestaurante(restaurante.getId(), "inativar"));
+			}
+			if(!restaurante.getAtivo()) {
+				restauranteBasicoModel.add(algaLinks.linkToAtivandoRestaurante(restaurante.getId(), "ativar"));
+			}
+			
 		}
-		if(restaurante.getAtivo()) {
-			restauranteBasicoModel.add(algaLinks.linkToInativandoRestaurante(restaurante.getId(), "inativar"));
-		}
-		if(!restaurante.getAtivo()) {
-			restauranteBasicoModel.add(algaLinks.linkToAtivandoRestaurante(restaurante.getId(), "ativar"));
+		if(algaSecurity.gerenciaRestaurante(restaurante.getId())) {			
+			restauranteBasicoModel.add(algaLinks.linkToFormaPagamentos(restaurante.getId(), "formas-pagamento"));
+			restauranteBasicoModel.add(algaLinks.linkToRestauranteResponsavel(restaurante.getId()));
 		}
 		return restauranteBasicoModel;
 		
 	}
 	
 	@Override
-	public CollectionModel<RestauranteBasicoModel> toCollectionModel(Iterable<? extends Restaurante> entities) {		
-		return super.toCollectionModel(entities).add(algaLinks.linkToRestaurantes("restaurantes"));
+	public CollectionModel<RestauranteBasicoModel> toCollectionModel(Iterable<? extends Restaurante> entities) {	
+		var collectionModel = super.toCollectionModel(entities);
+			if(algaSecurity.podeConsultarRestaurantes()) {
+				collectionModel.add(algaLinks.linkToRestaurantes("restaurantes"));
+			}
+		return collectionModel;
 	}
 
 }

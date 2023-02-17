@@ -10,6 +10,7 @@ import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.CidadeController;
 import com.algaworks.algafood.api.v1.model.CidadeModel;
 import com.algaworks.algafood.api.v1.model.input.CidadeInput;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.modelo.Cidade;
 import com.algaworks.algafood.domain.modelo.Estado;
 
@@ -23,6 +24,9 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;
+	
 	public CidadeModelAssembler() {
 		super(CidadeController.class, CidadeModel.class);
 	}
@@ -33,7 +37,9 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
 		 
 		modelMapper.map(cidade, cidadeModel);
 		
-		cidadeModel.add(algaLinks.linkToCidades("cidades"));		
+		if(algaSecurity.podeConsultarCidades()) {
+			cidadeModel.add(algaLinks.linkToCidades("cidades"));
+		}
 
 		return cidadeModel;
 	}
@@ -46,6 +52,11 @@ public class CidadeModelAssembler extends RepresentationModelAssemblerSupport<Ci
 	
 	@Override
 	public CollectionModel<CidadeModel> toCollectionModel(Iterable<? extends Cidade> entities) {	
-		return super.toCollectionModel(entities).add(algaLinks.linkToCidades("cidades"));
+		var collectionModel = super.toCollectionModel(entities);
+		if(algaSecurity.podeConsultarCidades()) {
+			collectionModel.add(algaLinks.linkToCidades("cidades")); 
+		}
+		
+		return collectionModel;
 	}
 }

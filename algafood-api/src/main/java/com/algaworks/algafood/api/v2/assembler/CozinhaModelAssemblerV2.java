@@ -11,6 +11,7 @@ import com.algaworks.algafood.api.v2.AlgaLinksV2;
 import com.algaworks.algafood.api.v2.controller.CozinhaControllerV2;
 import com.algaworks.algafood.api.v2.model.CozinhaModelV2;
 import com.algaworks.algafood.api.v2.model.input.CozinhaInputV2;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.modelo.Cozinha;
 
 import lombok.Getter;
@@ -32,12 +33,15 @@ public class CozinhaModelAssemblerV2 extends RepresentationModelAssemblerSupport
 	@Autowired
 	private AlgaLinksV2 algaLinks;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;
 	@Override
 	public CozinhaModelV2 toModel(Cozinha cozinha) {
 		CozinhaModelV2 cozinhaModel = createModelWithId(cozinha.getId(), cozinha);
 		modelMapper.map(cozinha, cozinhaModel);
-		
-		cozinhaModel.add(algaLinks.linkToCozinhas("cozinhas"));
+		if(algaSecurity.podeConsultarCozinhas()) {
+			cozinhaModel.add(algaLinks.linkToCozinhas("cozinhas"));			
+		}
 		
 		return cozinhaModel;
 	}
@@ -47,6 +51,11 @@ public class CozinhaModelAssemblerV2 extends RepresentationModelAssemblerSupport
 	}	
 	@Override
 	public CollectionModel<CozinhaModelV2> toCollectionModel(Iterable<? extends Cozinha> entities) {
-		return super.toCollectionModel(entities).add(algaLinks.linkToCozinhas("cozinhas"));
+		var collectionModel = super.toCollectionModel(entities);
+		if(algaSecurity.podeConsultarCozinhas()) {
+			collectionModel.add(algaLinks.linkToCozinhas("cozinhas"));
+		}
+		
+		return collectionModel;
 	}
 }

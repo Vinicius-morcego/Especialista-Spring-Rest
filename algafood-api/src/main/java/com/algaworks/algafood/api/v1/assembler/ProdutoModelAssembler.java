@@ -9,6 +9,7 @@ import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.RestauranteProdutoController;
 import com.algaworks.algafood.api.v1.model.ProdutoModel;
 import com.algaworks.algafood.api.v1.model.input.ProdutoInput;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.modelo.Produto;
 
 @Component
@@ -24,12 +25,17 @@ public class ProdutoModelAssembler extends RepresentationModelAssemblerSupport<P
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;
+	
 	@Override
 	public ProdutoModel toModel(Produto produto) {
 		ProdutoModel produtoModel = createModelWithId(produto.getId(), produto, produto.getRestaurante().getId());
 		modelMapper.map(produto, produtoModel);
-		produtoModel.add(algaLinks.linkToProdutos(produto.getRestaurante().getId(), "produtos"));
-		produtoModel.add(algaLinks.linkToFotoProduto(produto.getId(), produto.getRestaurante().getId(), "foto"));
+		if (algaSecurity.podeConsultarRestaurantes()) {
+			produtoModel.add(algaLinks.linkToProdutos(produto.getRestaurante().getId(), "produtos"));
+			produtoModel.add(algaLinks.linkToFotoProduto(produto.getId(), produto.getRestaurante().getId(), "foto"));			
+		}
 		return produtoModel;
 	}
 	

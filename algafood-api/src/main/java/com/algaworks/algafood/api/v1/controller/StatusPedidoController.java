@@ -20,7 +20,7 @@ public class StatusPedidoController implements StatusPedidoControllerOpenApi{
 	@Autowired
 	private StatusPedidoService statusPedidoService;
 	
-	@CheckSecurity.Pedidos.PodeGerenciaPedido
+	@CheckSecurity.Pedidos.PodeGerenciarPedidos
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PutMapping("/confirmar")
 	public ResponseEntity<Void> confirmar(@PathVariable String codigoPedido){		

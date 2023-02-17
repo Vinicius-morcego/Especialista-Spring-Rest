@@ -46,14 +46,14 @@ public class EstadoController implements EstadoControllerOpenApi{
 	@Autowired
 	private EstadoInputDisassembler estadoInputDisassembler;
 	
-	@CheckSecurity.Cidade.PodeConsultar
+	@CheckSecurity.Cidades.PodeConsultar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public CollectionModel<EstadoModel> listar(){
 		List<Estado> todosEstados = estadoRepository.findAll();
 		return estadoModelAssembler.toCollectionModel(todosEstados);
 	}
 	
-	@CheckSecurity.Cidade.PodeConsultar
+	@CheckSecurity.Cidades.PodeConsultar
 	@GetMapping(path = "/{estadoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public EstadoModel buscar(@PathVariable Long estadoId){
 		
@@ -67,7 +67,7 @@ public class EstadoController implements EstadoControllerOpenApi{
 //		return ResponseEntity.notFound().build();
 	}
 	
-	@CheckSecurity.Cidade.PodeEditar
+	@CheckSecurity.Cidades.PodeEditar
 	@PostMapping(path = "/salvar", produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
 	public EstadoModel salvar(@RequestBody @Valid EstadoInput estadoInput){
@@ -80,7 +80,7 @@ public class EstadoController implements EstadoControllerOpenApi{
 		}
 	}
 	
-	@CheckSecurity.Cidade.PodeEditar
+	@CheckSecurity.Cidades.PodeEditar
 	@PutMapping(path = "/{estadoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public EstadoModel atualizar(@PathVariable Long estadoId, @RequestBody @Valid EstadoInput estadoInput){
 		
@@ -105,7 +105,7 @@ public class EstadoController implements EstadoControllerOpenApi{
 //		}
 	}
 	
-	@CheckSecurity.Cidade.PodeEditar
+	@CheckSecurity.Cidades.PodeEditar
 	@DeleteMapping("/{estadoId}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long estadoId){

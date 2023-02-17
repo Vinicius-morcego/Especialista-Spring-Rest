@@ -11,6 +11,7 @@ import com.algaworks.algafood.api.v1.AlgaLinks;
 import com.algaworks.algafood.api.v1.controller.GrupoController;
 import com.algaworks.algafood.api.v1.model.GrupoModel;
 import com.algaworks.algafood.api.v1.model.input.GrupoInput;
+import com.algaworks.algafood.core.security.AlgaSecurity;
 import com.algaworks.algafood.domain.modelo.Grupo;
 
 @Component
@@ -22,6 +23,9 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
 	@Autowired
 	private AlgaLinks algaLinks;
 	
+	@Autowired
+	private AlgaSecurity algaSecurity;
+	
 	public GrupoModelAssembler() {
 		super(GrupoController.class, GrupoModel.class);
 	}
@@ -31,9 +35,10 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
 		GrupoModel grupoModel = createModelWithId(grupo.getId(), grupo);
 		modelMapper.map(grupo, grupoModel);
 		
-		grupoModel.add(algaLinks.linkToGrupos("grupos"));		
-		grupoModel.add(algaLinks.linkToPermissoesGrupo(grupo.getId(), "grupo-permissao"));		
-		grupoModel.add(algaLinks.linkToPermissoes("permissões"));	
+		if(algaSecurity.podeConsultarUsuariosGruposPermissoes()) {
+			grupoModel.add(algaLinks.linkToGrupos("grupos"));
+			grupoModel.add(algaLinks.linkToPermissoes("permissões"));	
+		}				
 		return grupoModel;
 	}
 	
@@ -43,6 +48,10 @@ public class GrupoModelAssembler extends RepresentationModelAssemblerSupport<Gru
 	
 	@Override
 	public CollectionModel<GrupoModel> toCollectionModel(Iterable<? extends Grupo> entities) {		
-		return super.toCollectionModel(entities).add(algaLinks.linkToGrupos("grupos")); 
+		var collectionModel = super.toCollectionModel(entities);
+		if(algaSecurity.podeConsultarUsuariosGruposPermissoes()) {
+			collectionModel.add(algaLinks.linkToGrupos("grupos"));
+		}
+		return collectionModel; 
 	}
 }
