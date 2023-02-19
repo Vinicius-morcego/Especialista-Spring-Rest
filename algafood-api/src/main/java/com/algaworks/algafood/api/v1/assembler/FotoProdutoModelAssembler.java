@@ -14,10 +14,6 @@ import com.algaworks.algafood.domain.modelo.FotoProduto;
 @Component
 public class FotoProdutoModelAssembler extends RepresentationModelAssemblerSupport<FotoProduto, FotoProdutoModel>{
 
-	public FotoProdutoModelAssembler(Class<?> controllerClass, Class<FotoProdutoModel> resourceType) {
-		super(RestauranteProdutoFotoController.class, FotoProdutoModel.class);
-	}
-
 	@Autowired
 	private ModelMapper modelMapper;
 	
@@ -26,6 +22,11 @@ public class FotoProdutoModelAssembler extends RepresentationModelAssemblerSuppo
 	
 	@Autowired
 	private AlgaSecurity algaSecurity;
+	
+	public FotoProdutoModelAssembler() {
+		super(RestauranteProdutoFotoController.class, FotoProdutoModel.class);
+	}
+
 	
 	public FotoProdutoModel toModel(FotoProduto foto) {
 		
