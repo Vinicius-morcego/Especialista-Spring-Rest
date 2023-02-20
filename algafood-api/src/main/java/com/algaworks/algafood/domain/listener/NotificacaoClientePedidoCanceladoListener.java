@@ -17,7 +17,7 @@ public class NotificacaoClientePedidoCanceladoListener extends NotificacaoClient
 	@TransactionalEventListener
 	public void aoCancelarPedido(PedidoCanceladoEvent event) {
 		Pedido pedido = event.getPedido();
-		var mensagem = criarMensagemEmail(pedido, " - Pedido cancelado", "pedido-cancelado.html");
+		var mensagem = criarMensagemEmail(pedido, " - Pedido cancelado", "emails/pedido-cancelado.html");
 		envioEmail.enviar(mensagem);
 		
 	}

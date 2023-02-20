@@ -18,7 +18,7 @@ public class NotificacaoClientePedidoConfirmadoListener {
 	@TransactionalEventListener
 	public void aoConfirmarEvento(PedidoConfirmadoEvent event) {
 		Pedido pedido = event.getPedido();		
-		var mensagem = criarMensagemEmail(pedido, " - Pedido confirmado", "pedido-confirmado.html");		
+		var mensagem = criarMensagemEmail(pedido, " - Pedido confirmado", "emails/pedido-confirmado.html");		
 		envioEmail.enviar(mensagem);
 	}
 
