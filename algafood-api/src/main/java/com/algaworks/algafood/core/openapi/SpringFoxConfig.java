@@ -57,16 +57,24 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RepresentationBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.builders.ResponseBuilder;
 import springfox.documentation.schema.AlternateTypeRules;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.GrantType;
+import springfox.documentation.service.HttpAuthenticationScheme;
+import springfox.documentation.service.ResourceOwnerPasswordCredentialsGrant;
 import springfox.documentation.service.Response;
+import springfox.documentation.service.SecurityReference;
+import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.json.JacksonModuleRegistrar;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -132,6 +140,9 @@ public class SpringFoxConfig{
 	          .apiInfo(apiInfoV1())	
 	          .alternateTypeRules(AlternateTypeRules.newRule(typeResolver.resolve(
 		        		 CollectionModel.class, UsuarioModel.class), UsuariosModelOpenApi.class))
+	          .securityContexts(Arrays.asList(securityContext()))
+	          .securitySchemes(List.of(authenticationScheme()))
+	          .securityContexts(List.of(securityContext()))	         
 	          .apiInfo(apiInfoV1())
 	          .tags( 
 	        	  new Tag("Cidades", "Gerência as cidades"), 
@@ -148,8 +159,25 @@ public class SpringFoxConfig{
 	          );
 	    		
 	  }	 
+	
+		private SecurityContext securityContext() {
+			  return SecurityContext.builder()
+			        .securityReferences(securityReference()).build();
+		}
+
+		private List<SecurityReference> securityReference() {
+			  AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+			  AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+			  authorizationScopes[0] = authorizationScope;
+			  return List.of(new SecurityReference("Authorization", authorizationScopes));
+		}
+
+		private HttpAuthenticationScheme authenticationScheme() {
+			return HttpAuthenticationScheme.JWT_BEARER_BUILDER.name("Authorization").build();
+		}
 	 
-	 @Bean
+	 
+	@Bean
 		public Docket apiDocketV2() {
 			var typeResolver = new TypeResolver();
 
@@ -175,6 +203,9 @@ public class SpringFoxConfig{
 							File.class, InputStream.class)
 					.directModelSubstitute(Pageable.class, PageableModelV2OpenApi.class)
 					.directModelSubstitute(Links.class, LinksModelV2OpenApi.class)
+					.securityContexts(Arrays.asList(securityContext()))
+			        .securitySchemes(List.of(authenticationScheme()))
+			        .securityContexts(List.of(securityContext()))	   
 					.apiInfo(apiInfoV2())
 					.tags(new Tag("Cidades", "Gerência as cidades"),
 						  new Tag("Cozinhas", "Gerência as cozinhas")
