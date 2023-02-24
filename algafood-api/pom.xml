@@ -30,6 +30,7 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEnconding>UTF-8</project.build.sourceEnconding>
 		<maven.test.skip>true</maven.test.skip>
+		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
 	</properties>
 
 	<dependencies>
@@ -238,5 +239,35 @@
 			 
 		</plugins>
 	</build>
+	<profiles>
+	<profile>
+		<id>docker</id>
+		<build>
+			<plugins>
+				<plugin>
+					  <groupId>com.spotify</groupId>
+					  <artifactId>dockerfile-maven-plugin</artifactId>
+					  <version>${dockerfile-maven-version}</version>
+					  <executions>
+					    <execution>
+					      <id>default</id>
+					      <goals>
+					        <goal>build</goal>
+					        <goal>push</goal>
+					      </goals>
+					    </execution>
+					  </executions>
+					  <configuration>
+					    <repository>algafood-api</repository>
+<!-- 					    <tag>${project.version}</tag> -->
+					    <buildArgs>
+					      <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+					    </buildArgs>
+					  </configuration>
+					</plugin>	
+			</plugins>
+		</build>	
+	</profile>
+	</profiles>
 
 </project>
