@@ -2,7 +2,8 @@ set foreign_key_checks = 0;
 
 lock tables cidade write, cozinha write, estado write, forma_pagamento write,
 		grupo write, permissao write, grupo_permissao write, produto write,
-		restaurante write, restaurante_forma_pagamento write, usuario write, usuario_grupo write,
+		restaurante write, restaurante_forma_pagamento write, 
+		restaurante_usuario_responsavel write, usuario write, usuario_grupo write,
 		pedido write, item_pedido write, foto_produto write, oauth_client_details write;
 
 delete from cidade;
@@ -15,6 +16,7 @@ delete from grupo_permissao;
 delete from produto;
 delete from restaurante;
 delete from restaurante_forma_pagamento;
+delete from restaurante_usuario_responsavel;
 delete from usuario;
 delete from usuario_grupo;
 delete from pedido;
@@ -32,6 +34,7 @@ alter table permissao auto_increment = 1;
 alter table grupo auto_increment = 1;
 alter table produto auto_increment = 1;
 alter table restaurante auto_increment = 1;
+alter table restaurante_usuario_responsavel auto_increment = 1;
 alter table usuario auto_increment = 1;
 alter table pedido auto_increment = 1;
 alter table item_pedido auto_increment = 1;
