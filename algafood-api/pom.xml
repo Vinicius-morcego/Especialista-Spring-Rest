@@ -172,9 +172,9 @@
 		</dependency>
 
 		<!-- SpringDoc -->
-		<dependency> 
+		<dependency>
 			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi</artifactId>
+			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>${springdoc.version}</version>
 		</dependency>
 		<dependency>

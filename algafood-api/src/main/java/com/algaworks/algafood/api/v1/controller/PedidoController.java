@@ -40,9 +40,6 @@ import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.algaworks.algafood.infrastructure.repository.spec.PedidoSpecs;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-
 @RestController
 @RequestMapping(path = "/v1/pedidos")
 public class PedidoController implements PedidoControllerOpenApi{
@@ -87,11 +84,6 @@ public class PedidoController implements PedidoControllerOpenApi{
 //		return pedidosWrapper;
 //	}
 	
-	@ApiImplicitParams({
-		@ApiImplicitParam(value = "Nome das propriedades para filtrar na resposta, separados por vírgula",
-				name = "campos", paramType = "query", type = "string")
-	})
-	
 	@CheckSecurity.Pedidos.PodePesquisar
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public PagedModel<PedidoResumoModel> pesquisar(PedidoFilter filter,
@@ -108,10 +100,6 @@ public class PedidoController implements PedidoControllerOpenApi{
 		
 	}
 	
-	@ApiImplicitParams({
-		@ApiImplicitParam(value = "Nome das propriedades para filtrar na resposta, separados por vírgula",
-				name = "campos", paramType = "query", type = "string")
-	})
 	@CheckSecurity.Pedidos.PodeBuscar
 	@GetMapping(path = "/{codigoPedido}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public PedidoModel buscar(@PathVariable String codigoPedido) {

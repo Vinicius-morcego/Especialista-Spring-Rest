@@ -9,7 +9,6 @@ import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 import org.springframework.stereotype.Component;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,26 +18,16 @@ import lombok.Setter;
 @Component
 public class ProdutoModel extends RepresentationModel<ProdutoModel>{
 
-	@ApiModelProperty(example = "1")
+	
 	@NotNull
 	private Long id;
-	
-	@ApiModelProperty(example = "Carne de porco")
 	@NotBlank
-	private String nome;	
-		
-	@ApiModelProperty(example = "Carne de porco ao molho barbecue")
+	private String nome;
 	@NotBlank
 	private String descricao;
-	
-	@ApiModelProperty(example = "20.00")
 	@NotNull
 	private BigDecimal preco;
-	
 	@NotNull
 	private Boolean ativo;
-	
-	
-	
 	
 }

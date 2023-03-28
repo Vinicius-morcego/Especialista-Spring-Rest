@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.hateoas.server.core.Relation;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +13,7 @@ import lombok.Setter;
 @Setter
 public class ItemPedidoModel extends RepresentationModel<ItemPedidoModel>{
 
-	@ApiModelProperty(example = "1")
+	
 	private Long id;
 	
 //	@ApiModelProperty(example = "1")
@@ -24,17 +23,9 @@ public class ItemPedidoModel extends RepresentationModel<ItemPedidoModel>{
 //	private String produtoNome;
 	
 	private ProdutoModel produto;
-	
-	@ApiModelProperty(example = "5")
 	private Integer quantidade;
-	
-	@ApiModelProperty(example = "20.8")
 	private BigDecimal precoUnitario;
-	
-	@ApiModelProperty(example = "100")
 	private BigDecimal precoTotal;
-	
-	@ApiModelProperty(example = "Servido ao ponto com molho madeira")
 	private String observacao;
 	
 }
