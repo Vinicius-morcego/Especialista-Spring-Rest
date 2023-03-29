@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.algaworks.algafood.api.v1.model.ProdutoModel;
 import com.algaworks.algafood.api.v1.model.input.ProdutoInput;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@SecurityRequirement(name = "security_auth")
+@Tag(name = "Produtos")
 public interface ProdutoControllerOpenApi {
 
 	public static String ID_DO_PRODUTO = "ID do produto";

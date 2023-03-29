@@ -6,7 +6,11 @@ import org.springframework.hateoas.PagedModel;
 import com.algaworks.algafood.api.v1.model.CozinhaModel;
 import com.algaworks.algafood.api.v1.model.input.CozinhaInput;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@SecurityRequirement(name = "security_auth")
+@Tag(name = "Cozinhas")
 public interface CozinhaControllerOpenApi {
 
 	

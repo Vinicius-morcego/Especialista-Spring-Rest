@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.algaworks.algafood.api.v1.model.GrupoModel;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@SecurityRequirement(name = "security_auth")
+@Tag(name = "Usuarios")
 public interface UsuarioGrupoControllerOpenApi {
 
 	public CollectionModel<GrupoModel>  listar(@PathVariable Long usuarioId);	

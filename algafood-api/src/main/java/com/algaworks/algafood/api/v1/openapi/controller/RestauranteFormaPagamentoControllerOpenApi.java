@@ -5,7 +5,11 @@ import org.springframework.http.ResponseEntity;
 
 import com.algaworks.algafood.api.v1.model.FormaPagamentoModel;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@SecurityRequirement(name = "security_auth")
+@Tag(name = "Restaurantes")
 public interface RestauranteFormaPagamentoControllerOpenApi {
 	
 	public static String MSG_BAD_REQUEST = "ID do restaurante ou da forma de pagamento inválido(s)";
