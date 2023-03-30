@@ -7,6 +7,8 @@ import com.algaworks.algafood.api.v1.model.EstadoModel;
 import com.algaworks.algafood.api.v1.model.input.EstadoInput;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -22,17 +24,18 @@ public interface EstadoControllerOpenApi {
 	
 	@Operation(summary = "Lista o estado por ID", description = "Lista um estado por ID, "
 			+ "necessita de um ID válido")
-	EstadoModel buscar(Long estadoId);
+	EstadoModel buscar(@Parameter(description = "ID de um estado", example = "1", required = true) Long estadoId);
 	
 	@Operation(summary = "Cadastro de estado", description = "Cadastro de um estado, "
 			+ "necessita de um nome válido")
-	EstadoModel salvar(EstadoInput estadoInput);	
+	EstadoModel salvar(@RequestBody(description = "Representação de um novo estado", required = true) EstadoInput estadoInput);	
 	
 	@Operation(summary = "Atualiza o estado por ID", description = "Atualização de um estado por ID, "
 			+ "necessida de um ID válido")
-	EstadoModel atualizar(Long estadoId, EstadoInput estadoInput);
+	EstadoModel atualizar(@Parameter(description = "ID de uma estado", example = "1", required = true) Long estadoId, 
+			@RequestBody(description = "Representação de um estado com dados atualizados", required = true) EstadoInput estadoInput);
 	
 	@Operation(summary = "Remove o estado por ID", description = "Remoção de um estado por ID, "
 			+ "necessita de um ID válido")
-	void remover(@PathVariable Long estadoId);
+	void remover(@Parameter(description = "ID de um estado", example = "1", required = true) @PathVariable Long estadoId);
 }

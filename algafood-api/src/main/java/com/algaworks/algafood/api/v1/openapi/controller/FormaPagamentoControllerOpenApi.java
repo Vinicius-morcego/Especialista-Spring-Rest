@@ -8,6 +8,8 @@ import com.algaworks.algafood.api.v1.model.FormaPagamentoModel;
 import com.algaworks.algafood.api.v1.model.input.FormaPagamentoInput;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -20,13 +22,16 @@ public interface FormaPagamentoControllerOpenApi {
 	
 	@Operation(summary = "Lista a forma de pagamento por ID", description = "Lista uma forma de pagamento por ID, "
 			+ "necessita de um ID válido")
-	ResponseEntity<FormaPagamentoModel> buscar(Long formaPagamentoId, ServletWebRequest request);
+	ResponseEntity<FormaPagamentoModel> buscar(
+			@Parameter(description = "Representa o ID da forma de pagamento", example = "1", required = true) 
+			Long formaPagamentoId, ServletWebRequest request);
 	
 	@Operation(summary = "Cadastro de forma de pagamento", description = "Cadastro de uma forma de pagamento, "
 			+ "necessita de uma descrição válida")
-	FormaPagamentoModel salvar(FormaPagamentoInput formaPagamentoInput);
+	FormaPagamentoModel salvar(@RequestBody(description = "Representação de uma nova forma de pagamento", required = true) 
+	FormaPagamentoInput formaPagamentoInput);
 	
 	@Operation(summary = "Remove a forma de pagamento por ID", description = "Remoção de uma forma de pagamento por ID, "
 			+ "necessita de um ID válido")
-	void excluir(Long formaPagamentoId);
+	void excluir(@Parameter(description = "Representa o ID de uma forma de pagamento", example = "1", required = true) Long formaPagamentoId);
 }

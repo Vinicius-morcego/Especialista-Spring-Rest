@@ -10,7 +10,10 @@ import com.algaworks.algafood.api.v1.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.v1.model.RestauranteModel;
 import com.algaworks.algafood.api.v1.model.input.RestauranteInput;
 
+import io.lettuce.core.dynamic.annotation.Param;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -35,15 +38,18 @@ public interface RestauranteControllerOpenApi {
 	
 	@Operation(summary = "Lista o restaurante por ID", description = "Lista um restaurante por ID, "
 			+ "necessita de um ID válido")
-	RestauranteBasicoModel buscar(Long restauranteId);
+	RestauranteBasicoModel buscar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) 
+			Long restauranteId);
 	
 	@Operation(summary = "Cadastro do restaurante", description = "Cadastro de um restaurante, "
 			+ "necessita de um nome válido")
-	RestauranteModel salvar(RestauranteInput restauranteInput);
+	RestauranteModel salvar(@RequestBody(description = "Representação de um novo restaurante", required = true) RestauranteInput restauranteInput);
 	
 	@Operation(summary = "Atualiza um restaurante por ID", description = "Atualização de um restaurante por ID, "
 			+ "necessita de um ID válido")
-	RestauranteModel atualizar(Long restauranteId, RestauranteInput restauranteInput);
+	RestauranteModel atualizar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) 
+	Long restauranteId, @RequestBody(description = "Representação de um restaurante com dados atualizados", required = true)
+	RestauranteInput restauranteInput);
 	
 	@Operation(summary = "Ativa o restaurante por ID", description = "Ativação de um restaurante por ID, "
 			+ "necessita de um ID válido")
@@ -56,16 +62,17 @@ public interface RestauranteControllerOpenApi {
 	
 	@Operation(summary = "Abertura do restaurante por ID", description = "Abertura de um restaurante por ID, "
 			+ "necessita de um ID válido")
-	ResponseEntity<Void> abrir(Long restauranteId);
-	void ativarMultiplos(List<Long> restauranteIds);
+	ResponseEntity<Void> abrir(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId);
+	void ativarMultiplos(@Parameter(description = "Representa uma lista de ID´s de um restaurante", example = "1", required = true) 
+			List<Long> restauranteIds);
 	void inativarMultiplos(List<Long> restauranteIds);
 	
 	//DELETE /restaurantes/{id}/inativar
 	@Operation(summary = "Fecha o restaurante por ID", description = "Fechamento de um restaurante por ID, "
 			+ "necessita de um ID válido")
-	ResponseEntity<Void> fechar(Long restauranteId);
+	ResponseEntity<Void> fechar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId);
 	
 	@Operation(summary = "Remove o restaurante por ID", description = "Remoção de um restaurante por ID, "
 			+ "necessita de um ID válido")
-	void excluir(Long restauranteId);
+	void excluir(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId);
 }
