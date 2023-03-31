@@ -7,7 +7,10 @@ import com.algaworks.algafood.api.v1.model.input.CidadeInput;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -20,7 +23,11 @@ public interface CidadeControllerOpenApi {
 	CollectionModel<CidadeModel> listar();
 	
 	@Operation(summary = "Lista a cidade por ID", description = "Lista uma cidade por ID,"
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "200"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema))
+			})
 	CidadeModel buscar(@Parameter(description = "ID de uma cidade", example = "1", required = true) Long cidadeId);
 	
 	@Operation(summary = "Cadastra a cidade", description = "Cadastro de uma cidade,"
@@ -28,12 +35,17 @@ public interface CidadeControllerOpenApi {
 	CidadeModel salvar(@RequestBody(description = "Representação de uma nova cidade", required = true) CidadeInput cidadeInput);
 	
 	@Operation(summary = "Atualiza a cidade por ID", description = "Atualização uma cidade por ID,"
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {					
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido")
+			})
 	CidadeModel atualizar(@Parameter(description = "ID de uma cidade", example = "1", required = true) Long cidadeId, 
 			@RequestBody(description = "Representação de uma cidade com dados atualizados", required = true) CidadeInput cidadeInput);
 	
 	@Operation(summary = "Remove a cidade por ID", description = "Remoção de uma cidade por ID,"
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido")
+					
+			})
 	void remover(@Parameter(description = "ID de uma cidade", example = "1", required = true) Long cidadeId);
 		
 }
