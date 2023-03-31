@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Component
 public class FormaPagamentoIdInput {
 
-	
+	@Schema(example = "1")
 	@NotNull
 	private Long id;
 }

@@ -8,6 +8,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.stereotype.Component;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,9 +17,11 @@ import lombok.Setter;
 @Component
 public class PedidoInput {
 	
+	
 	@Valid
 	@NotNull
 	private RestauranteIdInput restaurante;
+	
 	
 	@Valid
 	@NotNull
