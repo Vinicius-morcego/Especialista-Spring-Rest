@@ -13,7 +13,10 @@ import com.algaworks.algafood.api.v1.model.input.RestauranteInput;
 import io.lettuce.core.dynamic.annotation.Param;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -33,7 +36,11 @@ public interface RestauranteControllerOpenApi {
 	CollectionModel<RestauranteBasicoModel> listar();
 	
 	@Operation(summary = "Lista o restaurante por nome", description = "Lista o restaurante pelo nome informado, "
-			+ "necessita de um nome válido")
+			+ "necessita de um nome válido", responses = {
+					@ApiResponse(responseCode = "200"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	CollectionModel<RestauranteApenasNomeModel> listarApenasNomes();
 	
 	@Operation(summary = "Lista o restaurante por ID", description = "Lista um restaurante por ID, "

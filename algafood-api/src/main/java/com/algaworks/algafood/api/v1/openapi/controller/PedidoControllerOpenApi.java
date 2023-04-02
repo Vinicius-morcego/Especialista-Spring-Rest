@@ -11,7 +11,10 @@ import com.algaworks.algafood.domain.filter.PedidoFilter;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -20,7 +23,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface PedidoControllerOpenApi {
 	
 	@Operation(summary = "Lista os pedidos por filtro", description = "Lista os pedidos pelo filtro informado, "
-			+ "necessita de um filtro válido")
+			+ "necessita de um filtro válido", responses = {
+					@ApiResponse(responseCode = "200"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	PagedModel<PedidoResumoModel> pesquisar(
 			@Parameter(description = "Representa os criterios da consulta", example = "1", required = true) PedidoFilter filter,
 			@Parameter(description = "Representa os dados de paginação", example = "1", required = true) @PageableDefault(size = 2) Pageable pageable);

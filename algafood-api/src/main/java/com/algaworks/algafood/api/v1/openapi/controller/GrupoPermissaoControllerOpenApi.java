@@ -8,6 +8,9 @@ import com.algaworks.algafood.api.v1.model.PermissaoModel;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -16,7 +19,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface GrupoPermissaoControllerOpenApi {
 
 	@Operation(summary = "Lista o grupo de permissão por ID", description = "Lista de um grupo de permissão por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "200"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public CollectionModel<PermissaoModel> listar(@Parameter(description = "Representa o ID de um grupo de permissão", example = "1", required = true)
 		@PathVariable Long grupoId);
 	

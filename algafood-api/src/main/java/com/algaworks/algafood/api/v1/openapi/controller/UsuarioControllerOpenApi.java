@@ -13,6 +13,9 @@ import com.algaworks.algafood.api.v1.model.input.UsuarioInput;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -24,7 +27,11 @@ public interface UsuarioControllerOpenApi {
 	public CollectionModel<UsuarioModel> listar();
 	
 	@Operation(summary = "Lista o usuario por ID", description = "Lista um usuario por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "200"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public UsuarioModel buscar(
 			@Parameter(description = "Representa o ID de um usuario", example = "1", required = true)
 			@PathVariable Long usuarioId);	 

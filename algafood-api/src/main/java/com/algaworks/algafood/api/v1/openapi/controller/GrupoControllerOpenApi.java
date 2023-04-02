@@ -7,7 +7,10 @@ import com.algaworks.algafood.api.v1.model.input.GrupoInput;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -20,7 +23,11 @@ public interface GrupoControllerOpenApi {
 	CollectionModel<GrupoModel> listar();
 	
 	@Operation(summary = "Lista o grupo por ID", description = "Lista um grupo por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "200"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	GrupoModel buscar(@Parameter(description = "Representa o ID de um grupo", example = "1", required = true) Long grupoId);
 	
 	@Operation(summary = "Cadastro de grupo", description = "Cadastro de um grupo, "

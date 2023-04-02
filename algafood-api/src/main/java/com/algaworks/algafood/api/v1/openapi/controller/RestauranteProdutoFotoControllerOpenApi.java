@@ -12,7 +12,10 @@ import com.algaworks.algafood.api.v1.model.input.FotoProdutoInput;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -21,7 +24,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface RestauranteProdutoFotoControllerOpenApi {
 
 	@Operation(summary = "Atualiza a foto do produto por filtro", description = "Atualização da foto de um produto pelo filtro informado, "
-			+ "necessita de um filtro válido")
+			+ "necessita de um filtro válido", responses = {
+					@ApiResponse(responseCode = "200"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public FotoProdutoModel atualizarFoto(
 			@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o ID de um produto", example = "1", required = true) Long produtoId, 

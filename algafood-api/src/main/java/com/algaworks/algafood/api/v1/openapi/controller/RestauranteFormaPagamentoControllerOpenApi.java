@@ -7,6 +7,9 @@ import com.algaworks.algafood.api.v1.model.FormaPagamentoModel;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -18,7 +21,11 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
 	public static String MSG_NOT_FOUND = "Restaurante ou forma de pagamento não encontrado(s)";
 
 	@Operation(summary = "Lista as formas de pagamento do restaurante pelo ID", description = "Lista as formas de pagamento de um restaurnate por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "200"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public CollectionModel<FormaPagamentoModel> listar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId);
 	
 	@Operation(summary = "Desassocia a forma de pagamento do restaurante por ID", description = "Desassocia uma forma de pagamento de um restaurante por ID, "

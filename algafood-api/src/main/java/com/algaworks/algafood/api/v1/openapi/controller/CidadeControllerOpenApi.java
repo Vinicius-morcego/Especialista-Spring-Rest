@@ -26,7 +26,7 @@ public interface CidadeControllerOpenApi {
 			+ "necessita de um ID válido", responses = {
 					@ApiResponse(responseCode = "200"),
 					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
-							content = @Content(schema = @Schema))
+							content = @Content(schema = @Schema(ref = "Problem")))
 			})
 	CidadeModel buscar(@Parameter(description = "ID de uma cidade", example = "1", required = true) Long cidadeId);
 	
