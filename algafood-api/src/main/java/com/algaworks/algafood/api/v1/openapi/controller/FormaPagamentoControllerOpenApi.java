@@ -26,7 +26,9 @@ public interface FormaPagamentoControllerOpenApi {
 	@Operation(summary = "Lista a forma de pagamento por ID", description = "Lista uma forma de pagamento por ID, "
 			+ "necessita de um ID válido", responses = {
 					@ApiResponse(responseCode = "200"),
-					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+					@ApiResponse(responseCode = "400", description = "ID de forma de pagamento inválido",
+							content = @Content(schema = @Schema(ref = "Problem"))),
+					@ApiResponse(responseCode = "404", description = "Forma de pagamento não encontrado",
 							content = @Content(schema = @Schema(ref = "Problem")))
 			})
 	ResponseEntity<FormaPagamentoModel> buscar(
@@ -39,6 +41,11 @@ public interface FormaPagamentoControllerOpenApi {
 	FormaPagamentoInput formaPagamentoInput);
 	
 	@Operation(summary = "Remove a forma de pagamento por ID", description = "Remoção de uma forma de pagamento por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "400", description = "ID de forma de pagamento inválido",
+							content = @Content(schema = @Schema(ref = "Problem"))),
+					@ApiResponse(responseCode = "404", description = "Forma de pagamento não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	void excluir(@Parameter(description = "Representa o ID de uma forma de pagamento", example = "1", required = true) Long formaPagamentoId);
 }
