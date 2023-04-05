@@ -25,8 +25,11 @@ public interface GrupoControllerOpenApi {
 	@Operation(summary = "Lista o grupo por ID", description = "Lista um grupo por ID, "
 			+ "necessita de um ID válido", responses = {
 					@ApiResponse(responseCode = "200"),
-					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+					@ApiResponse(responseCode = "400", description = "ID de grupo inválido",
+							content = @Content(schema = @Schema(ref = "Problem"))),
+					@ApiResponse(responseCode = "404", description = "Grupo não encontrado",
 							content = @Content(schema = @Schema(ref = "Problem")))
+					
 			})
 	GrupoModel buscar(@Parameter(description = "Representa o ID de um grupo", example = "1", required = true) Long grupoId);
 	
@@ -35,11 +38,21 @@ public interface GrupoControllerOpenApi {
 	GrupoModel salvar(@RequestBody(description = "Representação de um novo grupo", required = true) GrupoInput grupoInput);
 	
 	@Operation(summary = "Atualiza o grupo por ID", description = "Atualização de um grupo por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "400", description = "ID de grupo inválido",
+							content = @Content(schema = @Schema(ref = "Problem"))),
+					@ApiResponse(responseCode = "404", description = "Grupo não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	GrupoModel atualizar(@Parameter(description = "Representa o ID de um grupo", example = "1", required = true) Long grupoId, 
 			@RequestBody(description = "Representação de um grupo com dados atualizados") GrupoInput grupoInput);
 	
 	@Operation(summary = "Remove o grupo por ID", description = "Remoção de um grupo por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "400", description = "ID de grupo inválido",
+							content = @Content(schema = @Schema(ref = "Problem"))),
+					@ApiResponse(responseCode = "404", description = "Grupo não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	void excluir(@Parameter(description = "Representa o ID de um grupo", example = "1", required = true) Long grupoId);
 }

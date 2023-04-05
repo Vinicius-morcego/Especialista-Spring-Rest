@@ -120,7 +120,7 @@ public class SpringDocConfig {
 							ApiResponses responses = operation.getResponses();
 							switch(httpMethod) {
 									case GET:
-										responses.addApiResponse("404", new ApiResponse().$ref(NOT_FOUND_RESPONSE));
+//										responses.addApiResponse("404", new ApiResponse().$ref(NOT_FOUND_RESPONSE));
 										responses.addApiResponse("406", new ApiResponse().$ref(NOT_ACCEPTABLE_RESPONSE));
 										responses.addApiResponse("500", new ApiResponse().$ref(INTERNAL_SERVER_ERROR_RESPONSE));
 										break;
@@ -128,12 +128,12 @@ public class SpringDocConfig {
 										responses.addApiResponse("400", new ApiResponse().$ref(BAD_REQUEST_RESPONSE));										
 										responses.addApiResponse("500", new ApiResponse().$ref(INTERNAL_SERVER_ERROR_RESPONSE));
 									case PUT:
-										responses.addApiResponse("404", new ApiResponse().$ref(NOT_FOUND_RESPONSE));
+//										responses.addApiResponse("404", new ApiResponse().$ref(NOT_FOUND_RESPONSE));
 										responses.addApiResponse("400", new ApiResponse().$ref(BAD_REQUEST_RESPONSE));
 										responses.addApiResponse("500", new ApiResponse().$ref(INTERNAL_SERVER_ERROR_RESPONSE));
 										break;
 									case DELETE:
-										responses.addApiResponse("404", new ApiResponse().$ref(NOT_FOUND_RESPONSE));
+//										responses.addApiResponse("404", new ApiResponse().$ref(NOT_FOUND_RESPONSE));
 										responses.addApiResponse("500", new ApiResponse().$ref(INTERNAL_SERVER_ERROR_RESPONSE));
 										break;
 									default:
