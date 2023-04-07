@@ -33,9 +33,7 @@ public interface RestauranteProdutoFotoControllerOpenApi {
 			@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o ID de um produto", example = "1", required = true) Long produtoId, 
 			@RequestBody(description = "Representação de uma nova foto de um produto", required = true)
-			FotoProdutoInput fotoProdutoInput,			
-			@Parameter(description = "Representa o tipo de arquivo de uma foto de um produto", example = "jpg", required = true) 
-			MultipartFile arquivo) throws IOException;
+			FotoProdutoInput fotoProdutoInput) throws IOException;
 	
 	@Operation(summary = "Busca a foto do produto de um restaurante", responses = {
 			@ApiResponse(responseCode = "200", content = {
