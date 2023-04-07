@@ -23,19 +23,27 @@ public interface RestauranteResponsavelControllerOpenApi {
 	@Operation(summary = "Lista o usuário responsavel pelo restaurante por ID", 
 			description = "Lista um usuário responsavel pelo restaurante por ID, necessita de um ID válido", responses = {
 					@ApiResponse(responseCode = "200"),
-					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+					@ApiResponse(responseCode = "400", description = "Usuário do restaurante não encontrado",
 							content = @Content(schema = @Schema(ref = "Problem")))
 			})
 	public CollectionModel<UsuarioModel> listar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId);	
 	
 	@Operation(summary = "Desassocia o usuário do restaurante por ID", description = "Desassocia um usuário de um restaurante por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "204", description = "Desassociação de um usuario de um restaurante realizada com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Usuário do restaurante não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ResponseEntity<Void> desassociar(
 			@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o ID de um usuario responsavel pelo restaurante", example = "1", required = true) Long usuarioId);
 	
 	@Operation(summary = "Associa o usuário do restaurante por ID", description = "Associa um usuário de um restaurante por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "204", description = "Associação de um usuario de um restaurante realizada com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Usuário do restaurante não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ResponseEntity<Void> associar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o ID de um usuario responsavel pelo restaurante", example = "1", required = true) Long usuarioId);
 	
