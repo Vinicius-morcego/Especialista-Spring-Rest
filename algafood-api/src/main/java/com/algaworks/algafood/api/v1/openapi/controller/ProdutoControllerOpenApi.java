@@ -28,7 +28,7 @@ public interface ProdutoControllerOpenApi {
 	@Operation(summary = "Lista os produtos por ID do restaurante", description = "Lista os produtos por ID de um restaurante, "
 			+ "necessita de um ID válido", responses = {
 					@ApiResponse(responseCode = "200"),
-					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+					@ApiResponse(responseCode = "400", description = "Produto não encontrado",
 							content = @Content(schema = @Schema(ref = "Problem")))
 			})
 	public CollectionModel<ProdutoModel> listar(
@@ -36,19 +36,31 @@ public interface ProdutoControllerOpenApi {
 			@Parameter(description = "Representa o filtro para incluir restaurantes inativos", required = false) Boolean incluirIntativos);
 	
 	@Operation(summary = "Lista o produto por ID do restaurante e por ID do produto", description = "Lista o produto por ID de um restaurante "
-			+ " e por ID de um produto, necessita de um ID válido")
+			+ " e por ID de um produto, necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "200", description = "Produto encontrado com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Produto não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	@GetMapping(path = "/{produtoId}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProdutoModel buscar(
 			@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o ID de um produto", example = "1", required = true) Long produtoId);	
 	
 	@Operation(summary = "Cadastro do produto", description = "Cadastro de um produto, "
-			+ "necessita de uma descrição válida")
+			+ "necessita de uma descrição válida", responses = {
+					@ApiResponse(responseCode = "200", description = "Produto cadastrado com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Um ou mais parametros estão invalidos, tente novamente",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ProdutoModel salvar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@RequestBody(description = "Representação de um novo produto", required = true) ProdutoInput produtoInput);
 	
 	@Operation(summary = "Atualiza o produto por ID", description = "Atualização de um produto por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "200", description = "Produto atualizado com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Um ou mais parametros estão invalidos, tente novamente",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ProdutoModel atualizar(
 			@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o ID de um produto", example = "1", required = true) Long produtoId, 
