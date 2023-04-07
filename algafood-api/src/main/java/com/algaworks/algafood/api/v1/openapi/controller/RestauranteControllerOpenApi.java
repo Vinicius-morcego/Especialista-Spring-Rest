@@ -13,6 +13,7 @@ import com.algaworks.algafood.api.v1.model.input.RestauranteInput;
 import io.lettuce.core.dynamic.annotation.Param;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -32,13 +33,21 @@ public interface RestauranteControllerOpenApi {
 	public static String BUSCA_UM_RESTAURANTE_POR_ID = "Busca um restaurante por ID";
 	public static String LISTA_RESTAURANTES = "Lista restaurantes";
 	
-	@Operation(summary = "Lista os restaurantes")
+	@Operation(parameters = {
+		@Parameter(
+					name = "projecao", 
+					description = "Apenas o nome do restaurante", 
+					example = "apenas-nome",
+					in = ParameterIn.QUERY,
+					required = false
+				  )
+	})
 	CollectionModel<RestauranteBasicoModel> listar();
 	
 	@Operation(summary = "Lista o restaurante por nome", description = "Lista o restaurante pelo nome informado, "
-			+ "necessita de um nome válido", responses = {
+			+ "necessita de um nome válido", hidden = true, responses = {
 					@ApiResponse(responseCode = "200"),
-					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+					@ApiResponse(responseCode = "400", description = "ID de restaurante inválido",
 							content = @Content(schema = @Schema(ref = "Problem")))
 			})
 	CollectionModel<RestauranteApenasNomeModel> listarApenasNomes();
