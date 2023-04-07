@@ -20,20 +20,28 @@ public interface UsuarioGrupoControllerOpenApi {
 
 	@Operation(summary = "Lista o grupo de permissão do usuario por ID", description = "Lista um grupo de permissão de um usuario por ID, "
 			+ "necessita de um ID válido", responses = {
-					@ApiResponse(responseCode = "200"),
-					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+					@ApiResponse(responseCode = "200", description = "Listagem de grupo de usuário realizada com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Grupo de usuário não encontrado",
 							content = @Content(schema = @Schema(ref = "Problem")))
 			})
 	public CollectionModel<GrupoModel>  listar(@Parameter(description = "Representa o ID de um usuario", example = "1", required = true) @PathVariable Long usuarioId);
 	
 	@Operation(summary = "Desassocia o grupo de permissão do usuario por ID", description = "Desassocia um grupo de permissão de um usuario por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "204", description = "Desassociação de grupo de usuário realizada com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Grupo de usuário não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ResponseEntity<Void> desassociar(
 			@Parameter(description = "Representa o ID de um usuario", example = "1", required = true) Long usuarioId, 
 			@Parameter(description = "Representa o ID de um grupo de permissão de usuario", example = "1", required = true) Long grupoId);
 	
 	@Operation(summary = "Associa o grupo de permissão do usuario por ID", description = "Associa um grupo de permissão de um usuario por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "204", description = "Associação de grupo de usuário realizada com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Grupo de usuário não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ResponseEntity<Void> associar(
 			@Parameter(description = "Representa o ID de um usuario", example = "1", required = true) Long usuarioId, 
 			@Parameter(description = "Representa o ID de um grupo de permissão de usuario", example = "1", required = true) Long grupoId);
