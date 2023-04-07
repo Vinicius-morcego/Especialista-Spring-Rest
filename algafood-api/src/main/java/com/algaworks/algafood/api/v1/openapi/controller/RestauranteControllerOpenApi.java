@@ -10,7 +10,6 @@ import com.algaworks.algafood.api.v1.model.RestauranteBasicoModel;
 import com.algaworks.algafood.api.v1.model.RestauranteModel;
 import com.algaworks.algafood.api.v1.model.input.RestauranteInput;
 
-import io.lettuce.core.dynamic.annotation.Param;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

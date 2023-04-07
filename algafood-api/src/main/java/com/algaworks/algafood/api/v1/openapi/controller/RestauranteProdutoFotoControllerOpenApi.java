@@ -37,8 +37,13 @@ public interface RestauranteProdutoFotoControllerOpenApi {
 			@Parameter(description = "Representa o tipo de arquivo de uma foto de um produto", example = "jpg", required = true) 
 			MultipartFile arquivo) throws IOException;
 	
-	@Operation(summary = "Busca a foto do produto pelo ID", description = "Busca a foto de um produto por ID, "
-			+ "necessita de um ID válido")
+	@Operation(summary = "Busca a foto do produto de um restaurante", responses = {
+			@ApiResponse(responseCode = "200", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = FotoProdutoModel.class)),
+					@Content(mediaType = "application/jpeg", schema = @Schema(type = "string", format = "binary")),
+					@Content(mediaType = "application/png", schema = @Schema(type = "string", format = "binary"))
+			})
+	})
 	public FotoProdutoModel listar(Long produtoId, Long restauranteId);
 	
 	@Operation(summary = "Remove a foto do produto por ID", description = "Remoção de uma foto de um produto por ID, "
