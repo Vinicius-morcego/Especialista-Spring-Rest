@@ -32,7 +32,7 @@ public interface EstatisticaControllerOpenApi {
 					@Parameter(in = ParameterIn.QUERY, name = "dataCriacaoInicio", description = "Data/hora inicial de criação do pedido", 
 						example = "2023-04-07T00:00:00Z", schema = @Schema(type = "string", format = "date-time")),
 					@Parameter(in = ParameterIn.QUERY, name = "dataCriacaoFim", description = "Data/hora final de criação do pedido", 
-					example = "2023-04-07T0023:59:59Z", schema = @Schema(type = "string", format = "date-time"))
+					example = "2023-04-07T23:59:59Z", schema = @Schema(type = "string", format = "date-time"))
 	}, responses = {
 			@ApiResponse(responseCode = "200", content = {
 					@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = VendaDiaria.class))),

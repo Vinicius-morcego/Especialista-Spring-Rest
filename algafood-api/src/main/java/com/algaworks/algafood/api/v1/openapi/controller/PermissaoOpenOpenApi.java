@@ -16,8 +16,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public interface PermissaoOpenOpenApi {
 	
 	@Operation(summary = "Lista as permissões", responses = {
-			@ApiResponse(responseCode = "200"),
-			@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+			@ApiResponse(responseCode = "200", description = "Listagem de permissões realizada com sucesso"),
+			@ApiResponse(responseCode = "400", description = "Permissão não encontrada",
 					content = @Content(schema = @Schema(ref = "Problem")))
 	})
 	public CollectionModel<PermissaoModel> listar();
