@@ -25,8 +25,8 @@ public interface RestauranteProdutoFotoControllerOpenApi {
 
 	@Operation(summary = "Atualiza a foto do produto por filtro", description = "Atualização da foto de um produto pelo filtro informado, "
 			+ "necessita de um filtro válido", responses = {
-					@ApiResponse(responseCode = "200"),
-					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+					@ApiResponse(responseCode = "200", description = "Foto do produto atualizada com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Foto do produto não encontrada",
 							content = @Content(schema = @Schema(ref = "Problem")))
 			})
 	public FotoProdutoModel atualizarFoto(
@@ -36,11 +36,13 @@ public interface RestauranteProdutoFotoControllerOpenApi {
 			FotoProdutoInput fotoProdutoInput) throws IOException;
 	
 	@Operation(summary = "Busca a foto do produto de um restaurante", responses = {
-			@ApiResponse(responseCode = "200", content = {
-					@Content(mediaType = "application/json", schema = @Schema(implementation = FotoProdutoModel.class)),
-					@Content(mediaType = "application/jpeg", schema = @Schema(type = "string", format = "binary")),
-					@Content(mediaType = "application/png", schema = @Schema(type = "string", format = "binary"))
-			})
+			@ApiResponse(responseCode = "200", description = "Foto encontrada com sucesso", 
+					content = {
+						@Content(mediaType = "application/json", schema = @Schema(implementation = FotoProdutoModel.class)),
+						@Content(mediaType = "application/jpeg", schema = @Schema(type = "string", format = "binary")),
+						@Content(mediaType = "application/png", schema = @Schema(type = "string", format = "binary"))
+					}),
+			@ApiResponse(responseCode = "400", description = "Foto do produto não encontrada")
 	})
 	public FotoProdutoModel listar(Long produtoId, Long restauranteId);
 	
@@ -49,8 +51,7 @@ public interface RestauranteProdutoFotoControllerOpenApi {
 	public void removerFotoProduto(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o ID de um produto", example = "1", required = true) Long produtoId);
 		
-	@Operation(summary = "Busca a foto de um produto por ID", description = "Busca a foto de um produto por ID "
-			+ "e retorna no formato especificado, em PDF por exemplo, necessita de um ID válido")
+	@Operation(hidden = true)
 	public ResponseEntity<InputStreamResource> servirFoto(@Parameter(description = "Representa o ID de um produto", example = "1", required = true) Long produtoId, 
 			@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o tipo de retorno aceito pela API", example = "application/json", required = true) String acceptHeader) throws HttpMediaTypeNotAcceptableException;
