@@ -29,13 +29,21 @@ public interface RestauranteFormaPagamentoControllerOpenApi {
 	public CollectionModel<FormaPagamentoModel> listar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId);
 	
 	@Operation(summary = "Desassocia a forma de pagamento do restaurante por ID", description = "Desassocia uma forma de pagamento de um restaurante por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "204", description = "Desassociação de uma forma de pagamento realizada com sucesso"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ResponseEntity<Void> desassociar(@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) 
 	Long restauranteId, @Parameter(description = "Representa o ID de uma forma de pagamento", example = "1", required = true) 
 	Long formaPagamentoId);	
 	
 	@Operation(summary = "Associa a forma de pagamento do restaurante por ID", description = "Associa uma forma de pagamento de um restaurante por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "204", description = "Associação de uma forma de pagamento realizada com sucesso"),
+					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ResponseEntity<Void> associar(
 			@Parameter(description = "Representa o ID de um restaurante", example = "1", required = true) Long restauranteId, 
 			@Parameter(description = "Representa o ID de uma forma de pagamento", example = "1", required = true) Long formaPagamentoId);
