@@ -19,8 +19,8 @@ public interface StatusPedidoControllerOpenApi {
 
 	@Operation(summary = "Confirma o pedido por ID", description = "Confirmação de um pedido por ID, "
 			+ "necessita de um ID válido", responses = {
-					@ApiResponse(responseCode = "200"),
-					@ApiResponse(responseCode = "400", description = "ID de cidade inválido",
+					@ApiResponse(responseCode = "200", description = "Pedido confirmado com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Pedido não encontrado",
 							content = @Content(schema = @Schema(ref = "Problem")))
 			})
 	public ResponseEntity<Void> confirmar(
@@ -28,13 +28,21 @@ public interface StatusPedidoControllerOpenApi {
 			String codigoPedido);
 	
 	@Operation(summary = "Cancela o pedido por ID", description = "Cancelamento de um pedido por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "204", description = "Pedido cancelado com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Pedido não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ResponseEntity<Void> cancelar(
 			@Parameter(description = "Representa o ID de um pedido", example = "bdd46d58-03fa-49c7-8484-80f6d62c56ca", required = true)
 			String codigoPedido);	
 	
 	@Operation(summary = "Entrega do pedido por ID", description = "Entrega de um pedido por ID, "
-			+ "necessita de um ID válido")
+			+ "necessita de um ID válido", responses = {
+					@ApiResponse(responseCode = "204", description = "Pedido entregue com sucesso"),
+					@ApiResponse(responseCode = "400", description = "Pedido não encontrado",
+							content = @Content(schema = @Schema(ref = "Problem")))
+			})
 	public ResponseEntity<Void> entregue(
 			@Parameter(description = "Representa o ID de um pedido", example = "bdd46d58-03fa-49c7-8484-80f6d62c56ca", required = true) 
 			String codigoPedido);
