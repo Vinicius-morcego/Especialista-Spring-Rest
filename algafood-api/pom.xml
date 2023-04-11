@@ -29,6 +29,7 @@
 		<project.build.sourceEnconding>UTF-8</project.build.sourceEnconding>
 		<maven.test.skip>true</maven.test.skip>
 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
+		<springauthserver.version>0.3.1</springauthserver.version>
 	</properties>
 
 	<dependencies>
@@ -192,6 +193,11 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-authorization-server</artifactId>
+			<version>${springauthserver.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.nimbusds/oauth2-oidc-sdk -->
 		<dependency>
