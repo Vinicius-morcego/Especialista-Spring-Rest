@@ -23,6 +23,5 @@ public class ResourceServerConfig {
 				.oauth2ResourceServer().jwt();
 			
 			return http.formLogin(Customizer.withDefaults()).build();
-		
 	}
 }
