@@ -42,7 +42,7 @@ public class ResourceServerConfig {
 			if(authorities == null) return Collections.emptyList();
 			
 			var authoritiesConverter = new JwtGrantedAuthoritiesConverter();
-			Collection<GrantedAuthority> grantedAuthorities = authoritiesConverter.convert(jwt);
+			var grantedAuthorities = authoritiesConverter.convert(jwt);
 			
 			grantedAuthorities.addAll(authorities.stream().map(SimpleGrantedAuthority :: new).collect(Collectors.toList()));
 			
