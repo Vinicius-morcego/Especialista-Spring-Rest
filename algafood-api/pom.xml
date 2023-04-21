@@ -28,7 +28,7 @@
 		<project.build.sourceEnconding>UTF-8</project.build.sourceEnconding>
 		<maven.test.skip>true</maven.test.skip>
 		<dockerfile-maven-version>1.4.13</dockerfile-maven-version>
-		<springauthserver.version>0.3.1</springauthserver.version>
+		<springauthserver.version>1.0.0</springauthserver.version>
 	</properties>
 
 	<dependencies>
