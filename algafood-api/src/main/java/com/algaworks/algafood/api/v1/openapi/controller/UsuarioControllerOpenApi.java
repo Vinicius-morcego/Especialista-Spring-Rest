@@ -1,7 +1,5 @@
 package com.algaworks.algafood.api.v1.openapi.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -18,6 +16,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 
 @SecurityRequirement(name = "security_auth")
 @Tag(name = "Usuarios")

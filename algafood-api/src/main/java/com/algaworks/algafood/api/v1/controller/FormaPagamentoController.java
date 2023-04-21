@@ -3,8 +3,6 @@ package com.algaworks.algafood.api.v1.controller;
 import java.time.OffsetDateTime;
 import java.util.concurrent.TimeUnit;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.CacheControl;
@@ -31,6 +29,8 @@ import com.algaworks.algafood.core.security.CheckSecurity;
 import com.algaworks.algafood.domain.modelo.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
 import com.algaworks.algafood.domain.service.CadastroFormaPagamentoService;
+
+import jakarta.validation.Valid;
 
 
 @RestController

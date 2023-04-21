@@ -2,8 +2,6 @@ package com.algaworks.algafood.api.v1.controller;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +37,8 @@ import com.algaworks.algafood.domain.modelo.Usuario;
 import com.algaworks.algafood.domain.repository.PedidoRepository;
 import com.algaworks.algafood.domain.service.EmissaoPedidoService;
 import com.algaworks.algafood.infrastructure.repository.spec.PedidoSpecs;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/v1/pedidos")

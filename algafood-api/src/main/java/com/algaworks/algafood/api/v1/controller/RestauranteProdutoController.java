@@ -2,8 +2,6 @@ package com.algaworks.algafood.api.v1.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.MediaType;
@@ -27,6 +25,8 @@ import com.algaworks.algafood.domain.modelo.Produto;
 import com.algaworks.algafood.domain.repository.ProdutoRepository;
 import com.algaworks.algafood.domain.service.CadastroProdutoService;
 import com.algaworks.algafood.domain.service.CadastroRestauranteService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/v1/restaurantes/{restauranteId}/produtos")
